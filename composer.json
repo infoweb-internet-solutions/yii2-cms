@@ -1,9 +1,37 @@
 {
 	"name": "infoweb-internet-solutions/yii2-cms",
 	"description": "CMS module for Yii2",
+	"keywords": ["yii2", "yii2-cms", "cms", "infoweb"],
+	"type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/infoweb-internet-solutions/yii2-cms/issues?state=open",
+        "source": "https://github.com/infoweb-internet-solutions/yii2-cms"
+    },
+    "authors": [
+        {
+            "name": "Fabio Maggio",
+            "email": "fabio@infoweb.be",
+            "homepage": "http://www.infoweb.be/"
+        },
+        {
+            "name": "Ruben Heymans",
+            "email": "ruben@infoweb.be",
+            "homepage": "http://www.infoweb.be/"
+        }
+    ],
+    "minimum-stability": "dev",
 	"require": {
 	   "yiisoft/yii2": "*",
-	   "infoweb-internet-solutions/yii2-cms-user": "*"
+	   "infoweb-internet-solutions/yii2-cms-user": "*",
+	   "mdmsoft/yii2-admin": "*",
+	   "kartik-v/yii2-helpers": "*",
+	   "kartik-v/yii2-widgets": "dev-master",
+	   "kartik-v/yii2-grid": "*",
+	   "kartik-v/bootstrap-fileinput": "*",
+	   "kartik-v/yii2-icons": "*",
+	   "2amigos/yii2-translateable-behavior" : "*",
+	   "mihaildev/yii2-ckeditor": "*"
 	},
 	"autoload": {
 		"psr-4": {

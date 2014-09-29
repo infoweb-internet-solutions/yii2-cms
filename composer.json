@@ -2,7 +2,8 @@
 	"name": "infoweb-internet-solutions/yii2-cms",
 	"description": "CMS module for Yii2",
 	"require": {
-	   "yiisoft/yii2": "*"
+	   "yiisoft/yii2": "*",
+	   "infoweb-internet-solutions/yii2-cms-user": "*"
 	},
 	"autoload": {
 		"psr-4": {

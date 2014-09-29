@@ -19,3 +19,28 @@ or add
 ```
 
 to the require section of your `composer.json` file.
+
+
+Usage
+-----
+
+Once the extension is installed, simply modify your application configuration as follows:
+
+```php
+return [
+    'components' => [
+        ...        
+        // Set rbac database manager
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+        
+        // Rewrite url's
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName'  => false,
+        ],
+    ],
+    ...
+];
+```

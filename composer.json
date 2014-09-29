@@ -32,7 +32,8 @@
 	   "kartik-v/bootstrap-fileinput": "*",
 	   "kartik-v/yii2-icons": "*",
 	   "2amigos/yii2-translateable-behavior" : "*",
-	   "mihaildev/yii2-ckeditor": "*"
+	   "mihaildev/yii2-ckeditor": "*",
+	   "c006/yii2-migration-utility": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {

@@ -35,6 +35,7 @@ Once the extension is installed, simply modify your application configuration as
 
 ```php
 return [
+    ...
     'components' => [
         ...        
         
@@ -42,6 +43,20 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
+        ],
+    ],
+    ...
+];
+```
+
+And your backend configuration as follows:
+
+```php
+return [
+    ...
+    'modules' => [
+        'cms' => [
+            'class' => 'infoweb-internet-solutions\cms\Module',
         ],
     ],
     ...

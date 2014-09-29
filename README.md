@@ -56,7 +56,7 @@ return [
     ...
     'modules' => [
         'cms' => [
-            'class' => 'infoweb-internet-solutions\cms\Module',
+            'class' => 'infoweb\cms\Module',
         ],
     ],
     ...

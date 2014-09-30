@@ -3,16 +3,15 @@ use infoweb\cms\CMSAsset;
 use yii\helpers\Html;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use kartik\icons\Icon;
 use kartik\widgets\SideNav;
+use kartik\icons\Icon;
 use yii\helpers\Url;
 use dektrium\user\models\User;
 
-// Fontawesome
-Icon::map($this);
-
 // Register assets
-CMSAsset::register($this);
+$cmsAssets = CMSAsset::register($this);
+
+Icon::map($this);
 
 // Get current user
 $user = User::findOne(Yii::$app->user->id);
@@ -87,7 +86,7 @@ $user = User::findOne(Yii::$app->user->id);
     <div role="navigation" class="navbar-default sidebar">
 
         <div class="avatar hidden-xs">
-            <img src="<?php echo Yii::getAlias('@web') . '/img/profile-picture.png'; ?>" alt="avatar">
+            <img src="<?php echo $cmsAssets->baseUrl; ?>/img/profile-picture.png" alt="avatar">
             <div><?= yii::t('app', 'Welcome') ?><br><?php echo (!empty($user->username)) ? $user->username : ''; ?></div>
         </div>
         <div class="clearfix"></div>
@@ -101,7 +100,7 @@ $user = User::findOne(Yii::$app->user->id);
                     'label' => 'Home',
                     'icon' => 'home',
                     'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
-                    'visible' => (Yii::$app->user->can('sidebarHome')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarHome')) ? true : false,
                     'active' => true,
                 ],
                 [
@@ -123,14 +122,14 @@ $user = User::findOne(Yii::$app->user->id);
                     'label' => Yii::t('app', 'Menu'),
                     'icon' => 'book',
                     'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
-                    'visible' => (Yii::$app->user->can('sidebarMenu')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarMenu')) ? true : false,
                 ],
                 [
                     'url' => Url::toRoute('/user/admin/index'),
                     'label' => Yii::t('app', 'Users'),
                     'icon' => 'user',
                     'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
-                    'visible' => (Yii::$app->user->can('sidebarUser')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarUser')) ? true : false,
                 ],
                 [
                     'label' => Yii::t('app', 'Rights'),
@@ -143,7 +142,7 @@ $user = User::findOne(Yii::$app->user->id);
                         ['label' => Yii::t('app', 'Rules'), 'url' => Url::toRoute('/admin/rule')],
                         //['label' => Yii::t('app', 'Menu'), 'url' => Url::toRoute('/admin/menu')],
                     ],
-                    'visible' => (Yii::$app->user->can('sidebarRights')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarRights')) ? true : false,
                 ],
                 [
                     'label' => Yii::t('app', 'Modules'),
@@ -155,21 +154,21 @@ $user = User::findOne(Yii::$app->user->id);
                         ['label' => Yii::t('app', 'Module 2'), 'url' => '#'],
                         ['label' => Yii::t('app', 'Module 3'), 'url' => '#'],
                     ],
-                    'visible' => (Yii::$app->user->can('sidebarModule')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarModule')) ? true : false,
                 ],
                 [
                     'url' => Url::toRoute('/gii'),
                     'label' => Yii::t('app', 'Gii'),
                     'icon' => 'inbox',
                     'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
-                    'visible' => (Yii::$app->user->can('sidebarGii')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarGii')) ? true : false,
                 ],
                 [
                     'url' => Url::toRoute('/tour/index'),
                     'label' => Yii::t('app', 'Tour'),
                     'icon' => 'plus',
                     'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
-                    'visible' => (Yii::$app->user->can('sidebarTour')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarTour')) ? true : false,
                 ],
                 [
                     'url' => Url::toRoute('/translations'),
@@ -185,14 +184,14 @@ $user = User::findOne(Yii::$app->user->id);
                         ['label' => 'About', 'icon' => 'info-sign', 'url' => '#'],
                         ['label' => 'Contact', 'icon' => 'phone', 'url' => '#'],
                     ],
-                    'visible' => (Yii::$app->user->can('sidebarHelp')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarHelp')) ? true : false,
                 ],
                 [
                     'url' => Url::toRoute('/site/analytics'),
                     'label' => 'Analytics',
                     'icon' => 'graph',
                     'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
-                    'visible' => (Yii::$app->user->can('sidebarAnalytics')) ? true : false,
+                    //'visible' => (Yii::$app->user->can('sidebarAnalytics')) ? true : false,
                 ],
                 [
                     'url' => Url::toRoute('/utility'),

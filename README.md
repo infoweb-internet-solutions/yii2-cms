@@ -46,6 +46,10 @@ return [
         ],
     ],
     ...
+    'params' => [
+        // Font Awesome Icon framework
+        'icon-framework' => 'fa',  
+    ]
 ];
 ```
 

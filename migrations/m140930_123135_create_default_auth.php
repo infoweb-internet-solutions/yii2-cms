@@ -32,9 +32,10 @@ class m140930_123135_create_default_auth extends Migration
         ]);
         
         // Create the auth item relation
-        $this->insert('{{%auth_assignment}}', [
+        $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
             'child'         => '/*'
+        ]);
     }
 
     public function down()

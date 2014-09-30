@@ -49,7 +49,7 @@ return [
 ];
 ```
 
-And your backend configuration as follows:
+Your backend configuration as follows:
 
 ```php
 return [
@@ -61,4 +61,25 @@ return [
     ],
     ...
 ];
+```
+
+And your common parameters as follows:
+
+```php
+return [
+    ...
+    // Enabled languages
+    'languages' => [
+        'nl'    => 'Nederlands',
+        'fr'    => 'Français',
+        'en'    => 'English',
+    ],
+    ...
+];
+```
+
+
+To use the module, execute yii migration
+```
+yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
 ```

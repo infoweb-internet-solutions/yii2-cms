@@ -93,4 +93,5 @@ return [
 To use the module, execute yii migration
 ```
 yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
+yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
 ```

@@ -8,11 +8,13 @@ class CMSAsset extends AssetBundle
     public $sourcePath = '@infoweb/cms/assets/';
     
     public $css = [
-        'css/style.css'
+        'css/sb-admin-2.css',
+        'css/main.css'
     ];
     
     public $js = [
         'js/cms.js',
+        'js/main.js',
     ];
     
     public $depends = [

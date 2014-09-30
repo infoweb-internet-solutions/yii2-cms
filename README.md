@@ -60,6 +60,17 @@ return [
         ],
     ],
     ...
+    'components' => [
+        ...
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views/layouts' => '@infoweb/cms/views/layouts',
+                ],
+            ],
+        ],
+    ],
+    ...
 ];
 ```
 

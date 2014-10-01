@@ -89,6 +89,7 @@ return [
         'fr'    => 'Français',
         'en'    => 'English',
     ],
+    'companyName'   => 'Infoweb'
     ...
 ];
 ```

@@ -24,6 +24,7 @@
 	"require": {
 	   "yiisoft/yii2": "*",
 	   "infoweb-internet-solutions/yii2-cms-user": "*",
+	   "infoweb-internet-solutions/yii2-cms-pages": "*",
 	   "infoweb-internet-solutions/yii2-cms-partials": "*",
 	   "mdmsoft/yii2-admin": "*",
 	   "kartik-v/yii2-helpers": "*",

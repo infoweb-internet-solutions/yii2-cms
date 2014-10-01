@@ -4,6 +4,7 @@ use yii\helpers\Url;
 ?>
 
 <ul class="nav navbar-top-links navbar-right">
+    <?php /*
     <li class="dropdown">
         <a href="#" data-toggle="dropdown" class="dropdown-toggle">
             <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -202,7 +203,8 @@ use yii\helpers\Url;
         </ul>
         <!-- /.dropdown-alerts -->
     </li>
-    <!-- /.dropdown -->
+    <!-- /.dropdown --> 
+    */ ?>
     <li>
         <a href="<?= Url::toRoute('/user/settings/profile'); ?>">
             <div>

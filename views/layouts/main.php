@@ -139,17 +139,26 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                             'label' => Yii::t('app', 'Content'),
                             'icon' => 'file-text',
                             'items' => [
+                                // Pages
                                 [
                                     'label' => Yii::t('app', 'Pages'),
                                     'url'   => Url::toRoute('/pages/page'),
                                     'template' => $sideBarItemTemplate,
                                     'visible' => (Yii::$app->user->can('showPagesModule')) ? true : false,
                                 ],
+                                // Partials
                                 [
                                     'label' => Yii::t('app', 'Partials'),
                                     'url'   => Url::toRoute('/page-partials/page-partial'),
                                     'template' => $sideBarItemTemplate,
                                     'visible' => (Yii::$app->user->can('showPagePartialsModule')) ? true : false,
+                                ],
+                                // SEO
+                                [
+                                    'label' => Yii::t('app', 'SEO'),
+                                    'url'   => Url::toRoute('/seo/seo'),
+                                    'template' => $sideBarItemTemplate,
+                                    'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
                                 ],
                             ],
                             'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,

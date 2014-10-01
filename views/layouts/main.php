@@ -88,7 +88,7 @@ Icon::map($this);
                             'visible' => true,
                             'active' => true,
                         ],
-                        // Users module
+                        // Users
                         [
                             'url' => Url::toRoute('/user/admin/index'),
                             'label' => Yii::t('app', 'Users'),
@@ -96,7 +96,7 @@ Icon::map($this);
                             'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
                             'visible' => (Yii::$app->user->can('showUsersModule')) ? true : false,
                         ],
-                        // Rights module
+                        // Rights
                         [
                             'label' => Yii::t('app', 'Rights'),
                             'icon' => 'tasks',
@@ -109,6 +109,24 @@ Icon::map($this);
                                 //['label' => Yii::t('app', 'Menu'), 'url' => Url::toRoute('/admin/menu')],
                             ],
                             'visible' => (Yii::$app->user->can('showRightsModule')) ? true : false,
+                        ],
+                        // Content
+                        [
+                            'label' => Yii::t('app', 'Content'),
+                            'icon' => 'file',
+                            'items' => [
+                                [
+                                    'label' => Yii::t('app', 'Pages'),
+                                    'url'   => Url::toRoute('/pages/page'),
+                                    'visible' => (Yii::$app->user->can('showPagesModule')) ? true : false,
+                                ],
+                                [
+                                    'label' => Yii::t('app', 'Partials'),
+                                    'url'   => Url::toRoute('/page-partials/page-partial'),
+                                    'visible' => (Yii::$app->user->can('showPagePartialsModule')) ? true : false,
+                                ],
+                            ],
+                            'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,
                         ],
                     ]
                 ]);

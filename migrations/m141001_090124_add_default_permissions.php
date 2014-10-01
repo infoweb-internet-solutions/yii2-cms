@@ -38,8 +38,26 @@ class m141001_090124_add_default_permissions extends Migration
 
     public function down()
     {
-        echo "m141001_090124_add_default_permissions cannot be reverted.\n";
-
-        return false;
+        // Delete the relations
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showRightsModule'
+        ]);
+        
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showUsersModule'
+        ]);
+        
+        // Create the items
+        $this->delete('{{%auth_item}}', [
+            'name'          => 'showRightsModule',
+            'type'          => 2,
+        ]);
+        
+        $this->delete('{{%auth_item}}', [
+            'name'          => 'showUsersModule',
+            'type'          => 2,
+        ]);
     }
 }

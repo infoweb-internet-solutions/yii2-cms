@@ -18,11 +18,11 @@ h1.page-header {
 }
 
 /**
- * Glyphicons
+ * Font awesome
  */
 
-.glyphicon {
-    font-size: 18px;
+.fa {
+    font-size: 26px;
     padding: 0 2px;
 }
 
@@ -53,6 +53,10 @@ h1.page-header {
 .navbar-top-links > li > a {
     padding: 12px;
     color: #FFFFFF;
+}
+
+.navbar-top-links > li > a:hover {
+    color: #000;
 }
 
 /**
@@ -86,7 +90,7 @@ h1.page-header {
 
 .sidebar {
 	position: fixed;
-	margin-top: 51px;
+	margin-top: 53px;
 }
 
 .sidebar .panel-default {
@@ -111,6 +115,10 @@ h1.page-header {
 
 .sidebar .kv-sidenav .active > ul {
     background: none
+}
+
+.sidebar .kv-sidenav .active li {
+    padding-left: 25px;
 }
 
 .sidebar .panel {
@@ -320,7 +328,7 @@ ol.sortable li {
     padding: 10px 10px 10px 15px;
 }
 
-.mini-navbar .sidebar ul > li .glyphicon {
+.mini-navbar .sidebar ul > li .fa {
     font-size: 22px;
 }
 
@@ -334,7 +342,7 @@ ol.sortable li {
 
 .mini-navbar .sidebar li.active > ul {
     border: 1px solid gray;
-    display: block;
+    display: none;
     padding: 0;
     width: 240px;
     background: #FFFFFF;
@@ -351,7 +359,7 @@ ol.sortable li {
     display: none;
 }
 
-.mini-navbar .sidebar span.glyphicon {
+.mini-navbar .sidebar span.fa {
     display: block;
     position: relative;
     text-align: center;

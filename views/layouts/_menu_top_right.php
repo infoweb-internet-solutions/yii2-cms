@@ -206,7 +206,7 @@ use yii\helpers\Url;
     <!-- /.dropdown --> 
     */ ?>
     <li>
-        <a href="<?= Url::toRoute('/user/settings/profile'); ?>">
+        <a href="<?= Url::toRoute('/user/settings/profile'); ?>" title="<?php echo Yii::t('app', 'My profile'); ?>">
             <div>
                 <i class="fa fa-user fa-fw"></i>
             </div>
@@ -214,7 +214,7 @@ use yii\helpers\Url;
     </li>
     <!-- /.dropdown -->
     <li>
-        <a href="<?= Url::toRoute('/site/logout'); ?>">
+        <a href="<?= Url::toRoute('/site/logout'); ?>" title="<?php echo Yii::t('app', 'Logout'); ?>">
             <div>
                 <i class="fa fa-power-off"></i>
             </div>

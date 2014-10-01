@@ -8,11 +8,14 @@ use kartik\icons\Icon;
 use yii\helpers\Url;
 use dektrium\user\models\User;
 
+// Active font-awesome icons
+Icon::map($this);
+
 // Register assets
 $cmsAssets = CMSAsset::register($this);
 
-// Active font-awesome icons
-Icon::map($this);
+// The html template for the sidebar items
+$sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>';
 
 /**
  * @var \yii\web\View $this
@@ -43,8 +46,9 @@ Icon::map($this);
             'renderInnerContainer' => false,
         ]);
         ?>
-    
-        <ul class="nav navbar-left hidden-xs">
+        
+        <?php // Sidebar toggler ?>
+        <ul class="nav navbar-left hidden-xs" style="display: none;">
             <li>
                 <button class="navbar-toggle navbar-minimalize">
                     <span class="sr-only"><?= Yii::t('app', 'Toggle navigation'); ?></span>
@@ -79,50 +83,72 @@ Icon::map($this);
                     'heading' => false,
                     'indItem' => false,
                     'activateParents' => true,
+                    'iconPrefix' => 'fa fa-',
+                    'linkTemplate' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
                     'items' => [
                         [
-                            'url' => Yii::$app->homeUrl,
                             'label' => 'Home',
+                            'url' => Yii::$app->homeUrl,                            
                             'icon' => 'home',
-                            'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
+                            'template' => $sideBarItemTemplate,
                             'visible' => true,
-                            'active' => true,
                         ],
                         // Users
                         [
-                            'url' => Url::toRoute('/user/admin/index'),
                             'label' => Yii::t('app', 'Users'),
+                            'url' => Url::toRoute('/user/admin/index'),
                             'icon' => 'user',
-                            'template' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
+                            'template' => $sideBarItemTemplate,
                             'visible' => (Yii::$app->user->can('showUsersModule')) ? true : false,
                         ],
                         // Rights
                         [
                             'label' => Yii::t('app', 'Rights'),
-                            'icon' => 'tasks',
+                            'icon' => 'lock',
                             'items' => [
-                                ['label' => Yii::t('app', 'Assigments'), 'url' => Url::toRoute('/admin/assigment')],
-                                ['label' => Yii::t('app', 'Roles'), 'url' => Url::toRoute('/admin/role')],
-                                ['label' => Yii::t('app', 'Permissions'), 'url' => Url::toRoute('/admin/permission')],
-                                ['label' => Yii::t('app', 'Routes'), 'url' => Url::toRoute('/admin/route')],
-                                ['label' => Yii::t('app', 'Rules'), 'url' => Url::toRoute('/admin/rule')],
-                                //['label' => Yii::t('app', 'Menu'), 'url' => Url::toRoute('/admin/menu')],
+                                [
+                                    'label' => Yii::t('app', 'Assigments'),
+                                    'url' => Url::toRoute('/admin/assigment'),
+                                    'template' => $sideBarItemTemplate,
+                                ],
+                                [
+                                    'label' => Yii::t('app', 'Roles'),
+                                    'url' => Url::toRoute('/admin/role'),
+                                    'template' => $sideBarItemTemplate,
+                                ],
+                                [
+                                    'label' => Yii::t('app', 'Permissions'),
+                                    'url' => Url::toRoute('/admin/permission'),
+                                    'template' => $sideBarItemTemplate,
+                                ],
+                                [
+                                    'label' => Yii::t('app', 'Routes'),
+                                    'url' => Url::toRoute('/admin/route'),
+                                    'template' => $sideBarItemTemplate,
+                                ],
+                                [
+                                    'label' => Yii::t('app', 'Rules'),
+                                    'url' => Url::toRoute('/admin/rule'),
+                                    'template' => $sideBarItemTemplate,
+                                ],
                             ],
                             'visible' => (Yii::$app->user->can('showRightsModule')) ? true : false,
                         ],
                         // Content
                         [
                             'label' => Yii::t('app', 'Content'),
-                            'icon' => 'file',
+                            'icon' => 'file-text',
                             'items' => [
                                 [
                                     'label' => Yii::t('app', 'Pages'),
                                     'url'   => Url::toRoute('/pages/page'),
+                                    'template' => $sideBarItemTemplate,
                                     'visible' => (Yii::$app->user->can('showPagesModule')) ? true : false,
                                 ],
                                 [
                                     'label' => Yii::t('app', 'Partials'),
                                     'url'   => Url::toRoute('/page-partials/page-partial'),
+                                    'template' => $sideBarItemTemplate,
                                     'visible' => (Yii::$app->user->can('showPagePartialsModule')) ? true : false,
                                 ],
                             ],

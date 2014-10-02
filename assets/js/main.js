@@ -56,5 +56,6 @@ $(function() {
         });
     });
 
-
+    // Init CMS module
+    CMS.init();
 });

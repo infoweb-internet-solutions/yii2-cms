@@ -36,6 +36,8 @@ Once the extension is installed, simply modify your application configuration as
 ```php
 return [
     ...
+    'language' => 'nl'
+    ...
     'components' => [
         ...        
         
@@ -53,7 +55,7 @@ return [
 ];
 ```
 
-Your backend configuration as follows:
+your backend configuration as follows:
 
 ```php
 return [
@@ -78,7 +80,7 @@ return [
 ];
 ```
 
-And your common parameters as follows:
+and your common parameters as follows:
 
 ```php
 return [

@@ -149,7 +149,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                                 // Partials
                                 [
                                     'label' => Yii::t('app', 'Partials'),
-                                    'url'   => Url::toRoute('/page-partials/page-partial'),
+                                    'url'   => Url::toRoute('/partials/page-partial'),
                                     'template' => $sideBarItemTemplate,
                                     'visible' => (Yii::$app->user->can('showPagePartialsModule')) ? true : false,
                                 ],

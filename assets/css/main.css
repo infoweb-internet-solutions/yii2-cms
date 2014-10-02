@@ -26,6 +26,11 @@ h1.page-header {
     padding: 0 2px;
 }
 
+.glyphicon {
+    font-size: 18px;
+    padding: 0 2px;
+}
+
 /**
  * CKEditor
  */

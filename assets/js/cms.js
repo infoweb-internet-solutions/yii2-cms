@@ -16,8 +16,14 @@
     CMS.init = function() {
         // Set global eventhandlers
         $(document)
+            .on('click', '.navbar-minimalize', CMS.toggleSidebar)
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
             .on('click', '#grid-pjax [data-toggle-active]', CMS.pjaxGridItemToggleActive);    
+    };
+    
+    // Toggles the sidebar by adding/removing a specific class on the body
+    CMS.toggleSidebar = function(e) {
+        $('body').toggleClass('mini-navbar');    
     };
     
     // Shows the first tab on a tabbed form that contains validation errors

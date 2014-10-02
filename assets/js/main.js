@@ -41,10 +41,6 @@ $(function() {
     });
     */
 
-    $('.navbar-minimalize').click( function() {
-        $( "body" ).toggleClass("mini-navbar");
-    });
-
     $(document).on('click', '#media', function(e) {
 
         e.preventDefault();

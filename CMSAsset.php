@@ -21,5 +21,6 @@ class CMSAsset extends AssetBundle
         'backend\assets\AppAsset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'infoweb\cms\assets\BootBoxAsset'
     ];
 }

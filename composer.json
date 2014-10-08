@@ -27,6 +27,7 @@
 	   "infoweb-internet-solutions/yii2-cms-pages": "*",
 	   "infoweb-internet-solutions/yii2-cms-partials": "*",
 	   "infoweb-internet-solutions/yii2-cms-seo": "*",
+	   "infoweb-internet-solutions/yii2-cms-menu": "*",
 	   "mdmsoft/yii2-admin": "*",
 	   "kartik-v/yii2-helpers": "*",
 	   "kartik-v/yii2-widgets": "dev-master",

@@ -72,6 +72,10 @@ h1.page-header {
     margin-top: 20px;
 }
 
+.tab-content .page-header:first-child {
+    margin-top: 0;
+}
+
 /**
  * 	Table
  */

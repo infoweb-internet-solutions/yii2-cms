@@ -97,6 +97,13 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
                     ],
+                    // Alias
+                    [
+                        'label' => Yii::t('app', 'Alias'),
+                        'url'   => Url::toRoute('/alias/alias'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showAliasModule')) ? true : false,
+                    ],
                 ],
                 'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,
             ],

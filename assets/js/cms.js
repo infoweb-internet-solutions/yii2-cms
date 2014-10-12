@@ -29,7 +29,7 @@
     // Shows the first tab on a tabbed form that contains validation errors
     CMS.showFirstFormTabWithErrors = function(e) {
         if ($(".has-error").length)
-            $("a[href=#"+$(".has-error").parents(".tab-pane").attr("id")+"]").tab("show");    
+            $("a[href=#"+$(".has-error").eq(0).parents(".tab-pane").attr("id")+"]").tab("show");    
     };
     
     // Toggles the 'active' state of an item in a PJAX grid

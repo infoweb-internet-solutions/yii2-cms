@@ -12,27 +12,51 @@
     
     var CMS = {};
     
-    // Module initialization
+    /**
+     * Initializes the module:
+     *  - Set global eventhandlers
+     * 
+     * @return  void 
+     */
     CMS.init = function() {
         // Set global eventhandlers
         $(document)
             .on('click', '.navbar-minimalize', CMS.toggleSidebar)
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
-            .on('click', '#grid-pjax [data-toggle-active]', CMS.pjaxGridItemToggleActive);    
+            .on('click', '#grid-pjax [data-toggle-active]', CMS.pjaxGridItemToggleActive)
+            .on('keyup', '[data-slugable=true]', CMS.slugifyAttribute)
+            .on('keydown', '[data-slugified=true]', CMS.validateSlug);    
     };
     
-    // Toggles the sidebar by adding/removing a specific class on the body
+    /**
+     * Toggles the sidebar by adding/removing a specific class on the body
+     * 
+     * @param   object  Event
+     * @return  void
+     */
     CMS.toggleSidebar = function(e) {
         $('body').toggleClass('mini-navbar');    
     };
     
-    // Shows the first tab on a tabbed form that contains validation errors
+    /**
+     * Shows the first tab on a tabbed form that contains validation errors 
+     * 
+     * @param   object  Event
+     * @return  void
+     */
     CMS.showFirstFormTabWithErrors = function(e) {
-        if ($(".has-error").length)
-            $("a[href=#"+$(".has-error").eq(0).parents(".tab-pane").attr("id")+"]").tab("show");    
+        if ($(".has-error").length) {
+            $("a[href=#"+$(".has-error").eq(0).parents(".tab-pane").attr("id")+"]").tab("show");
+            CMS.scrollToElement('.has-error');
+        }    
     };
     
-    // Toggles the 'active' state of an item in a PJAX grid
+    /**
+     * Toggles the 'active' state of an item in a PJAX grid 
+     * 
+     * @param   object  Event
+     * @return  void
+     */
     CMS.pjaxGridItemToggleActive = function(e) {
         e.preventDefault();
         
@@ -48,6 +72,57 @@
                 return false;                
             }
         });
+    };
+    
+    /**
+     * Slugifies an attribute and uses it as the value for an other attribute 
+     * 
+     * @param   object  Event
+     * @return  void
+     */
+    CMS.slugifyAttribute = function(e) {
+        var targetElement = $($(this).data('slug-target')),
+            targetPlaceholder = targetElement.prop('placeholder'),
+            slug = I18N.slugify($(this).val());
+            
+        targetElement.val(targetPlaceholder + slug);
+    };
+    
+    /**
+     * Validates the content of a slug 
+     * 
+     * @param   object  Event
+     * @return  boolean
+     */
+    CMS.validateSlug = function(e) {
+        var el = $(this),
+            placeholder = el.prop('placeholder'),
+            value = el.val(),
+            keyCode = e.keyCode || e.which;
+                        
+        if (keyCode == 191 || keyCode == 111)
+            return false;
+            
+        return true;    
+    };
+    
+    /**
+     * Scrolls to an element with a given speed
+     * 
+     * @param   string      The selector
+     * @return  void 
+     */
+    CMS.scrollToElement = function(selector, speed) {
+        // Select the element (limit to the first)
+        var el = $(selector)[0],
+            speed = speed || 250;
+        
+        // Check for the existance of the element
+        if($(el).length == 0)
+            return false;
+            
+        // Scroll
+        $('html,body').animate({scrollTop: $(el).offset().top - 91}, speed); 
     };
     
     return CMS;    

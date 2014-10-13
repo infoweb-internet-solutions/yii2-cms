@@ -13,6 +13,7 @@ class CMSAsset extends AssetBundle
     ];
     
     public $js = [
+        'js/i18n.js',
         'js/cms.js',
         'js/main.js',
     ];

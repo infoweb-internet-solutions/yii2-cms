@@ -31,6 +31,10 @@ h1.page-header {
     padding: 0 2px;
 }
 
+.icon-disabled {
+    color: #ccc;
+}
+
 /**
  * CKEditor
  */

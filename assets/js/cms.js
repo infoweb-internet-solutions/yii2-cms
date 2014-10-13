@@ -23,7 +23,7 @@
         $(document)
             .on('click', '.navbar-minimalize', CMS.toggleSidebar)
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
-            .on('click', '#grid-pjax [data-toggle-active]', CMS.pjaxGridItemToggleActive)
+            .on('click', '#grid-pjax [data-toggleable=true]', CMS.pjaxGridItemToggle)
             .on('keyup', '[data-slugable=true]', CMS.slugifyAttribute)
             .on('keydown', '[data-slugified=true]', CMS.validateSlug);    
     };
@@ -52,16 +52,17 @@
     };
     
     /**
-     * Toggles the 'active' state of an item in a PJAX grid 
+     * Toggles the state of a 'toggleable' item in a PJAX grid 
      * 
      * @param   object  Event
      * @return  void
      */
-    CMS.pjaxGridItemToggleActive = function(e) {
+    CMS.pjaxGridItemToggle = function(e) {
         e.preventDefault();
         
-        var id = $(this).data('toggle-active'),
-            request = $.post('active', {id:id});
+        var action = $(this).data('toggle-action'),
+            id = $(this).data('toggle-id'),
+            request = $.post(action, {id:id});
         
         request.done(function(response) {
             // Succes, reload PJAX grid

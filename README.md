@@ -5,7 +5,12 @@ Docs
 -----
 - [Installation admin module](https://github.com/mdmsoft/yii2-admin)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
-- [Installation migration utitlity](https://github.com/c006/yii2-migration-utility)
+- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
+- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
+- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
+- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
+- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
+- [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
 
 
 Installation
@@ -31,7 +36,7 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply modify your application configuration as follows:
+Once the extension is installed, simply modify your common application configuration as follows:
 
 ```php
 return [

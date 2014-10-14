@@ -60,7 +60,7 @@
     CMS.pjaxGridItemToggle = function(e) {
         e.preventDefault();
         
-        var action = $(this).data('toggle-action'),
+        var action = $(this).attr('href'),
             id = $(this).data('toggle-id'),
             request = $.post(action, {id:id});
         

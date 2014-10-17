@@ -11,6 +11,7 @@ Docs
 - [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
 - [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
 - [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
+- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 
 
 Installation

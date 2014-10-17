@@ -9,6 +9,22 @@ class m141001_090124_add_default_permissions extends Migration
     {
         // Create the auth items
         $this->insert('{{%auth_item}}', [
+            'name'          => 'showContentModule',
+            'type'          => 2,
+            'description'   => 'Show content module icon in main-menu',
+            'created_at'    => time(),
+            'updated_at'    => time()
+        ]);
+
+        $this->insert('{{%auth_item}}', [
+            'name'          => 'showModulesModule',
+            'type'          => 2,
+            'description'   => 'Show modules module icon in main-menu',
+            'created_at'    => time(),
+            'updated_at'    => time()
+        ]);
+
+        $this->insert('{{%auth_item}}', [
             'name'          => 'showRightsModule',
             'type'          => 2,
             'description'   => 'Show rights module icon in main-menu',
@@ -27,6 +43,16 @@ class m141001_090124_add_default_permissions extends Migration
         // Create the auth item relation
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
+            'child'         => 'showContentModule'
+        ]);
+
+        $this->insert('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showModulesModule'
+        ]);
+
+        $this->insert('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
             'child'         => 'showRightsModule'
         ]);
         
@@ -41,6 +67,16 @@ class m141001_090124_add_default_permissions extends Migration
         // Delete the relations
         $this->delete('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
+            'child'         => 'showContentModule'
+        ]);
+
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showModulesModule'
+        ]);
+
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
             'child'         => 'showRightsModule'
         ]);
         
@@ -48,8 +84,18 @@ class m141001_090124_add_default_permissions extends Migration
             'parent'        => 'Superadmin',
             'child'         => 'showUsersModule'
         ]);
-        
-        // Create the items
+
+        // Delete the auth items
+        $this->delete('{{%auth_item}}', [
+            'name'          => 'showContentModule',
+            'type'          => 2,
+        ]);
+
+        $this->delete('{{%auth_item}}', [
+            'name'          => 'showModulesModule',
+            'type'          => 2,
+        ]);
+
         $this->delete('{{%auth_item}}', [
             'name'          => 'showRightsModule',
             'type'          => 2,

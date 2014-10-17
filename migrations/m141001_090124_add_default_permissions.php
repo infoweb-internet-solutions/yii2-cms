@@ -40,6 +40,14 @@ class m141001_090124_add_default_permissions extends Migration
             'updated_at'    => time()
         ]);
         
+        $this->insert('{{%auth_item}}', [
+            'name'          => 'showUsersModule',
+            'type'          => 2,
+            'description'   => 'Show translations module in main-menu',
+            'created_at'    => time(),
+            'updated_at'    => time()
+        ]);
+        
         // Create the auth item relation
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
@@ -59,6 +67,11 @@ class m141001_090124_add_default_permissions extends Migration
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
             'child'         => 'showUsersModule'
+        ]);
+        
+        $this->insert('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showTranslationsModule'
         ]);
     }
 
@@ -103,6 +116,11 @@ class m141001_090124_add_default_permissions extends Migration
         
         $this->delete('{{%auth_item}}', [
             'name'          => 'showUsersModule',
+            'type'          => 2,
+        ]);
+        
+        $this->delete('{{%auth_item}}', [
+            'name'          => 'showTranslationsModule',
             'type'          => 2,
         ]);
     }

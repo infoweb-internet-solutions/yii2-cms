@@ -24,7 +24,7 @@
             .on('click', '.navbar-minimalize', CMS.toggleSidebar)
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
             .on('click', '#grid-pjax [data-toggleable=true]', CMS.pjaxGridItemToggle)
-            .on('keyup', '[data-slugable=true]', CMS.slugifyAttribute)
+            .on('keyup change', '[data-slugable=true]', CMS.slugifyAttribute)
             .on('keydown', '[data-slugified=true]', CMS.validateSlug);    
     };
     

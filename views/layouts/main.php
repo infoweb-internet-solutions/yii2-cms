@@ -27,13 +27,13 @@ $cmsAssets = CMSAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body>
+    <body class="<?php echo (Yii::$app->user->isGuest) ? 'is-guest' : ''; ?>">
         <?php $this->beginBody() ?>   
     
         <?php
         // Navbar
         NavBar::begin([
-            'brandLabel' => Yii::$app->params['companyName'],
+            'brandLabel' => Yii::$app->params['companyName'].'<img src="'.$cmsAssets->baseUrl.'/img/brand-logo.png" alt="brand-logo" class="brand-logo">',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
@@ -56,7 +56,7 @@ $cmsAssets = CMSAsset::register($this);
     
         <?php // Top right menu ?>
         <?= $this->render('_menu_top_right') ?>
-    
+       
         <?php // Sidebar ?>
         <div role="navigation" class="navbar-default sidebar">
     
@@ -75,6 +75,7 @@ $cmsAssets = CMSAsset::register($this);
             <?= $this->render('_menu_sidebar') ?>
             
         </div>
+        
         <?php NavBar::end(); ?>
     
         <?php // Breadcrumbs ?>
@@ -89,7 +90,7 @@ $cmsAssets = CMSAsset::register($this);
             <?php // Footer ?>
             <footer class="footer">
                 <span class="pull-left">&copy; Infoweb <?= date('Y') ?></span>
-                <span class="pull-right"><?= Yii::powered() ?></span>
+                <span class="pull-right"><?php /*<?= Yii::powered() ?>*/ ?></span>
             </footer>    
         </div>
 

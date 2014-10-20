@@ -71,35 +71,35 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                 'items' => [
                     // Menu
                     [
-                        'label' => Yii::t('app', 'Menu'),
+                        'label' => Yii::t('infoweb/menu', 'Menu'),
                         'url'   => Url::toRoute('/menu/menu'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showMenuModule')) ? true : false,
                     ],
                     // Pages
                     [
-                        'label' => Yii::t('app', 'Pages'),
+                        'label' => Yii::t('infoweb/pages', 'Pages'),
                         'url'   => Url::toRoute('/pages/page'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showPagesModule')) ? true : false,
                     ],
                     // Partials
                     [
-                        'label' => Yii::t('app', 'Partials'),
+                        'label' => Yii::t('infoweb/partials', 'Partials'),
                         'url'   => Url::toRoute('/partials/page-partial'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showPagePartialsModule')) ? true : false,
                     ],
                     // SEO
                     [
-                        'label' => Yii::t('app', 'SEO'),
+                        'label' => Yii::t('infoweb/seo', 'Seo'),
                         'url'   => Url::toRoute('/seo/seo'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
                     ],
                     // Alias
                     [
-                        'label' => Yii::t('app', 'Alias'),
+                        'label' => Yii::t('infoweb/alias', 'Aliases'),
                         'url'   => Url::toRoute('/alias/alias'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showAliasModule')) ? true : false,

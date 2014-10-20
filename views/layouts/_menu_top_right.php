@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 
@@ -214,10 +215,11 @@ use yii\helpers\Url;
     </li>
     <!-- /.dropdown -->
     <li>
-        <a href="<?= Url::toRoute('/site/logout'); ?>" title="<?php echo Yii::t('app', 'Logout'); ?>">
+        <?= Html::a('<div><i class="fa fa-power-off"></i></div>', ['/user/security/logout', true], ['data-method' => 'post']); ?>
+        <?php /*<a href="<?= Url::toRoute('/user/security/logout'); ?>" title="<?php echo Yii::t('app', 'Logout'); ?>">
             <div>
                 <i class="fa fa-power-off"></i>
             </div>
-        </a>
+        </a>*/ ?>
     </li>
 </ul>

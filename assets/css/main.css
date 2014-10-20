@@ -17,6 +17,18 @@ h1.page-header {
     margin-top: 20px;
 }
 
+.is-guest #page-wrapper {
+    margin-left: 0;
+}
+
+.is-guest .sidebar {
+    display: none;    
+}
+
+.is-guest .breadcrumb {
+    left: 0;
+}
+
 /**
  * Font awesome
  * @todo Add class
@@ -72,6 +84,23 @@ h1.page-header {
 
 .navbar-top-links > li > a:hover {
     color: #000;
+}
+
+.navbar-brand {
+    font-size: 28px;
+}
+
+.navbar-brand .brand-logo {
+    width: 50px;
+    padding-left: 10px;
+    display: inline-block;
+    position: relative;
+    bottom: 3px;
+}
+
+
+.navbar-inverse .navbar-brand {
+    color: #FFF;
 }
 
 /**
@@ -289,8 +318,6 @@ ol.sortable li {
     min-height: 100%;
     position: relative;
 }
-
-
 
 .wrap {
 	padding: 0;

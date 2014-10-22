@@ -107,7 +107,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                     // Translations
                     [
                         'label' => Yii::t('app', 'Translations'),
-                        'url'   => Url::toRoute('/translations'),
+                        'url'   => Url::toRoute('/i18n'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showTranslationsModule')) ? true : false,
                     ],

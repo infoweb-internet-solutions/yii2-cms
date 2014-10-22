@@ -38,7 +38,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                 'items' => [
                     [
                         'label' => Yii::t('app', 'Assigments'),
-                        'url' => Url::toRoute('/admin/assigment'),
+                        'url' => Url::toRoute('/admin/assignment'),
                         'template' => $sideBarItemTemplate,
                     ],
                     [

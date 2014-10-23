@@ -36,6 +36,7 @@
 	   "kartik-v/yii2-grid": "*",
 	   "kartik-v/bootstrap-fileinput": "*",
 	   "kartik-v/yii2-icons": "*",
+	   "kartik-v/yii2-datecontrol": "dev-master",
 	   "2amigos/yii2-translateable-behavior" : "*",
 	   "mihaildev/yii2-ckeditor": "*",
 	   "bower-asset/bootbox": "@stable",

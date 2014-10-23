@@ -33,6 +33,19 @@ or add
 
 to the require section of your `composer.json` file.
 
+Add new folders in frontend/web/
+
+```
+uploads/img
+```
+
+and add .gitignore file in uploads folder
+
+```
+*
+!.gitignore
+```
+
 
 Usage
 -----

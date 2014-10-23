@@ -118,36 +118,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
             [
                 'label' => Yii::t('app', 'Modules'),
                 'icon' => 'tasks',
-                'items' => [
-                    // Employees
-                    [
-                        'label' => Yii::t('app', 'Employees'),
-                        'url'   => Url::toRoute('/employees/employee'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showEmployeesModule')) ? true : false,
-                    ],
-                    // Publications
-                    [
-                        'label' => Yii::t('app', 'Publications'),
-                        'url'   => Url::toRoute('/publications/publication'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showPublicationsModule')) ? true : false,
-                    ],
-                    // Fields
-                    [
-                        'label' => Yii::t('app', 'Fields'),
-                        'url'   => Url::toRoute('/fields/field'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showFieldsModule')) ? true : false,
-                    ],
-                    // News
-                    [
-                        'label' => Yii::t('app', 'News'),
-                        'url'   => Url::toRoute('/news/news'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showNewsModule')) ? true : false,
-                    ],
-                ],
+                'items' => Yii::$app->getModule('cms')->getSideBarItems('modules', $sideBarItemTemplate),
                 'visible' => (Yii::$app->user->can('showModulesModule')) ? true : false,
             ],
         ]

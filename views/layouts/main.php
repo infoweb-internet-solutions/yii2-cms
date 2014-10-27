@@ -78,7 +78,7 @@ $cmsAssets = CMSAsset::register($this);
         
         <?php NavBar::end(); ?>
     
-        <?php if (Yii::$app->user->isGuest) : ?>
+        <?php if (!Yii::$app->user->isGuest) : ?>
             
         <?php // Breadcrumbs ?>
         <?= Breadcrumbs::widget([

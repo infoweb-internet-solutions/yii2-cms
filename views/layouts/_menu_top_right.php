@@ -207,7 +207,7 @@ use yii\helpers\Url;
     <!-- /.dropdown --> 
     */ ?>
     
-    <?php if (Yii::$app->user->isGuest) : ?>
+    <?php if (!Yii::$app->user->isGuest) : ?>
         
     <li>
         <a href="<?= Url::toRoute('/user/settings/profile'); ?>" title="<?php echo Yii::t('app', 'My profile'); ?>">

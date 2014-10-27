@@ -23,6 +23,63 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                 'template' => $sideBarItemTemplate,
                 'visible' => true,
             ],
+            // Content
+            [
+                'label' => Yii::t('app', 'Content'),
+                'icon' => 'file-text',
+                'items' => [
+                    // Pages
+                    [
+                        'label' => Yii::t('infoweb/pages', 'Pages'),
+                        'url'   => Url::toRoute('/pages/page'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showPagesModule')) ? true : false,
+                    ],
+                    // Partials
+                    [
+                        'label' => Yii::t('infoweb/partials', 'Partials'),
+                        'url'   => Url::toRoute('/partials/page-partial'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showPagePartialsModule')) ? true : false,
+                    ],
+                    // Menu
+                    [
+                        'label' => Yii::t('infoweb/menu', 'Menu'),
+                        'url'   => Url::toRoute('/menu/menu'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showMenuModule')) ? true : false,
+                    ],                    
+                    // SEO
+                    [
+                        'label' => Yii::t('infoweb/seo', 'Seo'),
+                        'url'   => Url::toRoute('/seo/seo'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
+                    ],
+                    // Alias
+                    [
+                        'label' => Yii::t('infoweb/alias', 'Aliases'),
+                        'url'   => Url::toRoute('/alias/alias'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showAliasModule')) ? true : false,
+                    ],
+                    // Translations
+                    [
+                        'label' => Yii::t('app', 'Translations'),
+                        'url'   => Url::toRoute('/i18n'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showTranslationsModule')) ? true : false,
+                    ],
+                ],
+                'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,
+            ],
+            // Modules
+            [
+                'label' => Yii::t('app', 'Modules'),
+                'icon' => 'tasks',
+                'items' => Yii::$app->getModule('cms')->getSideBarItems('modules', $sideBarItemTemplate),
+                'visible' => (Yii::$app->user->can('showModulesModule')) ? true : false,
+            ],
             // Users
             [
                 'label' => Yii::t('app', 'Users'),
@@ -63,64 +120,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                     ],
                 ],
                 'visible' => (Yii::$app->user->can('showRightsModule')) ? true : false,
-            ],
-            // Content
-            [
-                'label' => Yii::t('app', 'Content'),
-                'icon' => 'file-text',
-                'items' => [
-                    // Menu
-                    [
-                        'label' => Yii::t('infoweb/menu', 'Menu'),
-                        'url'   => Url::toRoute('/menu/menu'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showMenuModule')) ? true : false,
-                    ],
-                    // Pages
-                    [
-                        'label' => Yii::t('infoweb/pages', 'Pages'),
-                        'url'   => Url::toRoute('/pages/page'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showPagesModule')) ? true : false,
-                    ],
-                    // Partials
-                    [
-                        'label' => Yii::t('infoweb/partials', 'Partials'),
-                        'url'   => Url::toRoute('/partials/page-partial'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showPagePartialsModule')) ? true : false,
-                    ],
-                    // SEO
-                    [
-                        'label' => Yii::t('infoweb/seo', 'Seo'),
-                        'url'   => Url::toRoute('/seo/seo'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
-                    ],
-                    // Alias
-                    [
-                        'label' => Yii::t('infoweb/alias', 'Aliases'),
-                        'url'   => Url::toRoute('/alias/alias'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showAliasModule')) ? true : false,
-                    ],
-                    // Translations
-                    [
-                        'label' => Yii::t('app', 'Translations'),
-                        'url'   => Url::toRoute('/i18n'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showTranslationsModule')) ? true : false,
-                    ],
-                ],
-                'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,
-            ],
-            // Modules
-            [
-                'label' => Yii::t('app', 'Modules'),
-                'icon' => 'tasks',
-                'items' => Yii::$app->getModule('cms')->getSideBarItems('modules', $sideBarItemTemplate),
-                'visible' => (Yii::$app->user->can('showModulesModule')) ? true : false,
-            ],
+            ],            
         ]
     ]);
     ?>

@@ -20,13 +20,7 @@
             "homepage": "http://www.infoweb.be/"
         }
     ],
-    "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module"
-        }
-    ],
+    "minimum-stability": "dev",    
 	"require": {
 	   "yiisoft/yii2": "*",
 	   "infoweb-internet-solutions/yii2-cms-user": "*",
@@ -46,9 +40,14 @@
 	   "kartik-v/yii2-datecontrol": "dev-master",
 	   "2amigos/yii2-translateable-behavior" : "*",
 	   "mihaildev/yii2-ckeditor": "*",
-	   "bower-asset/bootbox": "@stable",
-	   "zelenin/yii2-i18n-module": "dev-infoweb"
+	   "bower-asset/bootbox": "@stable"
 	},
+	"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module"
+        }
+    ],
 	"autoload": {
 		"psr-4": {
             "infoweb\\cms\\": ""

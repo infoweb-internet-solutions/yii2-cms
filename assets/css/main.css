@@ -30,6 +30,15 @@ h1.page-header {
 }
 
 /**
+ * File preview kartik
+ */
+
+.file-preview-frame {
+    height: auto;
+}
+
+
+/**
  *  Gridview
  */
 

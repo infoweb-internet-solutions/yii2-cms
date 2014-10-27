@@ -78,10 +78,14 @@ $cmsAssets = CMSAsset::register($this);
         
         <?php NavBar::end(); ?>
     
+        <?php if (Yii::$app->user->isGuest) : ?>
+            
         <?php // Breadcrumbs ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        
+        <?php endif; ?>
     
         <?php // Page content ?>
         <div id="page-wrapper" <?php echo (isset($this->params['breadcrumbs'])) ? 'class="breadcrumb-padding"' :''; ?>>

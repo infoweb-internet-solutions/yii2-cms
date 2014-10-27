@@ -206,6 +206,9 @@ use yii\helpers\Url;
     </li>
     <!-- /.dropdown --> 
     */ ?>
+    
+    <?php if (Yii::$app->user->isGuest) : ?>
+        
     <li>
         <a href="<?= Url::toRoute('/user/settings/profile'); ?>" title="<?php echo Yii::t('app', 'My profile'); ?>">
             <div>
@@ -213,13 +216,9 @@ use yii\helpers\Url;
             </div>
         </a>
     </li>
-    <!-- /.dropdown -->
     <li>
         <?= Html::a('<div><i class="fa fa-power-off"></i></div>', ['/user/security/logout', true], ['data-method' => 'post']); ?>
-        <?php /*<a href="<?= Url::toRoute('/user/security/logout'); ?>" title="<?php echo Yii::t('app', 'Logout'); ?>">
-            <div>
-                <i class="fa fa-power-off"></i>
-            </div>
-        </a>*/ ?>
     </li>
+    
+    <?php endif; ?>
 </ul>

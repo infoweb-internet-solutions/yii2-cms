@@ -13,7 +13,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
         'heading' => false,
         'indItem' => false,
         'activateParents' => true,
-        'iconPrefix' => 'fa fa-',
+        'iconPrefix' => 'fa fa-fw fa-',
         'linkTemplate' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
         'items' => [
             [

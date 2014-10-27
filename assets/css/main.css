@@ -173,8 +173,8 @@ h1.page-header {
     background: none
 }
 
-.sidebar .kv-sidenav .active li {
-    padding-left: 25px;
+.sidebar .kv-sidenav .active > ul li a {
+    padding-left: 57px;
 }
 
 .sidebar .panel {

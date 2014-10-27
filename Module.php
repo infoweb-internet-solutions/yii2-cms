@@ -35,7 +35,7 @@ class Module extends \yii\base\Module
         
         foreach ($this->sideBarItems[$group] as $item) {
             $items[] = [
-                'label'     => $item['label'],
+                'label'     => Yii::t($item['i18nGroup'], $item['label']),
                 'url'       => Url::toRoute($item['url']),
                 'template'  => $template,
                 'visible'   => (isset($item['authItem']) && Yii::$app->user->can($item['authItem'])) ? true : false

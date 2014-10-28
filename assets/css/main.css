@@ -70,6 +70,10 @@ h1.page-header {
     color: #ccc;
 }
 
+.icon-active {
+    color: #3c763d;  
+}
+
 /**
  * CKEditor
  */

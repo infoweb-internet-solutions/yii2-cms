@@ -25,7 +25,8 @@
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
             .on('click', '#grid-pjax [data-toggleable=true]', CMS.pjaxGridItemToggle)
             .on('keyup change', '[data-slugable=true]', CMS.slugifyAttribute)
-            .on('keydown', '[data-slugified=true]', CMS.validateSlug);    
+            .on('keydown', '[data-slugified=true]', CMS.validateSlug)
+            .on('pjax:complete', CMS.pjaxComplete);    
     };
     
     /**
@@ -124,6 +125,20 @@
             
         // Scroll
         $('html,body').animate({scrollTop: $(el).offset().top - 91}, speed); 
+    };
+    
+    /**
+     * Performs actions when a pjax request is completed 
+     *
+     * @param   Event
+     * @return  void
+     */
+    CMS.pjaxComplete = function(e) {
+        // Remove tooltips that are left behind in the DOM
+        $('.tooltip').remove();
+        
+        // Re-initializes tooltips
+        $('[data-toggle]').tooltip();    
     };
     
     return CMS;    

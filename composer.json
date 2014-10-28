@@ -41,8 +41,14 @@
 	   "2amigos/yii2-translateable-behavior" : "*",
 	   "mihaildev/yii2-ckeditor": "*",
 	   "bower-asset/bootbox": "@stable",
-	   "zelenin/yii2-i18n-module": "dev-master"
+	   "zelenin/yii2-i18n-module": "dev-infoweb as dev-master"
 	},
+	"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module"
+        }
+    ],
 	"autoload": {
 		"psr-4": {
             "infoweb\\cms\\": ""

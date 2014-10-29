@@ -41,7 +41,6 @@
 	   "2amigos/yii2-translateable-behavior" : "*",
 	   "mihaildev/yii2-ckeditor": "*",
 	   "bower-asset/bootbox": "@stable",
-	   "bower-asset/watch": "@stable",
 	   "zelenin/yii2-i18n-module": "dev-master"
 	},
 	"autoload": {

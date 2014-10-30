@@ -56,7 +56,8 @@ Once the extension is installed, simply modify your common application configura
 ```php
 return [
     ...
-    'language' => 'nl'
+    'language' => 'nl',
+    'timeZone' => 'Europe/Brussels',
     ...
     'components' => [
         ...        
@@ -65,6 +66,13 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
+        ],
+        // Formatter
+        'formatter' => [
+            'dateFormat' => 'php:d-m-Y',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
         ],
     ],
     ...
@@ -91,7 +99,7 @@ return [
             'displayTimezone' => 'Europe/Brussels',
 
             // set your timezone for date saved to db
-            'saveTimezone' => 'UTC',
+            'saveTimezone' => 'Europe/Brussels',
 
             // automatically use kartik\widgets for each of the above formats
             'autoWidget' => true,
@@ -106,6 +114,8 @@ return [
                 Module::FORMAT_DATETIME => [], // setup if needed
                 Module::FORMAT_TIME => [], // setup if needed
             ],
+            // Use custom convert action
+            'convertAction' => '/cms/parse/convert-date-control'
         ]
     ],
     ...

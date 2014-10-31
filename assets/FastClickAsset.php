@@ -3,11 +3,11 @@ namespace infoweb\cms\assets;
 
 use yii\web\AssetBundle as AssetBundle;
 
-class BootBoxAsset extends AssetBundle
+class FastclickAsset extends AssetBundle
 {
     public $sourcePath = '@bower/fastclick';
-    
+
     public $js = [
-        'fastclick.js'
+        'lib/fastclick.js'
     ];
 }

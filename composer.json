@@ -40,16 +40,10 @@
 	   "kartik-v/yii2-datecontrol": "dev-master",
 	   "2amigos/yii2-translateable-behavior" : "*",
 	   "mihaildev/yii2-ckeditor": "*",
-	   "zelenin/yii2-i18n-module": "dev-infoweb as dev-master",
+	   "zelenin/yii2-i18n-module": "dev-master",
        "bower-asset/bootbox": "@stable",
        "bower-asset/fastclick": "@stable"
 	},
-	"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module.git"
-        }
-    ],
 	"autoload": {
 		"psr-4": {
             "infoweb\\cms\\": ""

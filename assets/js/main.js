@@ -54,4 +54,7 @@ $(function() {
 
     // Init CMS module
     CMS.init();
+
+    // Eliminates the 300ms delay between a physical tap and the firing of a click event on mobile browsers
+    FastClick.attach(document.body);
 });

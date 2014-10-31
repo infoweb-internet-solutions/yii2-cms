@@ -140,6 +140,6 @@
         // Re-initializes tooltips
         $('[data-toggle]').tooltip();    
     };
-    
+
     return CMS;    
 });

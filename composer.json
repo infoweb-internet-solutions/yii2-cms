@@ -41,7 +41,9 @@
 	   "2amigos/yii2-translateable-behavior" : "*",
 	   "mihaildev/yii2-ckeditor": "*",
 	   "bower-asset/bootbox": "@stable",
-	   "zelenin/yii2-i18n-module": "dev-master"
+	   "zelenin/yii2-i18n-module": "dev-master",
+
+        "bower-asset/fastclick": "@stable"
 	},
 	"autoload": {
 		"psr-4": {

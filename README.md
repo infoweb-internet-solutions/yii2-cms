@@ -166,6 +166,12 @@ return [
     ...
 ];
 ```
+
+Import the translations and use category 'app':
+```
+yii i18n/import @infoweb/cms/messages
+```
+
 Before using the module you also need to update the composer.json file of your project
 with a reference to the custom repositories that are needed to override certain
 vendor modules

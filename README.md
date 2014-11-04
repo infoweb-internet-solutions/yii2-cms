@@ -167,6 +167,21 @@ return [
 ];
 ```
 
+Add to your params:
+```
+'toolbarGroups' => [
+    ['name' => 'clipboard', 'groups' => ['mode','undo', 'selection', 'clipboard','doctools']],
+    ['name' => 'editing', 'groups' => ['tools']],
+    ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
+    ['name' => 'insert'],
+    ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
+    ['name' => 'colors'],
+    ['name' => 'links'],
+    ['name' => 'others'],
+],
+'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
+```
+
 Import the translations and use category 'app':
 ```
 yii i18n/import @infoweb/cms/messages

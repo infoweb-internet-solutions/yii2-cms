@@ -186,6 +186,11 @@ vendor modules
 ...
 ```
 
+After that, import the translations of the custom i18n repository by using category 'zelenin/modules/i18n':
+```
+yii i18n/import @Zelenin/yii/modules/I18n/messages
+```
+
 To use the module, execute yii migration
 ```
 yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations

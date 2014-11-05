@@ -125,7 +125,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
             [
                 'label' => Yii::t('infoweb/settings', 'Settings'),
                 'url' => Url::toRoute('/settings/setting'),
-                'icon' => 'user',
+                'icon' => 'gear',
                 'template' => $sideBarItemTemplate,
                 'visible' => (Yii::$app->user->can('showSettingsModule')) ? true : false,
             ],            

@@ -4,6 +4,7 @@ CMS module for Yii 2
 Docs
 -----
 - [Installation admin module](https://github.com/mdmsoft/yii2-admin)
+- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
 - [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
 - [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)

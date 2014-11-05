@@ -7,7 +7,7 @@ body {
 }
 
 * {
-    outline: none;
+    outline: none !important;
 }
 
 h1 {

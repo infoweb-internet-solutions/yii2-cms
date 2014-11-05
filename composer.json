@@ -23,6 +23,7 @@
     "minimum-stability": "dev",    
 	"require": {
 	   "yiisoft/yii2": "*",
+	   "infoweb-internet-solutions/yii2-cms-settings": "*",
 	   "infoweb-internet-solutions/yii2-cms-user": "*",
 	   "infoweb-internet-solutions/yii2-cms-pages": "*",
 	   "infoweb-internet-solutions/yii2-cms-partials": "*",

@@ -33,7 +33,7 @@ $cmsAssets = CMSAsset::register($this);
         <?php
         // Navbar
         NavBar::begin([
-            'brandLabel' => Yii::$app->params['companyName'].'<img src="'.$cmsAssets->baseUrl.'/img/brand-logo.png" alt="brand-logo" class="brand-logo">',
+            'brandLabel' => Html::img($cmsAssets->baseUrl.'/img/infoweb.png', ['class' => 'brand-logo', 'alt' => 'brand-logo']),
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',

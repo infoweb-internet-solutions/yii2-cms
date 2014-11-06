@@ -89,6 +89,7 @@ h1.page-header {
 
 .navbar {
 	margin-bottom: 0;
+    border: none;
 }
 
 .navbar-top-links {
@@ -100,7 +101,7 @@ h1.page-header {
 }
 
 .navbar-top-links > li > a {
-    padding: 12px;
+    padding: 10px 12px;
     color: #FFFFFF;
 }
 
@@ -110,14 +111,14 @@ h1.page-header {
 
 .navbar-brand {
     font-size: 28px;
+    height: auto;
+    padding: 0;
 }
 
 .navbar-brand .brand-logo {
-    width: 50px;
-    padding-left: 10px;
-    display: inline-block;
     position: relative;
-    bottom: 3px;
+    top: 2px;
+    height: 45px;
 }
 
 
@@ -160,7 +161,7 @@ h1.page-header {
 
 .sidebar {
 	position: fixed;
-	margin-top: 54px;
+	margin-top: 50px;
 }
 
 .sidebar .panel-default {
@@ -256,7 +257,7 @@ form .buttons {
 }
 
 .breadcrumb-padding {
-    padding-top: 120px !important;
+    padding-top: 110px !important;
 }
 
 /*
@@ -335,7 +336,7 @@ ol.sortable li {
 */
 
 #page-wrapper {
-	padding-top: 71px;
+	padding-top: 50px;
     padding-bottom: 120px;
     min-height: 100%;
     position: relative;

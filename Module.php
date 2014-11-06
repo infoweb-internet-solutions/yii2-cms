@@ -49,17 +49,24 @@ class Module extends \yii\base\Module
 
         // Get the bootstrap asset url
         $bootstrapAssetUrl = Yii::$app->assetManager->getAssetUrl(\yii\bootstrap\BootstrapAsset::register(Yii::$app->view), 'css/bootstrap.css');
-
-        // Get the font asset
-        $fontAsset = new \frontend\assets\FontAsset;
-
+        
         // Add default css
-        $css = [$bootstrapAssetUrl, Yii::getAlias('@frontendUrl') . '/css/main.css', Yii::getAlias('@frontendUrl') . '/css/editor.css'];
-
-        // Add google fonts
-        foreach ($fontAsset->css as $font) {
-            $css[] = $fontAsset->basePath . '/' . $font;
-        }
+        $css = [
+            $bootstrapAssetUrl,
+            Yii::getAlias('@frontendUrl') . '/css/main.css',
+            Yii::getAlias('@frontendUrl') . '/css/editor.css'
+        ];
+        
+        // Add font assets if they exist
+        if (class_exists('\frontend\assets\FontAsset')) {
+            // Get the font asset
+            $fontAsset = new \frontend\assets\FontAsset;
+    
+            // Add google fonts
+            foreach ($fontAsset->css as $font) {
+                $css[] = $fontAsset->basePath . '/' . $font;
+            }    
+        }        
 
         return $css;
     }
@@ -82,7 +89,7 @@ class Module extends \yii\base\Module
             'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
             'contentsCss' => $this->getCKEditorStylesheets(),
             'extraAllowedContent' => 'div(*)',
-            'extraPlugins' => 'codemirror',
+            //'extraPlugins' => 'codemirror',
         ];
 
         return $editorOptions;

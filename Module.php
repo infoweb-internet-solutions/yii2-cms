@@ -38,7 +38,8 @@ class Module extends \yii\base\Module
                 'label'     => Yii::t($item['i18nGroup'], $item['label']),
                 'url'       => Url::toRoute($item['url']),
                 'template'  => $template,
-                'visible'   => (isset($item['authItem']) && Yii::$app->user->can($item['authItem'])) ? true : false
+                'visible'   => (isset($item['authItem']) && Yii::$app->user->can($item['authItem'])) ? true : false,
+                'active'    => (stripos(Yii::$app->request->url, $item['url']) !== false) ? true : false
             ];
         }
 

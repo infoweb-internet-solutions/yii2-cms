@@ -23,7 +23,7 @@
         $(document)
             .on('click', '.navbar-minimalize', CMS.toggleSidebar)
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
-            .on('click', '#grid-pjax [data-toggleable=true]', CMS.pjaxGridItemToggle)
+            .on('click', '[id^=grid-pjax] [data-toggleable=true]', CMS.pjaxGridItemToggle)
             .on('keyup change', '[data-slugable=true]', CMS.slugifyAttribute)
             .on('keydown', '[data-slugified=true]', CMS.validateSlug)
             .on('pjax:complete', CMS.pjaxComplete);    
@@ -60,7 +60,9 @@
      */
     CMS.pjaxGridItemToggle = function(e) {
         e.preventDefault();
-        
+
+        var category = $(this).data('category');
+
         var action = $(this).attr('href'),
             id = $(this).data('toggle-id'),
             request = $.post(action, {id:id});
@@ -68,7 +70,7 @@
         request.done(function(response) {
             // Succes, reload PJAX grid
             if (response == 1) {
-                $.pjax.reload({container:'#grid-pjax'});
+                $.pjax.reload({container: '#grid-pjax' + ((category) ? '-' + category : '')});
             } else {
                 // @todo: catch error
                 return false;                

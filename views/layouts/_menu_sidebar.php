@@ -4,9 +4,13 @@ use yii\helpers\Url;
 use kartik\widgets\SideNav;
 
 // The html template for the sidebar items
-$sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>';
+$sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-label">{label}</span></a>';
 ?>
-<div class="sidebar-nav navbar-collapse">    
+<div class="sidebar-nav navbar-collapse">
+    
+    <a class="navbar-brand" href="<?php echo Yii::$app->homeUrl; ?>">
+        <?php echo Html::img($this->params['cmsAssets']->baseUrl.'/img/logo-infoweb.png', ['class' => 'brand-logo', 'alt' => 'brand-logo']); ?>
+    </a>
 
     <?php echo SideNav::widget([
         'type' => SideNav::TYPE_DEFAULT,
@@ -14,7 +18,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
         'indItem' => false,
         'activateParents' => true,
         'iconPrefix' => 'fa fa-fw fa-',
-        'linkTemplate' => '<a href="{url}">{icon}<span class="nav-label">{label}</span></a>',
+        'linkTemplate' => '<a href="{url}" title="{label}">{icon}<span class="nav-label">{label}</span></a>',
         'items' => [
             [
                 'label' => 'Home',
@@ -26,8 +30,9 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
             ],
             // Content
             [
-                'label' => Yii::t('app', 'Content'),
+                'label' => Yii::t('app', 'Website'),
                 'icon' => 'file-text',
+                'template' => '<a href="{url}" title="{label}" class="kv-toggle">{icon}<span class="nav-label">{label}</span></a>',
                 'items' => [
                     // Pages
                     [
@@ -47,20 +52,12 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                     ],
                     // Menu
                     [
-                        'label' => Yii::t('infoweb/menu', 'Menu'),
+                        'label' => Yii::t('infoweb/menu', 'Menu\'s'),
                         'url'   => Url::toRoute('/menu/menu'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showMenuModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/menu/') !== false) ? true : false
                     ],                    
-                    // SEO
-                    [
-                        'label' => Yii::t('infoweb/seo', 'Seo'),
-                        'url'   => Url::toRoute('/seo/seo'),
-                        'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
-                        'active' => (stripos(Yii::$app->request->url, '/seo/seo') !== false) ? true : false
-                    ],
                     // Alias
                     [
                         'label' => Yii::t('infoweb/alias', 'Aliases'),
@@ -77,15 +74,24 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
                         'visible' => (Yii::$app->user->can('showTranslationsModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/translations') !== false) ? true : false
                     ],
+                    // Modules
+                    [
+                        'label' => Yii::t('app', 'Modules'),
+                        'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
+                        'items' => Yii::$app->getModule('cms')->getSideBarItems('modules', $sideBarItemTemplate),
+                        'visible' => (Yii::$app->user->can('showModulesModule')) ? true : false,
+                    ],
                 ],
                 'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,
             ],
-            // Modules
+            // SEO
             [
-                'label' => Yii::t('app', 'Modules'),
-                'icon' => 'tasks',
-                'items' => Yii::$app->getModule('cms')->getSideBarItems('modules', $sideBarItemTemplate),
-                'visible' => (Yii::$app->user->can('showModulesModule')) ? true : false,
+                'label' => Yii::t('infoweb/seo', 'Seo'),
+                'icon' => 'tags',
+                'url'   => Url::toRoute('/seo/seo'),
+                'template' => $sideBarItemTemplate,
+                'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
+                'active' => (stripos(Yii::$app->request->url, '/seo/seo') !== false) ? true : false
             ],
             // Users
             [
@@ -100,6 +106,7 @@ $sideBarItemTemplate = '<a href="{url}">{icon}<span class="nav-label">{label}</s
             [
                 'label' => Yii::t('app', 'Rights'),
                 'icon' => 'lock',
+                'template' => '<a href="{url}" title="{label}" class="kv-toggle">{icon}<span class="nav-label">{label}</span></a>',
                 'items' => [
                     [
                         'label' => Yii::t('app', 'Assigments'),

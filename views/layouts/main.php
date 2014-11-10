@@ -11,11 +11,7 @@ Icon::map($this);
 
 // Register assets
 $cmsAssets = CMSAsset::register($this);
-
-/**
- * @var \yii\web\View $this
- * @var string $content
- */
+$this->params['cmsAssets'] = $cmsAssets;
 ?>
 <?php $this->beginPage() ?>
  <!DOCTYPE html>
@@ -27,14 +23,14 @@ $cmsAssets = CMSAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="<?php echo (Yii::$app->user->isGuest) ? 'is-guest' : ''; ?>">
+    <body class="dark-sidebar-layout <?php echo (Yii::$app->user->isGuest) ? 'is-guest' : ''; ?>">
         <?php $this->beginBody() ?>   
     
         <?php
         // Navbar
         NavBar::begin([
-            'brandLabel' => Html::img($cmsAssets->baseUrl.'/img/infoweb.png', ['class' => 'brand-logo', 'alt' => 'brand-logo']),
-            'brandUrl' => Yii::$app->homeUrl,
+            //'brandLabel' => Html::img($cmsAssets->baseUrl.'/img/logo-infoweb.png', ['class' => 'brand-logo', 'alt' => 'brand-logo']),
+            //'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
@@ -43,7 +39,8 @@ $cmsAssets = CMSAsset::register($this);
         ?>
         
         <?php // Sidebar toggler ?>
-        <ul class="nav navbar-left hidden-xs" style="display: none;">
+        <?php if (!Yii::$app->user->isGuest) : ?>
+        <ul class="nav navbar-left hidden-xs sidebar-toggle">
             <li>
                 <button class="navbar-toggle navbar-minimalize">
                     <span class="sr-only"><?= Yii::t('app', 'Toggle navigation'); ?></span>
@@ -53,6 +50,7 @@ $cmsAssets = CMSAsset::register($this);
                 </button>
             </li>
         </ul>
+        <?php endif; ?>
     
         <?php // Top right menu ?>
         <?= $this->render('_menu_top_right') ?>
@@ -60,7 +58,7 @@ $cmsAssets = CMSAsset::register($this);
         <?php // Sidebar ?>
         <div role="navigation" class="navbar-default sidebar">
     
-            <div class="avatar hidden-xs">
+            <div class="avatar hidden-xs" style="display: none;">
                 <img src="<?php echo $cmsAssets->baseUrl; ?>/img/profile-picture.png" alt="avatar">
                 <div>
                     <?= Yii::t('app', 'Welcome') ?>

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 
-<ul class="nav navbar-top-links navbar-right">
+<ul class="nav navbar-top-controls navbar-right">
     <?php /*
     <li class="dropdown">
         <a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -208,8 +208,37 @@ use yii\helpers\Url;
     */ ?>
     
     <?php if (!Yii::$app->user->isGuest) : ?>
+    
+    <li class="dropdown">        
+        <a href="#" id="dropdown-menu-user" class="dropdown-toggle user" data-toggle="dropdown">
+            <img src="<?php echo $this->params['cmsAssets']->baseUrl; ?>/img/profile-picture.png" alt="avatar" class="avatar img-circle">
+            <?php if (!empty(Yii::$app->user->identity->profile->name)) : ?>
+            <?php echo Yii::$app->user->identity->profile->name; ?>
+            <?php else : ?>
+            <?php echo Yii::$app->user->identity->username; ?>    
+            <?php endif; ?>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-menu-user">
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="<?= Url::toRoute('/user/settings/profile'); ?>" title="<?php echo Yii::t('user', 'Profile'); ?>">
+                    <span class="fa fa-fw fa-user"></span> <?php echo Yii::t('user', 'Profile'); ?>
+                </a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="<?= Url::toRoute('/user/settings/account'); ?>" title="<?php echo Yii::t('app', 'Account'); ?>">
+                    <span class="fa fa-fw fa-cogs"></span> <?php echo Yii::t('user', 'Account'); ?>
+                </a>
+            </li>
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="<?= Url::toRoute('/user/security/logout', true); ?>" title="<?php echo Yii::t('user', 'Logout'); ?>" data-method="post">
+                    <span class="fa fa-fw fa-power-off"></span> <?php echo Yii::t('user', 'Logout'); ?>
+                </a>
+            </li>    
+        </ul>
+    </li>
         
-    <li>
+    <?php /*<li>
         <a href="<?= Url::toRoute('/user/settings/profile'); ?>" title="<?php echo Yii::t('app', 'My profile'); ?>">
             <div>
                 <i class="fa fa-user fa-fw"></i>
@@ -218,7 +247,7 @@ use yii\helpers\Url;
     </li>
     <li>
         <?= Html::a('<div><i class="fa fa-power-off"></i></div>', ['/user/security/logout', true], ['data-method' => 'post']); ?>
-    </li>
+    </li>*/ ?>
     
     <?php endif; ?>
 </ul>

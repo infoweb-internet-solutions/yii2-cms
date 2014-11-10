@@ -10,7 +10,9 @@
 
     'use strict';
     
-    var CMS = {};
+    var CMS = {
+        'widgets': []
+    };
     
     /**
      * Initializes the module:
@@ -19,6 +21,10 @@
      * @return  void 
      */
     CMS.init = function() {
+        
+        // Create the sidebar widget
+        CMS.widgets.sidebar = new sidebar();
+        
         // Set global eventhandlers
         $(document)
             .on('click', '.navbar-minimalize', CMS.toggleSidebar)
@@ -139,6 +145,18 @@
         
         // Re-initializes tooltips
         $('[data-toggle]').tooltip();    
+    };
+    
+    // Sidebar widget
+    var sidebar = function() {
+        this.state = 'open';
+        
+        // Check it's state
+        this.checkState();        
+    };
+    
+    sidebar.prototype.checkState = function() {
+   
     };
 
     return CMS;    

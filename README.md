@@ -135,6 +135,8 @@ your backend configuration as follows:
 ```php
 return [
     ...
+    'bootstrap' => ['log','cms'],
+    ...
     'modules' => [
         'cms' => [
             'class' => 'infoweb\cms\Module',

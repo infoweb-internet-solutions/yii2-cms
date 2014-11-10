@@ -17,6 +17,11 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
+        
+        // Disable kartik\grid\GridView export functionality for all instances
+        Yii::$container->set('kartik\grid\GridView', [
+            'export' => false,
+        ]);
     }
 
     /**

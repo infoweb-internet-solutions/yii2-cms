@@ -23,7 +23,7 @@ $this->params['cmsAssets'] = $cmsAssets;
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="dark-sidebar-layout <?php echo (Yii::$app->user->isGuest) ? 'is-guest' : ''; ?>">
+    <body class="dark-sidebar-layout<?php echo (isset($_COOKIE['infoweb-admin-sidebar-state']) && $_COOKIE['infoweb-admin-sidebar-state'] == 'closed') ? ' mini-navbar' : ''; ?><?php echo (Yii::$app->user->isGuest) ? ' is-guest' : ''; ?>">
         <?php $this->beginBody() ?>   
     
         <?php
@@ -40,7 +40,7 @@ $this->params['cmsAssets'] = $cmsAssets;
         
         <?php // Sidebar toggler ?>
         <?php if (!Yii::$app->user->isGuest) : ?>
-        <ul class="nav navbar-left hidden-xs sidebar-toggle">
+        <ul class="nav navbar-left hidden-xs sidebar-toggle" style="display: none;">
             <li>
                 <button class="navbar-toggle navbar-minimalize">
                     <span class="sr-only"><?= Yii::t('app', 'Toggle navigation'); ?></span>

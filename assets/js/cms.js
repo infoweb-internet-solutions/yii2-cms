@@ -25,24 +25,49 @@
         // Create the sidebar widget
         CMS.widgets.sidebar = new sidebar();
         
+        // Remove eventhandlers that are bound by the kartik sidenav plugin
+        $('.kv-toggle').unbind('click');
+        
         // Set global eventhandlers
         $(document)
-            .on('click', '.navbar-minimalize', CMS.toggleSidebar)
+            .on('click', '.navbar-minimalize', CMS.toggleSidebar) 
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
             .on('click', '[id^=grid-pjax] [data-toggleable=true]', CMS.pjaxGridItemToggle)
             .on('keyup change', '[data-slugable=true]', CMS.slugifyAttribute)
             .on('keydown', '[data-slugified=true]', CMS.validateSlug)
-            .on('pjax:complete', CMS.pjaxComplete);    
+            .on('pjax:complete', CMS.pjaxComplete)
+            .on('mouseover mouseout', '.mini-navbar .sidebar-nav li', function(e) {
+                $(this).has('.nav-pills').find('.kv-toggle:first').trigger('click', [e.type]);  
+            })
+            .on('click', '.kv-toggle', function(e, originalEventType) {
+                e.preventDefault();
+                
+                // Triggered by mouseover
+                /*if (originalEventType === 'mouseover') {
+                    $(this).parent().addClass('active');
+                    $(this).parent().children('ul').show();
+                    
+                // Triggered by mouseout        
+                } else if(originalEventType === 'mouseout') {
+                    $(this).parent().removeClass('active');
+                    $(this).parent().children('ul').hide();
+                    
+                // Default        
+                } else {*/
+                    $(this).parent().toggleClass('active');
+                    
+                    if ($(this).parent().hasClass('active')) {
+                        $(this).parent().children('ul').show();    
+                    } else {
+                        $(this).parent().children('ul').hide();
+                    }
+                        
+                //}                   
+            });    
     };
     
-    /**
-     * Toggles the sidebar by adding/removing a specific class on the body
-     * 
-     * @param   object  Event
-     * @return  void
-     */
     CMS.toggleSidebar = function(e) {
-        $('body').toggleClass('mini-navbar');    
+        CMS.widgets.sidebar.toggle();  
     };
     
     /**
@@ -97,13 +122,7 @@
             
         targetElement.val(targetPlaceholder + slug);
     };
-    
-    /**
-     * Validates the content of a slug 
-     * 
-     * @param   object  Event
-     * @return  boolean
-     */
+
     CMS.validateSlug = function(e) {
         var el = $(this),
             placeholder = el.prop('placeholder'),
@@ -149,16 +168,40 @@
         $('[data-toggle]').tooltip();    
     };
     
+    
     // Sidebar widget
     var sidebar = function() {
         this.state = 'open';
-        
-        // Check it's state
-        this.checkState();        
     };
     
-    sidebar.prototype.checkState = function() {
-   
+    /**
+     * Saves the state of the sidebar in a cookie
+     *   
+     * @param   string      The state of the sidebar (open|closed)
+     * @return  void
+     */
+    sidebar.prototype.setStateCookie = function(state) {
+        var state = state || 'open';
+        Cookies.set('infoweb-admin-sidebar-state', state, { expires: Infinity });    
+    };
+    
+    /**
+     * Toggles the sidebar by adding a custom class to the body element.
+     * The state is saved in a cookie
+     * 
+     * @return  void 
+     */
+    sidebar.prototype.toggle = function() {
+        $('body').toggleClass('mini-navbar');
+        
+        var state = ($('body').hasClass('mini-navbar')) ? 'closed' : 'open';
+        
+        if (state == 'closed') {
+            //$('.nav-pills').hide();
+        }
+        
+        this.setStateCookie(state);
+        this.state = state;  
     };
 
     return CMS;    

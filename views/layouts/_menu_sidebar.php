@@ -93,6 +93,42 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                 'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
                 'active' => (stripos(Yii::$app->request->url, '/seo/seo') !== false) ? true : false
             ],
+            // SEA
+            [
+                'label' => Yii::t('infoweb/sea', 'SEA'),
+                'icon' => 'filter',
+                'url'   => Url::toRoute('/sea/sea'),
+                'template' => $sideBarItemTemplate,
+                'visible' => (Yii::$app->user->can('showSeaModule')) ? true : false,
+                'active' => (stripos(Yii::$app->request->url, '/sea/sea') !== false) ? true : false
+            ],
+            // Social media
+            [
+                'label' => Yii::t('infoweb/social-media', 'Social Media'),
+                'icon' => 'share-alt',
+                'url'   => Url::toRoute('/social-media/social-media'),
+                'template' => $sideBarItemTemplate,
+                'visible' => (Yii::$app->user->can('showSocialMediaModule')) ? true : false,
+                'active' => (stripos(Yii::$app->request->url, '/social-media/social-media') !== false) ? true : false
+            ],
+            // Emailmarketing
+            [
+                'label' => Yii::t('infoweb/emailmarketing', 'Email Marketing'),
+                'icon' => 'envelope',
+                'url'   => Url::toRoute('/emailmarketing/emailmarketing'),
+                'template' => $sideBarItemTemplate,
+                'visible' => (Yii::$app->user->can('showEmailmarketingModule')) ? true : false,
+                'active' => (stripos(Yii::$app->request->url, '/emailmarketing/emailmarketing') !== false) ? true : false
+            ],
+            // Analytics
+            [
+                'label' => Yii::t('infoweb/analytics', 'Analytics'),
+                'icon' => 'bar-chart',
+                'url'   => Url::toRoute('/analytics/analytics'),
+                'template' => $sideBarItemTemplate,
+                'visible' => (Yii::$app->user->can('showAnalyticsModule')) ? true : false,
+                'active' => (stripos(Yii::$app->request->url, '/analytics/analytics') !== false) ? true : false
+            ],
             // Users
             [
                 'label' => Yii::t('app', 'Users'),

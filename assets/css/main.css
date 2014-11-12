@@ -410,6 +410,10 @@ a[data-toggle="tooltip"] {
     top: 0;
 }
 
+.mini-navbar .sidebar li > a.toggle-level-2 + ul {
+    left: 238px;
+}
+
 .mini-navbar .sidebar li.active > ul {
     border: 1px solid gray;
     display: none;
@@ -455,6 +459,10 @@ a[data-toggle="tooltip"] {
 
 .mini-navbar #page-wrapper {
     margin: 0 0 0 70px;
+}
+
+.is-guest #page-wrapper {
+    margin: 0;
 }
 
 .mini-navbar .sidebar .branding {
@@ -545,7 +553,8 @@ a[data-toggle="tooltip"] {
 .dark-sidebar-layout {
     background-color: #303641;
     font-family: "Lato",Calibri,Arial,sans-serif;
-    font-size: 13px;    
+    font-size: 13px;
+    overflow-y: scroll;    
 }
 
 .dark-sidebar-layout .navbar-fixed-top {
@@ -609,6 +618,10 @@ a[data-toggle="tooltip"] {
     color: #FFF;
 }
 
+.dark-sidebar-layout .sidebar ul li a:visited {
+    background-color: #303641;  
+}
+
 .dark-sidebar-layout .sidebar .kv-sidenav .active > ul li a {
     padding-left: 41px;
 }
@@ -618,7 +631,7 @@ a[data-toggle="tooltip"] {
 }
 
 .dark-sidebar-layout .sidebar .panel-default {
-    margin-top: 91px;
+    margin-top: 92px;
 }
 
 .dark-sidebar-layout .sidebar-toggle {
@@ -642,6 +655,33 @@ a[data-toggle="tooltip"] {
 .dark-sidebar-layout.mini-navbar .navbar-toggle:focus,
 .dark-sidebar-layout.mini-navbar .navbar-toggle:hover {
     background-color: #000;
+}
+
+.dark-sidebar-layout .sidebar li.active > a .opened,
+.dark-sidebar-layout .sidebar li > a .closed {
+    display: block !important;
+}
+
+.dark-sidebar-layout .sidebar li.active > a .closed,
+.dark-sidebar-layout .sidebar li > a .opened {
+    display: none !important;
+}
+
+.dark-sidebar-layout.mini-navbar .sidebar .kv-toggle .opened,
+.dark-sidebar-layout.mini-navbar .sidebar .kv-toggle .closed {
+    display: none !important;
+}
+
+.dark-sidebar-layout.mini-navbar .sidebar .nav-pills {
+    background-color: #303641 !important;
+}
+
+.dark-sidebar-layout.mini-navbar .sidebar .nav-pills a {
+    color: #FFF !important;
+}
+
+.dark-sidebar-layout.mini-navbar .sidebar li.active > .nav-pills .nav-label {
+    display: inline;
 }
 
 .dark-sidebar-layout .table .glyphicon {
@@ -673,12 +713,12 @@ a[data-toggle="tooltip"] {
 }
 
 .dark-sidebar-layout .avatar {
-    height: 40px;
+    height: 30px;
     margin-bottom: -11px;
     margin-right: 10px;
     margin-top: -13px;
     position: relative;
-    width: 40px;
+    width: 30px;
 }
 
 .dark-sidebar-layout h1,
@@ -713,4 +753,8 @@ a[data-toggle="tooltip"] {
 
 .dark-sidebar-layout .btn-default .fa {
     font-size: 18px;
+}
+
+.dark-sidebar-layout .table .glyphicon {
+    padding: 0 4px;
 }

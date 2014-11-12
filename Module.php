@@ -96,6 +96,8 @@ class Module extends \yii\base\Module
             'contentsCss' => $this->getCKEditorStylesheets(),
             'extraAllowedContent' => 'div(*)',
             //'extraPlugins' => 'codemirror',
+            'enterMode' => 2,
+            //'shiftEnterMode' => 1,
         ];
 
         return $editorOptions;

@@ -612,13 +612,25 @@ a[data-toggle="tooltip"] {
 
 .dark-sidebar-layout .sidebar .nav-pills > li.active > a,
 .dark-sidebar-layout .sidebar .nav-pills > li.active > a:hover,
-.dark-sidebar-layout .sidebar .nav-pills > li.active > a:focus,
-.dark-sidebar-layout .sidebar .nav-pills > li > a:hover {
+.dark-sidebar-layout .sidebar .nav-pills > li.active > a:focus {
+    background-color: #303641;
+    color: #CC323E;
+}
+
+.dark-sidebar-layout .sidebar .nav-pills > li.active > a .glyphicon,
+.dark-sidebar-layout .sidebar .nav-pills > li.active > a:hover .glyphicon,
+.dark-sidebar-layout .sidebar .nav-pills > li.active > a:focus .glyphicon {
+    color: #CC323E;
+}
+
+.dark-sidebar-layout .sidebar .nav-pills > li > a:hover,
+.dark-sidebar-layout .sidebar .nav-pills li.active > a:last-of-type:last-child {
     background-color: #CC323E;
     color: #FFF;
 }
 
-.dark-sidebar-layout .sidebar ul li a:visited {
+.dark-sidebar-layout .sidebar ul li a:visited,
+.dark-sidebar-layout .sidebar ul li a:focus {
     background-color: #303641;  
 }
 

@@ -97,6 +97,7 @@ class Module extends \yii\base\Module
             'extraAllowedContent' => 'div(*)',
             //'extraPlugins' => 'codemirror',
             'enterMode' => 2,
+            //'shiftEnterMode' => 1,
         ];
 
         return $editorOptions;

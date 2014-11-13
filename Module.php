@@ -63,7 +63,7 @@ class Module extends \yii\base\Module
         // No cached version found
         if (!$this->_ckEditorStylesheets) {
             // Get the bootstrap asset url
-            $bootstrapAsset = new BootstrapAsset();
+            $bootstrapAsset = BootstrapAsset::register(Yii::$app->view);
 
             // Add default css
             $css = [

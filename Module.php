@@ -5,6 +5,7 @@ namespace infoweb\cms;
 use Yii;
 use \yii\helpers\Url;
 use yii\bootstrap\BootstrapAsset;
+use frontend\assets\FontAsset;
 
 class Module extends \yii\base\Module
 {
@@ -62,8 +63,8 @@ class Module extends \yii\base\Module
         // No cached version found
         if (!$this->_ckEditorStylesheets) {
             // Get the bootstrap asset url
-            $bootstrapAsset = BootstrapAsset::register(Yii::$app->view);
-            
+            $bootstrapAsset = new BootstrapAsset();
+
             // Add default css
             $css = [
                 $bootstrapAsset->baseUrl . '/css/bootstrap.min.css',
@@ -74,7 +75,7 @@ class Module extends \yii\base\Module
             // Add font assets if they exist
             if (class_exists('\frontend\assets\FontAsset')) {
                 // Get the font asset
-                $fontAsset = new \frontend\assets\FontAsset;
+                $fontAsset = new FontAsset;
 
                 // Add google fonts
                 foreach ($fontAsset->css as $font) {
@@ -106,7 +107,7 @@ class Module extends \yii\base\Module
             'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
             'contentsCss' => $this->getCKEditorStylesheets(),
             'extraAllowedContent' => 'div(*)',
-            //'extraPlugins' => 'codemirror',
+            'extraPlugins' => 'codemirror',
             'enterMode' => 2,
             //'shiftEnterMode' => 1,
         ];

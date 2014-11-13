@@ -4,6 +4,7 @@ namespace infoweb\cms;
 
 use Yii;
 use \yii\helpers\Url;
+use yii\bootstrap\BootstrapAsset;
 
 class Module extends \yii\base\Module
 {
@@ -54,11 +55,11 @@ class Module extends \yii\base\Module
     public function getCKEditorStylesheets() {
 
         // Get the bootstrap asset url
-        $bootstrapAssetUrl = Yii::$app->assetManager->getAssetUrl(\yii\bootstrap\BootstrapAsset::register(Yii::$app->view), 'css/bootstrap.css');
-        
+        $bootstrapAsset = CMSAsset::register(Yii::$app->view);
+
         // Add default css
         $css = [
-            $bootstrapAssetUrl,
+            $bootstrapAsset->baseUrl . '/css/bootstrap.min.css',
             Yii::getAlias('@frontendUrl') . '/css/main.css',
             Yii::getAlias('@frontendUrl') . '/css/editor.css'
         ];

@@ -56,13 +56,13 @@ class Module extends \yii\base\Module
 
         return $items;
     }
-    
+
     public function getCKEditorStylesheets()
     {
         // No cached version found
         if (!$this->_ckEditorStylesheets) {
             // Get the bootstrap asset url
-            $bootstrapAsset = CMSAsset::register(Yii::$app->view);
+            $bootstrapAsset = BootstrapAsset::register(Yii::$app->view);
             
             // Add default css
             $css = [

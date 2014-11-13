@@ -202,7 +202,11 @@ vendor modules
     {
         "type": "vcs",
         "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module"
-    }
+    },
+    {
+        "type": "vcs",
+        "url": "https://github.com/infoweb-internet-solutions/yii2-ckeditor"
+    },
 ]
 ...
 ```

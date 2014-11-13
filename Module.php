@@ -13,6 +13,11 @@ class Module extends \yii\base\Module
      * @var array   The items that are shown in the sidebar navigation
      */
     public $sideBarItems = [];
+    
+    /**
+     * @var array   The cached stylesheets for the ckeditor
+     */
+    private $_ckEditorStylesheets = [];
 
     public function init()
     {
@@ -51,34 +56,39 @@ class Module extends \yii\base\Module
         return $items;
     }
 
-    public function getCKEditorStylesheets() {
-
-        // Get the bootstrap asset url
-        $bootstrapAssetUrl = Yii::$app->assetManager->getAssetUrl(\yii\bootstrap\BootstrapAsset::register(Yii::$app->view), 'css/bootstrap.css');
+    public function getCKEditorStylesheets()
+    {
+        // No cached version found
+        if (!$this->_ckEditorStylesheets) {
+            // Get the bootstrap asset url
+            $bootstrapAssetUrl = Yii::$app->assetManager->getAssetUrl(\yii\bootstrap\BootstrapAsset::register(Yii::$app->view), 'css/bootstrap.css');
+            
+            // Add default css
+            $css = [
+                $bootstrapAssetUrl,
+                Yii::getAlias('@frontendUrl') . '/css/main.css',
+                Yii::getAlias('@frontendUrl') . '/css/editor.css'
+            ];
+            
+            // Add font assets if they exist
+            if (class_exists('\frontend\assets\FontAsset')) {
+                // Get the font asset
+                $fontAsset = new \frontend\assets\FontAsset;
         
-        // Add default css
-        $css = [
-            $bootstrapAssetUrl,
-            Yii::getAlias('@frontendUrl') . '/css/main.css',
-            Yii::getAlias('@frontendUrl') . '/css/editor.css'
-        ];
-        
-        // Add font assets if they exist
-        if (class_exists('\frontend\assets\FontAsset')) {
-            // Get the font asset
-            $fontAsset = new \frontend\assets\FontAsset;
+                // Add google fonts
+                foreach ($fontAsset->css as $font) {
+                    $css[] = $fontAsset->basePath . '/' . $font;
+                }    
+            }        
     
-            // Add google fonts
-            foreach ($fontAsset->css as $font) {
-                $css[] = $fontAsset->basePath . '/' . $font;
-            }    
-        }        
-
-        return $css;
+            $this->_ckEditorStylesheets = $css;
+        }
+            
+        return $this->_ckEditorStylesheets;
     }
 
-    public function getCKEditorOptions() {
-
+    public function getCKEditorOptions()
+    {
         $editorOptions = [
             'height' => 300,
             'preset' => 'custom',

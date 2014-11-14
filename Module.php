@@ -107,7 +107,8 @@ class Module extends \yii\base\Module
             'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
             'contentsCss' => $this->getCKEditorStylesheets(),
             'extraAllowedContent' => 'div(*)',
-            'extraPlugins' => 'codemirror',
+            'extraPlugins' => 'codemirror,moxiemanager',
+            'tinymce' => false,
             'enterMode' => 2,
             //'shiftEnterMode' => 1,
         ];

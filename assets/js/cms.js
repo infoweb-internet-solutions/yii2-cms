@@ -168,6 +168,19 @@
         $('[data-toggle]').tooltip();    
     };
     
+    /**
+     * Resizes an iframe so that it takes the dimensions of its content
+     * 
+     * @param   object      The iframe
+     * @param   int         An amount of pixels that will be added to the height as an adjustment
+     * @return  void
+     */ 
+    CMS.autoSizeIframe = function(obj, adjustment) {
+        var adjustment = adjustment || 0;
+        
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + parseInt(adjustment) + 'px';
+    };
+    
     
     // Sidebar widget
     var sidebar = function() {

@@ -47,9 +47,7 @@ $(function() {
 
         moxman.browse({
             view: "thumbs",
-            general: {license: 'QW2Y-FFGE-HVWX-HJ7G-FKNF-PAEC-CZUA-NKFX'},
             oninsert: function (data) {
-                console.log(data);
                 $('#cke_208_textInput').val(data.focusedFile.url);
                 $('#cke_215_textInput').val(data.focusedFile.nameWithoutExtension);
 

@@ -57,6 +57,14 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showMenuModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/menu/') !== false) ? true : false
+                    ],
+                    // Emails
+                    [
+                        'label' => Yii::t('infoweb/email', 'Emails'),
+                        'url'   => Url::toRoute('/email/email'),
+                        'template' => $sideBarItemTemplate,
+                        'visible' => (Yii::$app->user->can('showEmailModule')) ? true : false,
+                        'active' => (stripos(Yii::$app->request->url, '/email/email') !== false) ? true : false
                     ],                    
                     // Alias
                     [
@@ -65,7 +73,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showAliasModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/alias/alias') !== false) ? true : false
-                    ],
+                    ],                   
                     // Translations
                     [
                         'label' => Yii::t('app', 'Translations'),
@@ -73,7 +81,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showTranslationsModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/translations') !== false) ? true : false
-                    ],
+                    ],                    
                     // Modules
                     [
                         'label' => Yii::t('app', 'Modules'),

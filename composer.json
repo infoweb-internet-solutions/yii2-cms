@@ -31,6 +31,7 @@
 	   "infoweb-internet-solutions/yii2-cms-menu": "*",
 	   "infoweb-internet-solutions/yii2-cms-alias": "*",
 	   "infoweb-internet-solutions/yii2-cms-analytics": "*",
+	   "infoweb-internet-solutions/yii2-cms-email": "*",
 	   "infoweb-internet-solutions/yii2-sortable-behavior": "*",
 	   "mdmsoft/yii2-admin": "*",
 	   "kartik-v/yii2-helpers": "*",

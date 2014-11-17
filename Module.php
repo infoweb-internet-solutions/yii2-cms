@@ -119,6 +119,10 @@ class Module extends \yii\base\Module
             'tinymce' => false,
             'enterMode' => 2,
             //'shiftEnterMode' => 1,
+            'moxieManager' => [
+                'general.license' => \Yii::getAlias('@moxieManagerKey'),
+                'general' => ['license' => \Yii::getAlias('@moxieManagerKey')],
+            ],
         ];
 
         return $editorOptions;

@@ -26,6 +26,7 @@ class CMSAsset extends AssetBundle
         'infoweb\cms\assets\BootBoxAsset',
         'infoweb\cms\assets\FastClickAsset',
         'infoweb\cms\assets\CookiesAsset',
-        'kartik\sidenav\SideNavAsset'
+        'kartik\sidenav\SideNavAsset',
+        'infoweb\cms\assets\MoxieManagerAsset',
     ];
 }

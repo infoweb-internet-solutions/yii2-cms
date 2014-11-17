@@ -222,7 +222,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
      * @param Image $img
      * @throws \Exception
      */
-    public function removeImage($img)
+    public function removeImage(\rico\yii2images\models\Image $img)
     {
         if (!$img->isNewRecord) {
             $imgInfoweb = Image::findOne(['id' => $img->id]);

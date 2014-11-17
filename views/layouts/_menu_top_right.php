@@ -211,7 +211,7 @@ use yii\helpers\Url;
 
     <li class="dropdown">        
         <a href="#" id="dropdown-menu-user" class="dropdown-toggle user" data-toggle="dropdown">
-            <?php /* <img src="<?php echo (Yii::$app->user->identity->image) ? Yii::$app->user->identity->image->getUrl('60px') : $this->params['cmsAssets']->baseUrl . '/img/profile-picture.png'; ?>" alt="avatar" class="avatar img-circle"> */ ?>
+            <img src="<?php echo (Yii::$app->user->identity->image) ? Yii::$app->user->identity->image->getUrl('60px') : $this->params['cmsAssets']->baseUrl . '/img/profile-picture.png'; ?>" alt="avatar" class="avatar img-circle">
             <?php if (!empty(Yii::$app->user->identity->profile->name)) : ?>
             <?php echo Yii::$app->user->identity->profile->name; ?>
             <?php else : ?>

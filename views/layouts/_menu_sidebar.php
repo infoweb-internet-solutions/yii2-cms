@@ -193,7 +193,17 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                 'template' => $sideBarItemTemplate,
                 'visible' => (Yii::$app->user->can('showSettingsModule')) ? true : false,
                 'active' => (stripos(Yii::$app->request->url, '/settings/setting') !== false) ? true : false
-            ],            
+            ],
+            // Meida
+            [
+                'label' => Yii::t('infoweb/app', 'Media'),
+                'icon' => 'tags',
+                'url'   => Url::toRoute('/seo/seo'),
+                'template' => $sideBarItemTemplate,
+                //'visible' => (Yii::$app->user->can('showSeoModule')) ? true : false,
+                'active' => (stripos(Yii::$app->request->url, '/seo/seo') !== false) ? true : false,
+                'options' => ['id' => 'media'],
+            ],
         ]
     ]);
     ?>

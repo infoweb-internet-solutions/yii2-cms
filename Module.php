@@ -7,6 +7,8 @@ use \yii\helpers\Url;
 use yii\bootstrap\BootstrapAsset;
 use frontend\assets\FontAsset;
 
+use yii\web\Session;
+
 class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'infoweb\cms\controllers';
@@ -24,6 +26,12 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
+
+        $session = new Session;
+        $session->open();
+        $session['isLoggedIn'] = true;
+        $session['user'] = 'infoweb';
+
         
         // Disable kartik\grid\GridView export functionality for all instances
         Yii::$container->set('kartik\grid\GridView', [

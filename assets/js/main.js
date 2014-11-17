@@ -41,6 +41,26 @@ $(function() {
     });
     */
 
+
+    $(document).on('click', '#cke_211_label', function(e) {
+        e.preventDefault();
+
+        moxman.browse({
+            view: "thumbs",
+            oninsert: function (data) {
+                console.log(data);
+                $('#cke_208_textInput').val(data.focusedFile.url);
+                $('#cke_215_textInput').val(data.focusedFile.nameWithoutExtension);
+
+                $('#cke_218_textInput').val(data.focusedFile.meta.width);
+                $('#cke_221_textInput').val(data.focusedFile.meta.height);
+
+                $('#cke_202_previewLink').html('<img src="' + data.focusedFile.url + '" width="' + data.focusedFile.meta.width + '" height="' + data.focusedFile.meta.height + '" />');
+            }
+        });
+    });
+
+
     $(document).on('click', '#media', function(e) {
 
         e.preventDefault();

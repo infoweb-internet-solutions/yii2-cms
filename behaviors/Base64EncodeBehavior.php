@@ -2,7 +2,6 @@
 namespace infoweb\cms\behaviors;
 
 use yii\base\Behavior;
-use yii\helpers\Json;
 use yii\db\ActiveRecord;
 
 class Base64EncodeBehavior extends Behavior
@@ -23,14 +22,14 @@ class Base64EncodeBehavior extends Behavior
     public function encode($event)
     {
         foreach ($this->attributes as $attribute) {
-            $this->owner->$attribute = base64_encode(Json::encode($this->owner->$attribute));
+            $this->owner->$attribute = base64_encode($this->owner->$attribute);
         }
     }
 
     public function decode($event)
     {
         foreach ($this->attributes as $attribute) {
-            $this->owner->$attribute = Json::decode(base64_decode($this->owner->$attribute));
+            $this->owner->$attribute = base64_decode($this->owner->$attribute);
         }
     }
 

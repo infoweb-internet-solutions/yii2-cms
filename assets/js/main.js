@@ -42,7 +42,7 @@ $(function() {
     */
 
 
-    $(document).on('click', '#cke_211_label', function(e) {
+    /*$(document).on('click', '#cke_211_label', function(e) {
         e.preventDefault();
 
         moxman.browse({
@@ -57,7 +57,7 @@ $(function() {
                 $('#cke_202_previewLink').html('<img src="' + data.focusedFile.url + '" width="' + data.focusedFile.meta.width + '" height="' + data.focusedFile.meta.height + '" />');
             }
         });
-    });
+    });*/
 
 
     $(document).on('click', '#media', function(e) {

@@ -771,6 +771,21 @@ a[data-toggle="tooltip"] {
     padding: 0 4px;
 }
 
+.dark-sidebar-layout .navbar-top-controls > li {
+    float: left;
+    margin-left: 10px;
+}
+
+.dark-sidebar-layout .navbar-top-controls > li > a {
+    padding-top: 15px;
+}
+
+.dark-sidebar-layout .navbar-top-controls .unread-emails {
+    position: absolute;
+    top: 5px;
+    left: 35px;
+}
+
 
 /**
  *     File upload widget

@@ -65,9 +65,7 @@ $(function() {
             }
         });
     });
-    */
 
-    /*
     $(document).on('click', '#cke_214_uiElement, #cke_213_label', function(e) {
 
         e.preventDefault();
@@ -82,7 +80,6 @@ $(function() {
         });
     });
     */
-
 
 
     $(document).on('click', '#media', function(e) {

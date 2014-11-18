@@ -116,8 +116,10 @@ class Module extends \yii\base\Module
             'contentsCss' => $this->getCKEditorStylesheets(),
             'extraAllowedContent' => 'div(*)',
             'extraPlugins' => 'codemirror,moxiemanager',
-            'tinymce' => false,
+            //'tinymce' => false,
             'enterMode' => 2,
+
+
         ];
 
         return $editorOptions;

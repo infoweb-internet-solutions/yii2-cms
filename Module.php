@@ -27,12 +27,6 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        $session = new Session;
-        $session->open();
-        $session['isLoggedIn'] = true;
-        $session['user'] = 'infoweb';
-
-        
         // Disable kartik\grid\GridView export functionality for all instances
         Yii::$container->set('kartik\grid\GridView', [
             'export' => false,
@@ -70,6 +64,10 @@ class Module extends \yii\base\Module
     {
         // No cached version found
         if (!$this->_ckEditorStylesheets) {
+            
+            // Initialize moxiemanager session vars
+            $this->initMoxiemanagerSession();
+            
             // Get the bootstrap asset url
             $bootstrapAsset = BootstrapAsset::register(Yii::$app->view);
 
@@ -118,10 +116,20 @@ class Module extends \yii\base\Module
             'extraPlugins' => 'codemirror,moxiemanager',
             //'tinymce' => false,
             'enterMode' => 2,
-
-
         ];
 
         return $editorOptions;
+    }
+
+    public function initMoxiemanagerSession()
+    {
+        $session = new Session;
+        $session->open();
+        $session['moxieman-is-logged-in'] = true;
+        $session['moxieman-user'] = 'infoweb';
+        $session['moxieman-license-key'] = Yii::$app->params['moxiemanager']['license-key'];
+        $session['moxieman-filesystem-rootpath'] = Yii::getAlias('@uploadsBaseUrl');
+        $session['moxieman-filesystem-wwwroot'] = Yii::getAlias('@basePath');
+        $session['moxieman-filesystem-urlprefix'] = Yii::getAlias('@baseUrl');    
     }
 }

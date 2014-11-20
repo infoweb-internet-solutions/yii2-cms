@@ -60,7 +60,8 @@ return [
     'language' => 'nl',
     'timeZone' => 'Europe/Brussels',
     'aliases' => [
-        '@domain'   => 'http://' . $_SERVER['HTTP_HOST'] . ((YII_ENV_DEV) ? '/name-of-the-folder-in-your-localhost' : '')
+        '@baseUrl'   => 'http://' . $_SERVER['HTTP_HOST'] . ((YII_ENV_DEV) ? '/name-of-the-folder-in-your-localhost' : ''),
+        '@basePath'  => dirname(dirname(__DIR__))
     ],
     ...
     'components' => [

@@ -78,8 +78,8 @@ $(function() {
                 // Do stuff
             }
         });
-    });
-    */
+    });*/
+    
 
 
     $(document).on('click', '#media', function(e) {

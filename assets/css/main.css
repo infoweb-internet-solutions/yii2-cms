@@ -777,7 +777,7 @@ a[data-toggle="tooltip"] {
 }
 
 .dark-sidebar-layout .navbar-top-controls > li > a {
-    padding-top: 15px;
+    padding: 15px;
 }
 
 .dark-sidebar-layout .navbar-top-controls .unread-emails {

@@ -195,7 +195,7 @@ Add a couple of system aliases to your common/bootstrap.php file
 ```
 ...
 // System aliases
-Yii::setAlias('baseUrl', 'http://' . $_SERVER['HTTP_HOST'] . ((YII_ENV_DEV) ? '/infoweb-cms' : ''));
+Yii::setAlias('baseUrl', 'http://' . $_SERVER['HTTP_HOST'] . ((YII_ENV_DEV) ? '/directory-in-your-localhost' : ''));
 Yii::setAlias('basePath', dirname(dirname(__DIR__)));
 Yii::setAlias('uploadsBaseUrl', Yii::getAlias('@baseUrl') . '/frontend/web/uploads');
 Yii::setAlias('uploadsBasePath', Yii::getAlias('@basePath') . '/frontend/web/uploads');

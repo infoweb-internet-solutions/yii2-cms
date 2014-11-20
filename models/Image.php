@@ -69,7 +69,7 @@ class Image extends BaseImage
             }
         }
 
-        $httpPath = \Yii::getAlias('@uploads').'/img/cache/'.$sub.'/'.$this->urlAlias.$urlSize.'.'.pathinfo($origin, PATHINFO_EXTENSION);
+        $httpPath = \Yii::getAlias('@uploadsBaseUrl').'/img/cache/'.$sub.'/'.$this->urlAlias.$urlSize.'.'.pathinfo($origin, PATHINFO_EXTENSION);
 
         return $httpPath;
     }

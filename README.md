@@ -39,6 +39,7 @@ Add new folders in frontend/web/
 
 ```
 uploads/img
+uploads/files
 ```
 
 and add .gitignore file in uploads folder
@@ -59,10 +60,6 @@ return [
     ...
     'language' => 'nl',
     'timeZone' => 'Europe/Brussels',
-    'aliases' => [
-        '@baseUrl'   => 'http://' . $_SERVER['HTTP_HOST'] . ((YII_ENV_DEV) ? '/name-of-the-folder-in-your-localhost' : ''),
-        '@basePath'  => dirname(dirname(__DIR__))
-    ],
     ...
     'components' => [
         ...        
@@ -142,6 +139,14 @@ return [
         'cms' => [
             'class' => 'infoweb\cms\Module',
         ],
+        'yii2images' => [
+            'class' => 'rico\yii2images\Module',
+            // @frontend/web/
+            'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
+            'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
+            'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
+            'placeHolderPath' => '@infoweb/cms/assets/img/placeHolder.png',
+        ],
     ],
     ...
     'components' => [
@@ -156,6 +161,18 @@ return [
     ],
     ...
 ];
+```
+
+you backend parameters as follows:
+```php
+return [
+    ...
+    // Moximanager settings
+    'moxiemanager'  => [
+        'license-key'   => 'your-moxiemanager-key'
+    ],
+    ...
+]
 ```
 
 and your common parameters as follows:
@@ -174,20 +191,18 @@ return [
 ];
 ```
 
-Add to your params:
+Add a couple of system aliases to your common/bootstrap.php file
 ```
-'toolbarGroups' => [
-    ['name' => 'clipboard', 'groups' => ['mode','undo', 'selection', 'clipboard','doctools']],
-    ['name' => 'editing', 'groups' => ['tools']],
-    ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-    ['name' => 'insert'],
-    ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-    ['name' => 'colors'],
-    ['name' => 'links'],
-    ['name' => 'others'],
-],
-'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
+...
+// System aliases
+Yii::setAlias('baseUrl', 'http://' . $_SERVER['HTTP_HOST'] . ((YII_ENV_DEV) ? '/infoweb-cms' : ''));
+Yii::setAlias('basePath', dirname(dirname(__DIR__)));
+Yii::setAlias('uploadsBaseUrl', Yii::getAlias('@baseUrl') . '/frontend/web/uploads');
+Yii::setAlias('uploadsBasePath', Yii::getAlias('@basePath') . '/frontend/web/uploads');
+Yii::setAlias('frontendUrl', Yii::getAlias('@baseUrl') . '/frontend/web');
+...
 ```
+
 
 Import the translations and use category 'app':
 ```

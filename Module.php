@@ -128,7 +128,7 @@ class Module extends \yii\base\Module
         $session['moxieman-is-logged-in'] = true;
         $session['moxieman-user'] = 'infoweb';
         $session['moxieman-license-key'] = Yii::$app->params['moxiemanager']['license-key'];
-        $session['moxieman-filesystem-rootpath'] = Yii::getAlias('@uploadsBaseUrl');
+        $session['moxieman-filesystem-rootpath'] = Yii::getAlias('@uploadsBasePath');
         $session['moxieman-filesystem-wwwroot'] = Yii::getAlias('@basePath');
         $session['moxieman-filesystem-urlprefix'] = Yii::getAlias('@baseUrl');    
     }

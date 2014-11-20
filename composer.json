@@ -41,6 +41,7 @@
 	   "kartik-v/yii2-icons": "*",
 	   "kartik-v/yii2-datecontrol": "dev-master",
 	   "2amigos/yii2-translateable-behavior" : "*",
+	   "costa-rico/yii2-images": "*",
 	   "mihaildev/yii2-ckeditor": "dev-infoweb as dev-master",
 	   "zelenin/yii2-i18n-module": "dev-infoweb as dev-master",
        "bower-asset/bootbox": "@stable",

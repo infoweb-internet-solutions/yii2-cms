@@ -5,7 +5,9 @@ use yii\helpers\Url;
 ?>
 
 <ul class="nav navbar-top-controls navbar-right">
-    
+
+    <?php if (!Yii::$app->user->isGuest) : ?>
+
     <?php if (Yii::$app->getModule('email')) : ?>
     <li class="pull-left nav-item-unread-mails">
         <a href="<?= Url::toRoute('/email/email'); ?>" class="btn-unread-emails" title="<?php echo Yii::t('infoweb/email', 'Emails'); ?>">
@@ -16,8 +18,6 @@ use yii\helpers\Url;
         </a>
     </li>
     <?php endif; ?>
-    
-    <?php if (!Yii::$app->user->isGuest) : ?>
 
     <li class="dropdown pull-left">        
         <a href="#" id="dropdown-menu-user" class="dropdown-toggle user" data-toggle="dropdown">

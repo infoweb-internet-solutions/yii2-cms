@@ -145,7 +145,7 @@ return [
             'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
             'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
             'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
-            'placeHolderPath' => '@infoweb/cms/assets/img/placeHolder.png',
+            'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
         ],
     ],
     ...
@@ -195,7 +195,7 @@ Add a couple of system aliases to your common/bootstrap.php file
 ```
 ...
 // System aliases
-Yii::setAlias('baseUrl', 'http://' . $_SERVER['HTTP_HOST'] . ((YII_ENV_DEV) ? '/directory-in-your-localhost' : ''));
+Yii::setAlias('baseUrl', 'http://' . ((isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : '') . ((YII_ENV_DEV) ? '/directory-in-your-localhost' : ''));
 Yii::setAlias('basePath', dirname(dirname(__DIR__)));
 Yii::setAlias('uploadsBaseUrl', Yii::getAlias('@baseUrl') . '/frontend/web/uploads');
 Yii::setAlias('uploadsBasePath', Yii::getAlias('@basePath') . '/frontend/web/uploads');

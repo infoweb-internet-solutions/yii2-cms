@@ -88,7 +88,6 @@ $this->params['cmsAssets'] = $cmsAssets;
         <?php // Page content ?>
         <div id="page-wrapper" <?php echo (isset($this->params['breadcrumbs'])) ? 'class="breadcrumb-padding"' :''; ?>>
             <?= $content ?>
-            
             <?php // Footer ?>
             <footer class="footer">
                 <span class="pull-left">&copy; Infoweb <?= date('Y') ?></span>

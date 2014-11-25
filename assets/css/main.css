@@ -177,6 +177,13 @@ h1.page-header {
     color: #428bca;
 }
 
+.sidebar .kv-sidenav {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    max-height: auto;
+}
+
 .sidebar .kv-sidenav li a {
     border: none;
 }

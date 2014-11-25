@@ -27,7 +27,18 @@
         
         // Remove eventhandlers that are bound by the kartik sidenav plugin
         $('.kv-toggle').unbind('click');
-        
+
+        // Add scrollbar to side menu
+        $('.sidebar .kv-sidenav').height(window.innerHeight - 90 - 40).perfectScrollbar();
+
+        // Toggle bootstrap tooltip
+        $("[data-toggle='tooltip']").tooltip({
+            container: 'body'
+        });
+
+        // Toggle bootstrap popover
+        //$("[data-toggle='popover']").popover();
+
         // Set global eventhandlers
         $(document)
             .on('click', '.navbar-minimalize', CMS.toggleSidebar) 

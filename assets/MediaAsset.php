@@ -1,5 +1,5 @@
 <?php
-namespace infoweb\cms;
+namespace infoweb\cms\assets;
 
 use yii\web\AssetBundle as AssetBundle;
 

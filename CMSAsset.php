@@ -28,5 +28,6 @@ class CMSAsset extends AssetBundle
         'infoweb\cms\assets\CookiesAsset',
         'kartik\sidenav\SideNavAsset',
         'infoweb\cms\assets\MoxieManagerAsset',
+        'infoweb\cms\assets\PerfectScrollbarAsset',
     ];
 }

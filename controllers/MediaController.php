@@ -1,7 +1,6 @@
 <?php
 namespace infoweb\cms\controllers;
 
-
 class MediaController extends \yii\web\Controller
 {
     /**
@@ -13,9 +12,9 @@ class MediaController extends \yii\web\Controller
         return $this->render('index');
     }
 
-    public function actionMoxie()
+    public function actionMedia()
     {
-        $this->layout = 'moxie';
-        return $this->render('moxie');
+        $this->layout = 'media';
+        return $this->render('media');
     }
 }

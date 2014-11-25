@@ -1,7 +1,6 @@
 <?php
 
-use infoweb\cms\MediaAsset;
-
+use infoweb\cms\assets\MediaAsset;
 
 // Register assets
 MediaAsset::register($this);

@@ -81,7 +81,7 @@ $(function() {
     });*/
     
 
-
+    /*
     $(document).on('click', '#media', function(e) {
 
         e.preventDefault();
@@ -93,6 +93,7 @@ $(function() {
         });
     });
 
+    */
 
     // Init CMS module
     CMS.init();

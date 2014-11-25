@@ -46,7 +46,8 @@
 	   "zelenin/yii2-i18n-module": "dev-infoweb as dev-master",
        "bower-asset/bootbox": "@stable",
        "bower-asset/fastclick": "@stable",
-       "bower-asset/cookies-js": "@stable"
+        "bower-asset/cookies-js": "@stable",
+        "bower-asset/perfect-scrollbar": "@stable"
 	},
 	"autoload": {
 		"psr-4": {

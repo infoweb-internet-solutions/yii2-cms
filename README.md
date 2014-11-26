@@ -70,22 +70,25 @@ yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migra
 @todo update:
 Admin module
 backend
+```
 'modules' => [
-'admin' => [
-    'class' => 'mdm\admin\Module',
+    'admin' => [
+        'class' => 'mdm\admin\Module',
+        ...
+    ]
     ...
-]
-...
 ],
+```
 
 common:
+```
 'components' => [
-....
-'authManager' => [
-    'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
-]
+    ....
+    'authManager' => [
+        'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
+    ]
 ],
-
+```
     
 
 Docs

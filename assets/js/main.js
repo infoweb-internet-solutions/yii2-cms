@@ -16,18 +16,6 @@ yii.confirm = function (message, $e) {
  */
 $(function() {
 
-
-    // Toggle bootstrap tooltip
-    $("[data-toggle='tooltip']").tooltip({
-        //selector: "[data-toggle=tooltip]",
-        container: 'body'
-    });
-
-
-    // Toggle bootstrap popover
-    //$("[data-toggle='popover']").popover();
-
-
     /*
     // Minimalize menu when screen is less than 768px
     $(function() {
@@ -41,17 +29,9 @@ $(function() {
     });
     */
 
-    $(document).on('click', '#media', function(e) {
-
-        e.preventDefault();
-
-        moxman.browse({
-            view : 'thumbs',
-            fullscreen : true,
-            insert : false
-        });
-    });
-
     // Init CMS module
     CMS.init();
+
+    // Eliminates the 300ms delay between a physical tap and the firing of a click event on mobile browsers
+    FastClick.attach(document.body);
 });

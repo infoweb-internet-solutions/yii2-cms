@@ -11,11 +11,7 @@ Icon::map($this);
 
 // Register assets
 $cmsAssets = CMSAsset::register($this);
-
-/**
- * @var \yii\web\View $this
- * @var string $content
- */
+$this->params['cmsAssets'] = $cmsAssets;
 ?>
 <?php $this->beginPage() ?>
  <!DOCTYPE html>
@@ -27,14 +23,14 @@ $cmsAssets = CMSAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body>
+    <body class="dark-sidebar-layout<?php echo (isset($_COOKIE['infoweb-admin-sidebar-state']) && $_COOKIE['infoweb-admin-sidebar-state'] == 'closed') ? ' mini-navbar' : ''; ?><?php echo (Yii::$app->user->isGuest) ? ' is-guest' : ''; ?>">
         <?php $this->beginBody() ?>   
     
         <?php
         // Navbar
         NavBar::begin([
-            'brandLabel' => Yii::$app->params['companyName'],
-            'brandUrl' => Yii::$app->homeUrl,
+            //'brandLabel' => Html::img($cmsAssets->baseUrl.'/img/logo-infoweb.png', ['class' => 'brand-logo', 'alt' => 'brand-logo']),
+            //'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
@@ -43,7 +39,8 @@ $cmsAssets = CMSAsset::register($this);
         ?>
         
         <?php // Sidebar toggler ?>
-        <ul class="nav navbar-left hidden-xs" style="display: none;">
+        <?php if (!Yii::$app->user->isGuest) : ?>
+        <ul class="nav navbar-left hidden-xs sidebar-toggle" style="display: none;">
             <li>
                 <button class="navbar-toggle navbar-minimalize">
                     <span class="sr-only"><?= Yii::t('app', 'Toggle navigation'); ?></span>
@@ -53,14 +50,15 @@ $cmsAssets = CMSAsset::register($this);
                 </button>
             </li>
         </ul>
+        <?php endif; ?>
     
         <?php // Top right menu ?>
         <?= $this->render('_menu_top_right') ?>
-    
+       
         <?php // Sidebar ?>
         <div role="navigation" class="navbar-default sidebar">
     
-            <div class="avatar hidden-xs">
+            <div class="avatar hidden-xs" style="display: none;">
                 <img src="<?php echo $cmsAssets->baseUrl; ?>/img/profile-picture.png" alt="avatar">
                 <div>
                     <?= Yii::t('app', 'Welcome') ?>
@@ -75,21 +73,25 @@ $cmsAssets = CMSAsset::register($this);
             <?= $this->render('_menu_sidebar') ?>
             
         </div>
+        
         <?php NavBar::end(); ?>
     
+        <?php if (!Yii::$app->user->isGuest) : ?>
+            
         <?php // Breadcrumbs ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        
+        <?php endif; ?>
     
         <?php // Page content ?>
         <div id="page-wrapper" <?php echo (isset($this->params['breadcrumbs'])) ? 'class="breadcrumb-padding"' :''; ?>>
             <?= $content ?>
-            
             <?php // Footer ?>
             <footer class="footer">
                 <span class="pull-left">&copy; Infoweb <?= date('Y') ?></span>
-                <span class="pull-right"><?= Yii::powered() ?></span>
+                <span class="pull-right"><?php /*<?= Yii::powered() ?>*/ ?></span>
             </footer>    
         </div>
 

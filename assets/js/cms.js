@@ -10,7 +10,9 @@
 
     'use strict';
     
-    var CMS = {};
+    var CMS = {
+        'widgets': []
+    };
     
     /**
      * Initializes the module:
@@ -19,23 +21,64 @@
      * @return  void 
      */
     CMS.init = function() {
+        
+        // Create the sidebar widget
+        CMS.widgets.sidebar = new sidebar();
+        
+        // Remove eventhandlers that are bound by the kartik sidenav plugin
+        $('.kv-toggle').unbind('click');
+
+        // Add scrollbar to side menu
+        $('.sidebar .kv-sidenav').height(window.innerHeight - 90 - 40).perfectScrollbar();
+
+        // Toggle bootstrap tooltip
+        $("[data-toggle='tooltip']").tooltip({
+            container: 'body'
+        });
+
+        // Toggle bootstrap popover
+        //$("[data-toggle='popover']").popover();
+
         // Set global eventhandlers
         $(document)
-            .on('click', '.navbar-minimalize', CMS.toggleSidebar)
+            .on('click', '.navbar-minimalize', CMS.toggleSidebar) 
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
-            .on('click', '#grid-pjax [data-toggleable=true]', CMS.pjaxGridItemToggle)
-            .on('keyup', '[data-slugable=true]', CMS.slugifyAttribute)
-            .on('keydown', '[data-slugified=true]', CMS.validateSlug);    
+            .on('click', '[id^=grid-pjax] [data-toggleable=true]', CMS.pjaxGridItemToggle)
+            .on('keyup change', '[data-slugable=true]', CMS.slugifyAttribute)
+            .on('keydown', '[data-slugified=true]', CMS.validateSlug)
+            .on('pjax:complete', CMS.pjaxComplete)
+            .on('mouseover mouseout', '.mini-navbar .sidebar-nav li', function(e) {
+                $(this).has('.nav-pills').find('.kv-toggle:first').trigger('click', [e.type]);  
+            })
+            .on('click', '.kv-toggle', function(e, originalEventType) {
+                e.preventDefault();
+                
+                // Triggered by mouseover
+                /*if (originalEventType === 'mouseover') {
+                    $(this).parent().addClass('active');
+                    $(this).parent().children('ul').show();
+                    
+                // Triggered by mouseout        
+                } else if(originalEventType === 'mouseout') {
+                    $(this).parent().removeClass('active');
+                    $(this).parent().children('ul').hide();
+                    
+                // Default        
+                } else {*/
+                    $(this).parent().toggleClass('active');
+                    
+                    if ($(this).parent().hasClass('active')) {
+                        $(this).parent().children('ul').show();    
+                    } else {
+                        $(this).parent().children('ul').hide();
+                    }
+                        
+                //}                   
+            });    
     };
     
-    /**
-     * Toggles the sidebar by adding/removing a specific class on the body
-     * 
-     * @param   object  Event
-     * @return  void
-     */
     CMS.toggleSidebar = function(e) {
-        $('body').toggleClass('mini-navbar');    
+        CMS.widgets.sidebar.toggle();  
     };
     
     /**
@@ -59,7 +102,9 @@
      */
     CMS.pjaxGridItemToggle = function(e) {
         e.preventDefault();
-        
+
+        var category = $(this).data('category');
+
         var action = $(this).attr('href'),
             id = $(this).data('toggle-id'),
             request = $.post(action, {id:id});
@@ -67,7 +112,7 @@
         request.done(function(response) {
             // Succes, reload PJAX grid
             if (response == 1) {
-                $.pjax.reload({container:'#grid-pjax'});
+                $.pjax.reload({container: '#grid-pjax' + ((category) ? '-' + category : '')});
             } else {
                 // @todo: catch error
                 return false;                
@@ -88,13 +133,7 @@
             
         targetElement.val(targetPlaceholder + slug);
     };
-    
-    /**
-     * Validates the content of a slug 
-     * 
-     * @param   object  Event
-     * @return  boolean
-     */
+
     CMS.validateSlug = function(e) {
         var el = $(this),
             placeholder = el.prop('placeholder'),
@@ -126,5 +165,68 @@
         $('html,body').animate({scrollTop: $(el).offset().top - 91}, speed); 
     };
     
+    /**
+     * Performs actions when a pjax request is completed 
+     *
+     * @param   Event
+     * @return  void
+     */
+    CMS.pjaxComplete = function(e) {
+        // Remove tooltips that are left behind in the DOM
+        $('.tooltip').remove();
+        
+        // Re-initializes tooltips
+        $('[data-toggle]').tooltip();    
+    };
+    
+    /**
+     * Resizes an iframe so that it takes the dimensions of its content
+     * 
+     * @param   object      The iframe
+     * @param   int         An amount of pixels that will be added to the height as an adjustment
+     * @return  void
+     */ 
+    CMS.autoSizeIframe = function(obj, adjustment) {
+        var adjustment = adjustment || 0;
+        
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + parseInt(adjustment) + 'px';
+    };
+    
+    
+    // Sidebar widget
+    var sidebar = function() {
+        this.state = 'open';
+    };
+    
+    /**
+     * Saves the state of the sidebar in a cookie
+     *   
+     * @param   string      The state of the sidebar (open|closed)
+     * @return  void
+     */
+    sidebar.prototype.setStateCookie = function(state) {
+        var state = state || 'open';
+        Cookies.set('infoweb-admin-sidebar-state', state, { expires: Infinity });    
+    };
+    
+    /**
+     * Toggles the sidebar by adding a custom class to the body element.
+     * The state is saved in a cookie
+     * 
+     * @return  void 
+     */
+    sidebar.prototype.toggle = function() {
+        $('body').toggleClass('mini-navbar');
+        
+        var state = ($('body').hasClass('mini-navbar')) ? 'closed' : 'open';
+        
+        if (state == 'closed') {
+            //$('.nav-pills').hide();
+        }
+        
+        this.setStateCookie(state);
+        this.state = state;  
+    };
+
     return CMS;    
 });

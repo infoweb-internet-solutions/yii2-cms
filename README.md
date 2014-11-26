@@ -6,6 +6,13 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
+@todo:
+Add yii app advanced template installation instructions
+add database settings to environments folder, not common
+add assetmanager linkassets to common config
+mail settings
+now run init command
+
 Either run
 
 ```

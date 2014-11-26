@@ -71,6 +71,7 @@ Docs
 -----
 - [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
+- [Installation admin module](https://github.com/mdmsoft/yii2-admin)
 - [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
 - [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
 - [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
@@ -80,8 +81,6 @@ Docs
 - [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
 - [Installation sortable behaviour](https://github.com/infoweb-internet-solutions/yii2-sortable-behaviour)
 - [Installation date control module](https://github.com/kartik-v/yii2-datecontrol)
-
-- [Installation admin module](https://github.com/mdmsoft/yii2-admin)
 
 Usage
 -----

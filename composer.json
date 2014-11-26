@@ -30,6 +30,7 @@
 	   "infoweb-internet-solutions/yii2-cms-menu": "*",
 	   "infoweb-internet-solutions/yii2-cms-alias": "*",
 	   "infoweb-internet-solutions/yii2-cms-analytics": "*",
+       "infoweb-internet-solutions/yii2-cms-settings": "*",
 	   "mdmsoft/yii2-admin": "*",
 	   "kartik-v/yii2-helpers": "*",
 	   "kartik-v/yii2-widgets": "dev-master",

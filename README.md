@@ -1,21 +1,6 @@
 CMS module for Yii 2
 ========================
 
-Docs
------
-- [Installation admin module](https://github.com/mdmsoft/yii2-admin)
-- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
-- [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
-- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
-- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
-- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
-- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
-- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
-- [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
-- [Installation sortable behaviour](https://github.com/infoweb-internet-solutions/yii2-sortable-behaviour)
-- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
-- [Installation date control module](https://github.com/kartik-v/yii2-datecontrol)
-
 Installation
 ------------
 
@@ -49,6 +34,54 @@ and add .gitignore file in uploads folder
 !.gitignore
 ```
 
+Add this to your composer file if you want to add git folders
+
+```
+"config": {
+    ...
+	"preferred-install": "source"
+},
+```
+
+Before using the module you also need to update the composer.json file of your project
+with a reference to the custom repositories that are needed to override certain
+vendor modules
+```
+...
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module"
+    },
+    {
+        "type": "vcs",
+        "url": "https://github.com/infoweb-internet-solutions/yii2-ckeditor"
+    },
+]
+...
+```
+
+To use the module, execute yii migration
+```
+yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
+yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
+```
+
+Docs
+-----
+- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
+- [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
+- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
+- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
+- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
+- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
+- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
+- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
+- [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
+- [Installation sortable behaviour](https://github.com/infoweb-internet-solutions/yii2-sortable-behaviour)
+- [Installation date control module](https://github.com/kartik-v/yii2-datecontrol)
+
+- [Installation admin module](https://github.com/mdmsoft/yii2-admin)
 
 Usage
 -----
@@ -203,37 +236,12 @@ Yii::setAlias('frontendUrl', Yii::getAlias('@baseUrl') . '/frontend/web');
 ...
 ```
 
-
 Import the translations and use category 'app':
 ```
 yii i18n/import @infoweb/cms/messages
 ```
 
-Before using the module you also need to update the composer.json file of your project
-with a reference to the custom repositories that are needed to override certain
-vendor modules
-```
-...
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module"
-    },
-    {
-        "type": "vcs",
-        "url": "https://github.com/infoweb-internet-solutions/yii2-ckeditor"
-    },
-]
-...
-```
-
 After that, import the translations of the custom i18n repository by using category 'zelenin/modules/i18n':
 ```
 yii i18n/import @Zelenin/yii/modules/I18n/messages
-```
-
-To use the module, execute yii migration
-```
-yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
-yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
 ```

@@ -112,7 +112,7 @@ Docs
 - [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
 - [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
 - [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
-- [Installation sortable behaviour](https://github.com/infoweb-internet-solutions/yii2-sortable-behaviour)
+- [Installation sortable behaviour](https://github.com/infoweb-internet-solutions/yii2-sortable-behavior)
 - [Installation date control module](https://github.com/kartik-v/yii2-datecontrol)
 
 Usage

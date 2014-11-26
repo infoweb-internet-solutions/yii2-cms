@@ -119,6 +119,9 @@ Usage
 Once the extension is installed, simply modify your common application configuration as follows:
 
 ```php
+
+use \kartik\datecontrol\Module;
+
 return [
     ...
     'language' => 'nl',
@@ -142,7 +145,6 @@ return [
     ],
     ...
     'modules' => [
-        ...
         'datecontrol' =>  [
             'class' => 'kartik\datecontrol\Module',
 

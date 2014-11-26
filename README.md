@@ -13,6 +13,9 @@ add assetmanager linkassets to common config
 mail settings
 now run init command
 
+add admin email in backend params,
+add adminEmail and supportEmail in common params
+
 Either run
 
 ```

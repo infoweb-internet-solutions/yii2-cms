@@ -83,10 +83,10 @@ backend
 common:
 ```
 'components' => [
-    ....
-    'authManager' => [
-        'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
-    ]
+	....
+	'authManager' => [
+	    'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
+	]
 ],
 ```
     

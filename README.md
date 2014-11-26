@@ -67,11 +67,31 @@ yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
 yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
 ```
 
+@todo update:
+Admin module
+backend
+'modules' => [
+'admin' => [
+    'class' => 'mdm\admin\Module',
+    ...
+]
+...
+],
+
+common:
+'components' => [
+....
+'authManager' => [
+    'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
+]
+],
+
+    
+
 Docs
 -----
 - [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
-- [Installation admin module](https://github.com/mdmsoft/yii2-admin)
 - [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
 - [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
 - [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)

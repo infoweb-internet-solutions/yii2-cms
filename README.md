@@ -277,3 +277,53 @@ After that, import the translations of the custom i18n repository by using categ
 ```
 yii i18n/import @Zelenin/yii/modules/I18n/messages
 ```
+
+Add htaccess files  
+  
+Root  
+
+```
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    # deal with admin first
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+    RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+    RewriteRule ^admin/js/(.*)$ backend/web/js/$1 [L]
+
+    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css)/
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^.*$ backend/web/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/(assets|css)
+    RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+    RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
+    RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
+
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css)/
+    RewriteCond %{REQUEST_URI} !index.php
+	RewriteCond %{REQUEST_URI} !^/preview
+    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.*$ frontend/web/index.php
+</IfModule>
+```
+  
+backend/web/  
+  
+```
+RewriteEngine on
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
+
+Options FollowSymLinks
+```

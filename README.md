@@ -328,7 +328,7 @@ RewriteRule . index.php
 Options FollowSymLinks
 ```
 
-backend/web/
+frontend/web/
 
 ```
 RewriteEngine on

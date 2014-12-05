@@ -44,6 +44,31 @@ h1.page-header {
     border-top: 1px solid #DDD;
 }
 
+
+/**
+ * Sortable gridview
+ */
+
+.sortable .table tbody tr td:first-child {
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;;
+}
+
+.sortable .table .empty {
+    padding: 8px;
+}
+
+.sortable .handle {
+    font-size: 17px;
+    padding: 9px;
+}
+
+.sortable .handle:hover {
+    cursor: move;
+}
+
+
 /**
  * Font awesome
  * @todo Add class

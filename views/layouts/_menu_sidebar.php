@@ -92,6 +92,38 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                 ],
                 'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,
             ],
+            // Shop
+            [
+                'label' => Yii::t('ecommerce', 'Catalog'),
+                'icon' => 'shopping-cart',
+                'template' => '<a href="{url}" title="{label}" class="kv-toggle">{icon}<span class="nav-label">{label}</span></a>',
+                'items' => [
+                    // Categories
+                    [
+                        'label' => Yii::t('ecommerce', 'Categories'),
+                        'url'   => Url::toRoute('/catalogue/category'),
+                        'template' => $sideBarItemTemplate,
+                        //'visible' => (Yii::$app->user->can('showCategoryModule')) ? true : false,
+                        'active' => (stripos(Yii::$app->request->url, '/catalogue/category') !== false) ? true : false
+                    ],
+                    // Products
+                    [
+                        'label' => Yii::t('ecommerce', 'Products'),
+                        'url'   => Url::toRoute('/catalogue/product'),
+                        'template' => $sideBarItemTemplate,
+                        //'visible' => (Yii::$app->user->can('showProductModule')) ? true : false,
+                        'active' => (stripos(Yii::$app->request->url, '/catalogue/product') !== false) ? true : false
+                    ],
+                    // Manufacturers
+                    [
+                        'label' => Yii::t('ecommerce', 'Manufacturers'),
+                        'url'   => Url::toRoute('/catalogue/manufacturer'),
+                        'template' => $sideBarItemTemplate,
+                        //'visible' => (Yii::$app->user->can('showProductModule')) ? true : false,
+                        'active' => (stripos(Yii::$app->request->url, '/catalogue/manufacturer') !== false) ? true : false
+                    ],
+                ],
+            ],
             // Media
             [
                 'label' => Yii::t('infoweb/app', 'Media'),

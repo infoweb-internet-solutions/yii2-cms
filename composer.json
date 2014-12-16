@@ -47,7 +47,8 @@
         "bower-asset/bootbox": "@stable",
         "bower-asset/fastclick": "@stable",
         "bower-asset/cookies-js": "@stable",
-        "bower-asset/perfect-scrollbar": "@stable"
+        "bower-asset/perfect-scrollbar": "@stable",
+        "bower-asset/underscore": "@stable"
 	},
 	"autoload": {
 		"psr-4": {

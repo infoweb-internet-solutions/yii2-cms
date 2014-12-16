@@ -29,5 +29,6 @@ class CMSAsset extends AssetBundle
         'kartik\sidenav\SideNavAsset',
         'infoweb\cms\assets\MoxieManagerAsset',
         'infoweb\cms\assets\PerfectScrollbarAsset',
+        'infoweb\cms\assets\UnderscoreAsset',
     ];
 }

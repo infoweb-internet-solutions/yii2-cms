@@ -124,7 +124,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                     ],
                     // Attribute sets
                     [
-                        'label' => Yii::t('ecommerce', 'Attribute sets'),
+                        'label' => Yii::t('ecommerce', 'Attributes'),
                         'url'   => Url::toRoute('/catalogue/attribute-set/index'),
                         'template' => $sideBarItemTemplate,
                         //'visible' => (Yii::$app->user->can('showProductModule')) ? true : false,

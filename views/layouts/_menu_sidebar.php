@@ -97,6 +97,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                 'label' => Yii::t('ecommerce', 'Catalog'),
                 'icon' => 'shopping-cart',
                 'template' => '<a href="{url}" title="{label}" class="kv-toggle">{icon}<span class="nav-label">{label}</span></a>',
+                'visible' => (Yii::$app->user->can('showShopModule')) ? true : false,
                 'items' => [
                     // Categories
                     [

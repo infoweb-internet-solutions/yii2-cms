@@ -49,13 +49,11 @@ h1.page-header {
  * Sortable gridview
  */
 
-/*
 .sortable .table tbody tr td:first-child {
     padding: 0;
     text-align: center;
     vertical-align: middle;;
 }
-*/
 
 .sortable .table .empty {
     padding: 8px;

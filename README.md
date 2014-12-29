@@ -6,12 +6,28 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-@todo:
-Add yii app advanced template installation instructions
-add database settings to environments folder, not common
-add assetmanager linkassets to common config
-mail settings
-now run init command
+You can then install the application using the following command:
+
+```
+php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta4"
+php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
+```
+  
+Create a new development database and adjust the components['db'] configuration in environments/dev/common/config/main-local.php accordingly.
+
+Create a new production database and adjust the components['db'] configuration in environments/prod/common/config/main-local.php accordingly.
+  
+Add the components['assetManager'] configuration in the same files:
+  
+```
+'assetManager' => [
+    'linkAssets' => true,
+],
+```
+  
+Also adjust the components['mailer'] configuration for both files.
+  
+Run command `init` to initialize the application with a specific environment.
 
 add admin email in backend params,
 add adminEmail and supportEmail in common params

@@ -404,3 +404,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 ```
+
+@todo:
+Create user
+login to admin

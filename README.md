@@ -113,22 +113,7 @@ yii migrate
 yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
 yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
 ```
-
-Docs
------
   
-Follow all usage instructions, but do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
-  
-- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
-- [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
-- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
-- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
-- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
-- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
-- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
-- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
-- [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
-
 Usage
 -----
 
@@ -271,7 +256,24 @@ return [
     ...
 ];
 ```
-
+  
+  
+Docs
+-----
+  
+Follow all usage instructions, but do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+  
+- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
+- [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
+- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
+- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
+- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
+- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
+- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
+- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
+- [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
+  
+  
 Add a couple of system aliases to your common/bootstrap.php file
 ```
 ...

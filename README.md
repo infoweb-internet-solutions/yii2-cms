@@ -408,3 +408,15 @@ RewriteRule . index.php
 @todo:
 Create user
 login to admin
+  
+add to frontend/web/css  
+editor.css  
+```
+body {
+    padding: 15px;
+}
+```
+  
+and empty main.css
+
+

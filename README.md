@@ -27,11 +27,20 @@ Add the components['assetManager'] configuration in the same files:
   
 Also adjust the components['mailer'] configuration for both files.
   
+Add to your composer file if you want to add git folders
+```
+"config": {
+    ...
+	"preferred-install": "source"
+},
+```
+  
 Run command `init` to initialize the application with a specific environment.
-
-add admin email in backend params,
-add adminEmail and supportEmail in common params
-
+  
+Adjust `adminEmail` in backend/config/params.php
+Adjust 	`adminEmail` and `supportEmail` in common/config/params.php
+Adjust `adminEmail` in console/config/params.php
+  
 Either run
 
 ```
@@ -59,16 +68,7 @@ and add .gitignore file in uploads folder
 *
 !.gitignore
 ```
-
-Add this to your composer file if you want to add git folders
-
-```
-"config": {
-    ...
-	"preferred-install": "source"
-},
-```
-
+  
 Before using the module you also need to update the composer.json file of your project
 with a reference to the custom repositories that are needed to override certain
 vendor modules
@@ -87,35 +87,31 @@ vendor modules
 ...
 ```
 
+Adjust backend/config/main.php
+```
+'modules' => [
+    'admin' => [
+        'class' => 'mdm\admin\Module',
+    ],
+    ...
+],
+```
+  
+Adjust common/config/main.php
+```
+'components' => [
+	....
+	'authManager' => [
+	    'class' => 'yii\rbac\DbManager',
+	]
+],
+```
+  
 To use the module, execute yii migration
 ```
 yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
 yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
 ```
-
-@todo update:
-Admin module
-backend
-```
-'modules' => [
-    'admin' => [
-        'class' => 'mdm\admin\Module',
-        ...
-    ]
-    ...
-],
-```
-
-common:
-```
-'components' => [
-	....
-	'authManager' => [
-	    'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
-	]
-],
-```
-    
 
 Docs
 -----

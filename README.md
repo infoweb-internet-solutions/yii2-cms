@@ -225,6 +225,7 @@ return [
     'bootstrap' => ['log','cms'],
     ...
     'modules' => [
+    	...
         'cms' => [
             'class' => 'infoweb\cms\Module',
         ],
@@ -235,6 +236,12 @@ return [
             'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
             'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
             'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
+        ],
+       	'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ],
+  	'media' => [
+            'class' => 'infoweb\cms\Module',
         ],
     ],
     ...

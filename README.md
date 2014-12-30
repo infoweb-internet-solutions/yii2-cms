@@ -107,14 +107,18 @@ Adjust common/config/main.php
 ],
 ```
   
-To use the module, execute yii migration
+Apply migrations with console commands. This will create tables needed for the application to work.
 ```
+yii migrate
 yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
 yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
 ```
 
 Docs
 -----
+  
+Follow all usage instructions, but do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+  
 - [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
 - [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)

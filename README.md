@@ -143,6 +143,29 @@ return [
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',
         ],
+        // Override views
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@dektrium/user/views' => '@infoweb/user/views'
+                ],
+            ],
+        ],
+      	'mailer' => [
+            'class' => 'yii\swiftmailer\Mailerr',
+            'viewPath' => '@infoweb/cms/mail',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'host',
+                'username' => 'user',
+                'password' => 'password',
+                'port' => 'port'
+            ],
+        ],
     ],
     ...
     'modules' => [
@@ -272,6 +295,21 @@ Follow all usage instructions, but do not run composer, all modules are already 
 - [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
 - [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
 - [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
+  
+  
+Images:
+  
+Add to common config modules:
+  
+'yii2images' => [
+	'class' => 'rico\yii2images\Module',
+	'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
+	'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
+	'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
+	'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
+],
+  
+`php yii migrate/up --migrationPath=@vendor/costa-rico/yii2-images/migrations`
   
   
 Add a couple of system aliases to your common/bootstrap.php file

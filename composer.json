@@ -42,7 +42,12 @@
         "2amigos/yii2-translateable-behavior" : "0.1.2",
         "costa-rico/yii2-images": "1.0.4",
         "mihaildev/yii2-ckeditor": "dev-infoweb as 1.0.1",
-        "zelenin/yii2-i18n-module": "dev-infoweb as 0.1.5"
+        "zelenin/yii2-i18n-module": "dev-infoweb as 0.1.5",
+        "bower-asset/bootbox": "@dev",
+        "bower-asset/fastclick": "@stable",
+        "bower-asset/cookies-js": "@stable",
+        "bower-asset/perfect-scrollbar": "@stable",
+        "bower-asset/underscore": "@stable"
 	},
 	"autoload": {
 		"psr-4": {

@@ -254,6 +254,11 @@ return [
                 ],
             ],
         ],
+  		'request' => [
+            'class' => 'common\components\Request',
+            'web'=> '/backend/web',
+            'adminUrl' => '/admin'
+        ],
     ],
     ...
 ];

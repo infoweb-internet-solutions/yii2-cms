@@ -43,7 +43,7 @@
         "costa-rico/yii2-images": "1.0.4",
         "mihaildev/yii2-ckeditor": "dev-infoweb as 1.0.1",
         "zelenin/yii2-i18n-module": "dev-infoweb as 0.1.5",
-        "bower-asset/bootbox": "@dev",
+        "bower-asset/bootbox": "@stable",
         "bower-asset/fastclick": "@stable",
         "bower-asset/cookies-js": "@stable",
         "bower-asset/perfect-scrollbar": "@stable",

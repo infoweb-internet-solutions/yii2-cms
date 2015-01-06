@@ -81,11 +81,6 @@ class m141001_090124_add_default_permissions extends Migration
             'parent'        => 'Superadmin',
             'child'         => 'showTranslationsModule'
         ]);
-
-        $this->insert('{{%auth_item_child}}', [
-            'parent'        => 'Superadmin',
-            'child'         => 'showTranslationsModule'
-        ]);
     }
 
     public function down()

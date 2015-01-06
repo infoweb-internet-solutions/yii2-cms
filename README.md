@@ -6,16 +6,41 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-@todo:
-Add yii app advanced template installation instructions
-add database settings to environments folder, not common
-add assetmanager linkassets to common config
-mail settings
-now run init command
+You can then install the application using the following command:
 
-add admin email in backend params,
-add adminEmail and supportEmail in common params
+```
+php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta4"
+php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
+```
+  
+Create a new development database and adjust the components['db'] configuration in environments/dev/common/config/main-local.php accordingly.
 
+Create a new production database and adjust the components['db'] configuration in environments/prod/common/config/main-local.php accordingly.
+  
+Add the components['assetManager'] configuration in the same files:
+  
+```
+'assetManager' => [
+    'linkAssets' => true,
+],
+```
+  
+Also adjust the components['mailer'] configuration for both files.
+  
+Add to your composer file if you want to add git folders
+```
+"config": {
+    ...
+	"preferred-install": "source"
+},
+```
+  
+Run command `init` to initialize the application with a specific environment.
+  
+Adjust `adminEmail` in backend/config/params.php
+Adjust 	`adminEmail` and `supportEmail` in common/config/params.php
+Adjust `adminEmail` in console/config/params.php
+  
 Either run
 
 ```
@@ -43,16 +68,7 @@ and add .gitignore file in uploads folder
 *
 !.gitignore
 ```
-
-Add this to your composer file if you want to add git folders
-
-```
-"config": {
-    ...
-	"preferred-install": "source"
-},
-```
-
+  
 Before using the module you also need to update the composer.json file of your project
 with a reference to the custom repositories that are needed to override certain
 vendor modules
@@ -71,48 +87,33 @@ vendor modules
 ...
 ```
 
-To use the module, execute yii migration
-```
-yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
-yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
-```
-
-@todo update:
-Admin module
-backend
+Adjust backend/config/main.php
 ```
 'modules' => [
     'admin' => [
         'class' => 'mdm\admin\Module',
-        ...
-    ]
+    ],
     ...
 ],
 ```
-
-common:
+  
+Adjust common/config/main.php
 ```
 'components' => [
 	....
 	'authManager' => [
-	    'class' => 'yii\rbac\PhpManager', // or use 'yii\rbac\DbManager'
+	    'class' => 'yii\rbac\DbManager',
 	]
 ],
 ```
-    
-
-Docs
------
-- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
-- [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
-- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
-- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
-- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
-- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
-- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
-- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
-- [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
-
+  
+Apply migrations with console commands. This will create tables needed for the application to work.
+```
+yii migrate
+yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
+yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
+```
+  
 Usage
 -----
 
@@ -141,6 +142,29 @@ return [
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',
+        ],
+        // Override views
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@dektrium/user/views' => '@infoweb/user/views'
+                ],
+            ],
+        ],
+      	'mailer' => [
+            'class' => 'yii\swiftmailer\Mailerr',
+            'viewPath' => '@infoweb/cms/mail',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'host',
+                'username' => 'user',
+                'password' => 'password',
+                'port' => 'port'
+            ],
         ],
     ],
     ...
@@ -201,6 +225,7 @@ return [
     'bootstrap' => ['log','cms'],
     ...
     'modules' => [
+    	...
         'cms' => [
             'class' => 'infoweb\cms\Module',
         ],
@@ -212,6 +237,12 @@ return [
             'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
             'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
         ],
+       	'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ],
+  	'media' => [
+            'class' => 'infoweb\cms\Module',
+        ],
     ],
     ...
     'components' => [
@@ -222,6 +253,11 @@ return [
                     '@app/views/layouts' => '@infoweb/cms/views/layouts',
                 ],
             ],
+        ],
+  		'request' => [
+            'class' => 'common\components\Request',
+            'web'=> '/backend/web',
+            'adminUrl' => '/admin'
         ],
     ],
     ...
@@ -255,7 +291,39 @@ return [
     ...
 ];
 ```
-
+  
+  
+Docs
+-----
+  
+Follow all usage instructions, but do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+  
+- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
+- [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
+- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
+- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
+- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
+- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
+- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
+- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
+- [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
+  
+  
+Images:
+  
+Add to common config modules:
+  
+'yii2images' => [
+	'class' => 'rico\yii2images\Module',
+	'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
+	'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
+	'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
+	'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
+],
+  
+`php yii migrate/up --migrationPath=@vendor/costa-rico/yii2-images/migrations`
+  
+  
 Add a couple of system aliases to your common/bootstrap.php file
 ```
 ...
@@ -340,4 +408,81 @@ RewriteRule ^(.+)/$ http://%{HTTP_HOST}/$1 [R=301,L] # Remove trailing slash
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
+```
+
+@todo:
+Create user
+login to admin
+  
+add to frontend/web/css  
+editor.css  
+```
+body {
+    padding: 15px;
+}
+```
+  
+and empty main.css
+  
+  
+@todo: somehting more...
+Add to file in common components
+Request.php
+  
+```
+<?php
+namespace common\components;
+
+/**
+ * This extension of the Request component can be used to replace parts of the 
+ * requested url.
+ * 
+ * It has to be enabled in the 'components' area of the main configuration files
+ * for the front- and backend:
+ * 
+ * eg: If you want to replace '/frontend/web' from the url's, put this in
+ *     frontend/config.main.php in the 'components' section.
+ * 
+ *      'request'=>[
+ *          'class' => 'common\components\Request',
+ *          'web'=> '/frontend/web'
+ *      ]
+ * 
+ *
+ */
+class Request extends \yii\web\Request
+{
+    public $web;
+    public $adminUrl;
+
+    /**
+     * Takes the base url from the parent class and replaces the 'web' url that
+     * you defined with an empty string:
+     * 
+     *  eg: the 'web' url is set to 'frontend/web'
+     *      www.mydomain.com/frontend/web becomes www.mydomain.com/
+     * 
+     * @return  string
+     */
+    public function getBaseUrl()
+    {
+        return str_replace($this->web, '', parent::getBaseUrl()) . $this->adminUrl;
+    }
+
+
+    /**
+     * This function ensures that www.mydomain.com/admin (without trailing slash) will not
+     * throw a 404 error
+     * 
+     * @return  string
+     */
+    public function resolvePathInfo()
+    {
+        if ($this->getUrl() === $this->adminUrl) {
+            return '';
+        } else {
+            return parent::resolvePathInfo();
+        }
+    }
+}
 ```

@@ -264,6 +264,17 @@ form .buttons {
     margin-top: 50px;
 }
 
+form .checkboxList label {
+    font-weight: normal;
+    width: 100%;
+}
+
+form .checkboxList label input {
+    position: relative;
+    top: 2px;
+    margin-right: 4px;
+}
+
 /**
  * 	Breadcrumbs
  */

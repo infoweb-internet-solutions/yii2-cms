@@ -3,7 +3,7 @@ namespace infoweb\cms\assets;
 
 use yii\web\AssetBundle as AssetBundle;
 
-class MoxieManagerAsset extends AssetBundle
+class NestableAsset extends AssetBundle
 {
     public $sourcePath = '@infoweb/catalogue/assets/';
     

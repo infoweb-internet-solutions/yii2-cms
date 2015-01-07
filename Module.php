@@ -31,6 +31,9 @@ class Module extends \yii\base\Module
         Yii::$container->set('kartik\grid\GridView', [
             'export' => false,
         ]);
+
+        // Initialize moxiemanager session vars
+        $this->initMoxiemanagerSession();
     }
 
     /**
@@ -64,10 +67,7 @@ class Module extends \yii\base\Module
     {
         // No cached version found
         if (!$this->_ckEditorStylesheets) {
-            
-            // Initialize moxiemanager session vars
-            $this->initMoxiemanagerSession();
-            
+
             // Get the bootstrap asset url
             $bootstrapAsset = BootstrapAsset::register(Yii::$app->view);
 

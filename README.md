@@ -152,7 +152,7 @@ return [
             ],
         ],
       	'mailer' => [
-            'class' => 'yii\swiftmailer\Mailerr',
+            'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@infoweb/cms/mail',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
@@ -164,6 +164,29 @@ return [
                 'username' => 'user',
                 'password' => 'password',
                 'port' => 'port'
+            ],
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => 'yii\log\DbTarget',
+                    'levels' => ['error'],
+                ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['error'],
+                    'categories' => ['yii\db\*'],
+                    'message' => [
+                       'from' => ['info@domain.com'],
+                       'to' => ['developer@domain.com'],
+                       'subject' => '[MySQL error @ domain.com]',
+                    ],
+                ],
             ],
         ],
     ],
@@ -216,6 +239,7 @@ return [
     ]
 ];
 ```
+(dont forget to update the settings of the **mailer** and **log** components!)
 
 your backend configuration as follows:
 
@@ -253,6 +277,11 @@ return [
                     '@app/views/layouts' => '@infoweb/cms/views/layouts',
                 ],
             ],
+        ],
+  		'request' => [
+            'class' => 'common\components\Request',
+            'web'=> '/backend/web',
+            'adminUrl' => '/admin'
         ],
     ],
     ...

@@ -97,14 +97,14 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                 'label' => Yii::t('ecommerce', 'Catalogue'),
                 'icon' => 'shopping-cart',
                 'template' => '<a href="{url}" title="{label}" class="kv-toggle">{icon}<span class="nav-label">{label}</span></a>',
-                'visible' => (Yii::$app->user->can('showCatalogueModule')) ? true : false,
+                'visible' => (Yii::$app->user->can('showEcommerceCatalogueModule')) ? true : false,
                 'items' => [
                     // Categories
                     [
                         'label' => Yii::t('ecommerce', 'Categories'),
                         'url'   => Url::toRoute('/catalogue/category/index'),
                         'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showCategoryModule')) ? true : false,
+                        'visible' => (Yii::$app->user->can('showEcommerceCategoryModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/catalogue/category') !== false) ? true : false
                     ],
                     // Products
@@ -112,7 +112,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'label' => Yii::t('ecommerce', 'Products'),
                         'url'   => Url::toRoute('/catalogue/product/index'),
                         'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showProductModule')) ? true : false,
+                        'visible' => (Yii::$app->user->can('showEcommerceProductModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/catalogue/product') !== false) ? true : false
                     ],
                     // Manufacturers
@@ -120,7 +120,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'label' => Yii::t('ecommerce', 'Manufacturers'),
                         'url'   => Url::toRoute('/catalogue/manufacturer/index'),
                         'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showManufacturerModule')) ? true : false,
+                        'visible' => (Yii::$app->user->can('showEcommerceManufacturerModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/catalogue/manufacturer') !== false) ? true : false
                     ],
                     // Attribute sets
@@ -128,7 +128,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'label' => Yii::t('ecommerce', 'Attributes'),
                         'url'   => Url::toRoute('/catalogue/attribute-set/index'),
                         'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showAttrbibuteModule')) ? true : false,
+                        'visible' => (Yii::$app->user->can('showEcommerceAttributeModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/catalogue/attribute-set') !== false) ? true : false
                     ],
                     // Option sets
@@ -136,7 +136,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'label' => Yii::t('ecommerce', 'Options'),
                         'url'   => Url::toRoute('/catalogue/option-set/index'),
                         'template' => $sideBarItemTemplate,
-                        'visible' => (Yii::$app->user->can('showOptionModule')) ? true : false,
+                        'visible' => (Yii::$app->user->can('showEcommerceOptionModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/catalogue/option-set') !== false) ? true : false
                     ],
                 ],

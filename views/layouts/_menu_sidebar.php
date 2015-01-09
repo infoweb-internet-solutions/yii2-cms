@@ -110,7 +110,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                     // Products
                     [
                         'label' => Yii::t('ecommerce', 'Products'),
-                        'url'   => Url::toRoute('/catalogue/product/index'),
+                        'url'   => Url::toRoute('/catalogue/product/' . Yii::$app->session->get('ecommerce.products.view', 'index')),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showEcommerceProductModule')) ? true : false,
                         'active' => (stripos(Yii::$app->request->url, '/catalogue/product') !== false) ? true : false

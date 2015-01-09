@@ -25,7 +25,7 @@ class m150107_074600_create_image_tables extends Migration
             'isMain' => 'int(1)',
             'modelName' => 'VARCHAR(150) NOT NULL',
             'urlAlias' => 'VARCHAR(400) NOT NULL',
-            'position' => Schema::TYPE_INTEGER . 'UNSIGNED NOT NULL',
+            'position' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
             'created_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
             'updated_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
         ]);

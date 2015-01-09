@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m150107_074600_image extends Migration
+class m150107_074600_create_image_tables extends Migration
 {
     public function up()
     {

@@ -143,7 +143,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                                 'url'   => Url::toRoute('/catalogue/option-set/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceOptionModule')) ? true : false,
-                                'active' => (stripos(Yii::$app->request->url, '/catalogue/option-set') !== false) ? true : false
+                                'active' => (stripos(Yii::$app->request->url, '/catalogue/option-set') !== false || stripos(Yii::$app->request->url, '/catalogue/option') !== false) ? true : false
                             ],
                         ],
                     ],

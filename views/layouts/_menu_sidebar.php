@@ -135,7 +135,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                                 'url'   => Url::toRoute('/catalogue/attribute-set/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceAttributeModule')) ? true : false,
-                                'active' => (stripos(Yii::$app->request->url, '/catalogue/attribute-set') !== false || stripos(Yii::$app->request->url, '/catalogue/attribute-group') !== false) ? true : false
+                                'active' => (stripos(Yii::$app->request->url, '/catalogue/attribute-set') !== false || stripos(Yii::$app->request->url, '/catalogue/attribute-group') !== false || stripos(Yii::$app->request->url, '/catalogue/attribute') !== false) ? true : false
                             ],
                             // Option sets
                             [

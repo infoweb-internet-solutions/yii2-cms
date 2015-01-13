@@ -20,7 +20,8 @@ class m150107_074600_create_image_tables extends Migration
 
         $this->createTable('image', [
             'id'                    => Schema::TYPE_PK,
-            'file_path'             => Schema::TYPE_STRING . '(400) NOT NULL',
+            'name'                  => Schema::TYPE_STRING . '(400) NOT NULL',
+            'file_path'             => Schema::TYPE_STRING . '(255) NOT NULL',
             'node_id'               => Schema::TYPE_STRING . '(255) NOT NULL',
             'is_main'               => 'TINYINT(3) UNSIGNED NOT NULL DEFAULT \'1\'',
             'model_name'            => Schema::TYPE_STRING . '(255) NOT NULL',

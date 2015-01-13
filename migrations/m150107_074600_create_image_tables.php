@@ -19,15 +19,15 @@ class m150107_074600_create_image_tables extends Migration
         }
 
         $this->createTable('image', [
-            'id' => Schema::TYPE_PK,
-            'filePath' => 'VARCHAR(400) NOT NULL',
-            'itemId' => 'int(20) NOT NULL',
-            'isMain' => 'int(1)',
-            'modelName' => 'VARCHAR(150) NOT NULL',
-            'urlAlias' => 'VARCHAR(400) NOT NULL',
-            'position' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
-            'created_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
-            'updated_at' => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
+            'id'                    => Schema::TYPE_PK,
+            'file_path'             => Schema::TYPE_STRING . '(400) NOT NULL',
+            'node_id'               => Schema::TYPE_STRING . '(255) NOT NULL',
+            'is_main'               => 'TINYINT(3) UNSIGNED NOT NULL DEFAULT \'1\'',
+            'model_name'            => Schema::TYPE_STRING . '(255) NOT NULL',
+            'url_alias'             => Schema::TYPE_STRING . '(255) NOT NULL',
+            'position'              => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
+            'created_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
+            'updated_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
         ], $tableOptions);
 
         $this->createIndex('itemId', '{{%image}}', 'itemId');
@@ -39,13 +39,13 @@ class m150107_074600_create_image_tables extends Migration
             'alt'                   => Schema::TYPE_STRING . ' NOT NULL',
             'title'                 => Schema::TYPE_STRING . ' NOT NULL',
             'description'           => Schema::TYPE_TEXT . ' NOT NULL',
-            'created_at'            => Schema::TYPE_INTEGER . '(10) UNSIGNED NOT NULL',
-            'updated_at'            => Schema::TYPE_INTEGER . '(10) UNSIGNED NOT NULL',
+            'created_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
+            'updated_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
         ], $tableOptions);
 
         $this->addPrimaryKey('image_lang_image_id_language', '{{%image_lang}}', ['image_id', 'language']);
         $this->createIndex('language', '{{%image_lang}}', 'language');
-        $this->addForeignKey('FK_IMAGE_LANG_IMAGE_ID', '{{%image_lang}}', 'image_id', '{{%image}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('FK_IMAGE_LANG_IMAGE_ID', '{{%image_lang}}', 'image_id', '{{%image}}', 'id', 'CASCADE', 'NO ACTION');
     }
 
     public function down()

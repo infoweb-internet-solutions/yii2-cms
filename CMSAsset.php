@@ -30,5 +30,6 @@ class CMSAsset extends AssetBundle
         'infoweb\cms\assets\MoxieManagerAsset',
         'infoweb\cms\assets\PerfectScrollbarAsset',
         'infoweb\cms\assets\UnderscoreAsset',
+        'infoweb\cms\assets\FancyboxAsset',
     ];
 }

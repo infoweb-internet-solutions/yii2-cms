@@ -449,7 +449,7 @@ body {
 and empty main.css
   
   
-@todo: somehting more...
+@todo: Add frontend config settings (request, etc..)
 Add to file in common components
 Request.php
   

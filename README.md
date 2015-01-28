@@ -124,7 +124,7 @@ Once the extension is installed, simply modify your common application configura
 use \kartik\datecontrol\Module;
 
 return [
-    ...
+	'name' => 'My application',
     'language' => 'nl',
     'timeZone' => 'Europe/Brussels',
     ...
@@ -449,7 +449,7 @@ body {
 and empty main.css
   
   
-@todo: somehting more...
+@todo: Add frontend config settings (request, etc..)
 Add to file in common components
 Request.php
   

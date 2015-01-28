@@ -97,6 +97,14 @@ h1.page-header {
     color: #3c763d;  
 }
 
+.icon-gray {
+    color: #ccc;
+}
+
+.icon-blue {
+    color: #337ab7;
+}
+
 /**
  * CKEditor
  */

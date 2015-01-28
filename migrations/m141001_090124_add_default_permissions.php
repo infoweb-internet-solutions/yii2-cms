@@ -55,6 +55,7 @@ class m141001_090124_add_default_permissions extends Migration
             'created_at'    => time(),
             'updated_at'    => time()
         ]);
+
         
         // Create the auth item relation
         $this->insert('{{%auth_item_child}}', [
@@ -81,6 +82,7 @@ class m141001_090124_add_default_permissions extends Migration
             'parent'        => 'Superadmin',
             'child'         => 'showTranslationsModule'
         ]);
+
     }
 
     public function down()
@@ -110,6 +112,16 @@ class m141001_090124_add_default_permissions extends Migration
             'parent'        => 'Superadmin',
             'child'         => 'showTranslationsModule'
         ]);
+
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showShopModule'
+        ]);
+
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showCatalogueModule'
+        ]);
         
         // Delete the auth items
         $this->delete('{{%auth_item}}', [
@@ -136,5 +148,6 @@ class m141001_090124_add_default_permissions extends Migration
             'name'          => 'showTranslationsModule',
             'type'          => 2,
         ]);
+
     }
 }

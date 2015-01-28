@@ -52,16 +52,6 @@
         "bower-asset/bootstrap.growl": "@stable",
         "bower-asset/fancybox": "@stable"
 	},
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/infoweb-internet-solutions/yii2-i18n-module"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/infoweb-internet-solutions/yii2-ckeditor"
-        }
-    ],
 	"autoload": {
 		"psr-4": {
             "infoweb\\cms\\": ""

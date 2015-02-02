@@ -148,6 +148,30 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                             ],
                         ],
                     ],
+                    // Sales
+                    [
+                        'label' => Yii::t('ecommerce', 'Sales'),
+                        'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
+                        'visible' => (Yii::$app->user->can('showEcommerceSalesModule')) ? true : false,
+                        'items' => [                           
+                            // Orders
+                            [
+                                'label' => Yii::t('ecommerce', 'Orders'),
+                                'url'   => Url::toRoute('/ecommerce-sales/order/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceSalesOrdersModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/ecommerce-sales/order') !== false) ? true : false
+                            ],
+                            // Customers
+                            [
+                                'label' => Yii::t('ecommerce', 'Customers'),
+                                'url'   => Url::toRoute('/ecommerce-sales/customer/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceSalesCustomersModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/ecommerce-sales/customer') !== false) ? true : false
+                            ]
+                        ],
+                    ],
                 ]    
             ],           
             // Media

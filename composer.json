@@ -47,7 +47,7 @@
         "bower-asset/bootbox": "@stable",
         "bower-asset/fastclick": "@stable",
         "bower-asset/cookies-js": "@stable",
-        "bower-asset/perfect-scrollbar": "@stable",
+        "bower-asset/perfect-scrollbar": "0.5.*",
         "bower-asset/underscore": "@stable",
         "bower-asset/bootstrap.growl": "@stable",
         "bower-asset/fancybox": "@stable"

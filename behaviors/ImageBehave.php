@@ -2,12 +2,12 @@
 namespace infoweb\cms\behaviors;
 use yii;
 use yii\helpers\BaseFileHelper;
-use yii\db\Query;
 use infoweb\cms\models\Image;
 
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
     /**
+     *
      * Method copies image file to module store and creates db record.
      *
      * @param $absolutePath
@@ -19,15 +19,16 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
     {
         if(!preg_match('#http#', $absolutePath)){
             if (!file_exists($absolutePath)) {
-                throw new \Exception(Yii::t('app', 'File {path} does not exist!', ['path' => $absolutePath]));
+                throw new \Exception('File not exist! :'.$absolutePath);
             }
+        }else{
+            //nothing
         }
 
-        if (!$this->owner->id) {
-            throw new \Exception(Yii::t('app', 'There was a problem while attaching the image'));
+        if (!$this->owner->primaryKey) {
+            throw new \Exception('Owner must have primaryKey when you attach image!');
         }
 
-        // Custom
         $pictureFileName = basename($absolutePath);
 
         $pictureSubDir = $this->getModule()->getModelSubDir($this->owner);
@@ -42,22 +43,23 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         copy($absolutePath, $newAbsolutePath);
 
-        if (!file_exists($absolutePath)) {
-            throw new \Exception(Yii::t('app', 'There was a problem while uploading the file'));
+        if (!file_exists($newAbsolutePath)) {
+            throw new \Exception('Cant copy file! ' . $absolutePath . ' to ' . $newAbsolutePath);
         }
 
         // Custom
         unlink($absolutePath);
 
-        if($this->modelClass === null) {
+        if ($this->getModule()->className === null) {
             $image = new Image;
-        }else{
-            $image = new ${$this->modelClass}();
+        } else {
+            $class = $this->getModule()->className;
+            $image = new $class();
         }
-        $image->itemId = $this->owner->id;
+        $image->itemId = $this->owner->primaryKey;
         $image->filePath = $pictureSubDir . '/' . $pictureFileName;
-        $modelName = $this->getModule()->getShortClass($this->owner);
-        $image->modelName = $modelName;
+        $image->modelName = $this->getModule()->getShortClass($this->owner);
+
 
         $image->urlAlias = $this->getAlias($image);
 
@@ -66,7 +68,8 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $image->name = $nameWithoutExt;
         // Get the highest position
         // @todo Create function
-        $query = (new Query)->select('MAX(`position`)')->from(Image::tableName())->where(['modelName' => $modelName]);
+        $owner = $this->owner;
+        $query = (new yii\db\Query())->select('MAX(`position`)')->from(Image::tableName())->where(['modelName' => yii\helpers\StringHelper::basename($owner::className())]);
         $command = $query->createCommand();
         $image->position = $command->queryOne(\PDO::FETCH_COLUMN)+1;
 
@@ -93,6 +96,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         ){
             $this->setMainImage($image);
         }
+
 
         return $image;
     }

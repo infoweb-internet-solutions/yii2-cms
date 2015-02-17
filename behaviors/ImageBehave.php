@@ -47,9 +47,6 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
             throw new \Exception('Cant copy file! ' . $absolutePath . ' to ' . $newAbsolutePath);
         }
 
-        // Custom
-        unlink($absolutePath);
-
         if ($this->getModule()->className === null) {
             $image = new Image;
         } else {
@@ -64,8 +61,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $image->urlAlias = $this->getAlias($image);
 
         // Custom
-        $nameWithoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $pictureFileName);
-        $image->name = $nameWithoutExt;
+        $image->name = substr(yii\helpers\Inflector::slug($pictureFileName), 0, -3);
         // Get the highest position
         // @todo Create function
         $owner = $this->owner;

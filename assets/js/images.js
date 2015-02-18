@@ -52,8 +52,8 @@ $(function() {
                             success: function (data) {
 
                                 if (data.status == 1) {
-                                    // Disable delete button
-                                    //$('#batch-delete').attr('disabled', true);
+                                    // Hide delete button
+                                    $('#batch-delete').hide();
 
                                     // Success
                                     $.pjax.reload({container: '#grid-pjax'});

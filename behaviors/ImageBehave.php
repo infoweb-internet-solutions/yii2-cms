@@ -47,12 +47,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
             throw new \Exception('Cant copy file! ' . $absolutePath . ' to ' . $newAbsolutePath);
         }
 
-        if ($this->getModule()->className === null) {
-            $image = new Image;
-        } else {
-            $class = $this->getModule()->className;
-            $image = new $class();
-        }
+        $image = new Image;
         $image->itemId = $this->owner->primaryKey;
         $image->filePath = $pictureSubDir . '/' . $pictureFileName;
         $image->modelName = $this->getModule()->getShortClass($this->owner);

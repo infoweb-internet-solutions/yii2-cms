@@ -31,7 +31,6 @@ $(function() {
         if ($(this).attr('data-url'))
             url = $(this).attr('data-url');
 
-        console.log(url);
         // @todo Remove first ajax request and translate in javascript (available in version 2.1)
         $.ajax({
             url: url,
@@ -45,7 +44,7 @@ $(function() {
                     if (confirmed) {
 
                         $.ajax({
-                            url: 'multiple-delete',
+                            url: 'gallery-image/multiple-delete',
                             type: 'POST',
                             data: {
                                 'ids': ids

@@ -1,33 +1,40 @@
+
+var growlTemplate =
+    '<div id="w0" class="alert col-xs-10 col-sm-10 col-md-3"><button type="button" class="close" data-growl="dismiss"><span aria-hidden="true">&times;</span></button>' +
+    '<span data-growl="icon"></span>' +
+    '<span data-growl="title"></span>' +
+    '<span data-growl="message"></span>' +
+    '<a href="#" data-growl="url"></a></div>';
+
 $(function() {
 
     // Fancybox
     $('.fancybox').fancybox();
 
-    var growlTemplate =
-        '<div id="w0" class="alert col-xs-10 col-sm-10 col-md-3"><button type="button" class="close" data-growl="dismiss"><span aria-hidden="true">&times;</span></button>' +
-        '<span data-growl="icon"></span>' +
-        '<span data-growl="title"></span>' +
-        '<span data-growl="message"></span>' +
-        '<a href="#" data-growl="url"></a></div>';
-
     // Set eventhandlers
     $(document)
         .on('click', '.select-on-check-all', toggleCheckboxes)
-        .on('click', '#gridview-container .kv-row-select input', toggleSelectAll);
+        .on('click', '#gridview-container .kv-row-select input', toggleSelectAll)
+        .on('filebatchuploadsuccess fileuploaded', '#file-upload', afterUpload);
 
     $(document).on('click', '#batch-delete', function (event) {
         event.preventDefault();
 
         //var ids = $('#gridview-container').yiiGridView('getSelectedRows');
-        var ids = [];
+        var ids = [],
+            url = 'multiple-delete-confirm-message';
 
         $('#gridview-container').find("input[name='selection[]']:checked").each(function () {
             ids.push($(this).parent().closest('tr').data('key'));
         });
 
+        if ($(this).attr('data-url'))
+            url = $(this).attr('data-url');
+
+        console.log(url);
         // @todo Remove first ajax request and translate in javascript (available in version 2.1)
         $.ajax({
-            url: 'multiple-delete-confirm-message',
+            url: url,
             type: 'POST',
             data: {
                 'ids': ids.length
@@ -47,7 +54,7 @@ $(function() {
 
                                 if (data.status == 1) {
                                     // Disable delete button
-                                    $('#batch-delete').attr('disabled', true);
+                                    //$('#batch-delete').attr('disabled', true);
 
                                     // Success
                                     $.pjax.reload({container: '#grid-pjax'});
@@ -123,6 +130,9 @@ $(function() {
             });
         }
     }).disableSelection();
+
+
+
 });
 
 function toggleCheckboxes(e) {
@@ -148,4 +158,26 @@ function toggleDeleteBtn() {
     } else {
         $('#batch-delete').hide();
     }     
+}
+
+function afterUpload (event, data, previewId, index) {
+    var form = data.form, files = data.files, extra = data.extra,
+        response = data.response, reader = data.reader;
+
+    // Reload gridview
+    $.pjax.reload({container: '#grid-pjax'});
+
+    // Clear file input
+    $('#file-upload').fileinput('clear');
+
+    // Show growl message
+    $.growl({
+        message: ' ' + response.message,
+        icon: 'glyphicon glyphicon-ok-sign'
+    }, {
+        type: 'success',
+        class: 'alert col-xs-10 col-sm-10 col-md-3',
+        template: growlTemplate
+
+    });
 }

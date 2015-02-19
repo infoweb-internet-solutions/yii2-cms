@@ -44,7 +44,7 @@ $(function() {
                     if (confirmed) {
 
                         $.ajax({
-                            url: 'gallery-image/multiple-delete',
+                            url: 'multiple-delete',
                             type: 'POST',
                             data: {
                                 'ids': ids

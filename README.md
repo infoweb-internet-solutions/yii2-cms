@@ -253,14 +253,6 @@ return [
         'cms' => [
             'class' => 'infoweb\cms\Module',
         ],
-        'yii2images' => [
-            'class' => 'rico\yii2images\Module',
-            // @frontend/web/
-            'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
-            'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
-            'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
-            'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
-        ],
        	'gridview' =>  [
             'class' => '\kartik\grid\Module'
         ],
@@ -342,7 +334,7 @@ Add to common config modules:
 	'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
 	'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
 	'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
-	'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
+	'placeHolderPath' => '@infoweb/cms/assets/img/placeholder.png',
 ],
   
 `php yii migrate/up --migrationPath=@vendor/costa-rico/yii2-images/migrations`

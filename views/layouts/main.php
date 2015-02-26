@@ -57,7 +57,8 @@ $this->params['cmsAssets'] = $cmsAssets;
        
         <?php // Sidebar ?>
         <div role="navigation" class="navbar-default sidebar">
-    
+
+            <?php /*
             <div class="avatar hidden-xs" style="display: none;">
                 <img src="<?php echo $cmsAssets->baseUrl; ?>/img/profile-picture.png" alt="avatar">
                 <div>
@@ -68,7 +69,7 @@ $this->params['cmsAssets'] = $cmsAssets;
                 </div>
             </div>
             <div class="clearfix"></div>
-    
+            */ ?>
             <?php // Sidebar menu ?>
             <?= $this->render('_menu_sidebar') ?>
             

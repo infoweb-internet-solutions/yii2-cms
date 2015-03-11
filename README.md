@@ -259,6 +259,29 @@ return [
   	'media' => [
             'class' => 'infoweb\cms\Module',
         ],
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'enableUnconfirmedLogin' => true,
+            'confirmWithin' => 21600,
+            'cost' => 12,
+            'admins' => ['infoweb', 'admin'],
+            'modelMap' => [
+                'User' => 'infoweb\user\models\User',
+                'UserSearch' => 'infoweb\user\models\UserSearch',
+                'Profile' => 'infoweb\user\models\Profile',
+                'WebUser' => 'infoweb\user\models\WebUser',
+            ],
+            'controllerMap' => [
+                'admin' => 'infoweb\user\controllers\AdminController',
+                'settings' => 'infoweb\user\controllers\SettingsController',
+            ],
+            'modules' => [
+                // Register the custom module as a submodule
+                'infoweb-user' => [
+                    'class' => 'infoweb\user\Module'
+                ]
+            ]
+        ],
     ],
     ...
     'components' => [

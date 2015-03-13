@@ -205,10 +205,10 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
             [
                 'label' => Yii::t('infoweb/social-media', 'Social Media'),
                 'icon' => 'share-alt',
-                'url'   => Url::toRoute('/social-media/social-media'),
+                'url'   => Url::toRoute('/social-media/social'),
                 'template' => $sideBarItemTemplate,
                 'visible' => (Yii::$app->user->can('showSocialMediaModule')) ? true : false,
-                'active' => (stripos(Yii::$app->request->url, '/social-media/social-media') !== false) ? true : false
+                'active' => (stripos(Yii::$app->request->url, '/social-media/social') !== false) ? true : false
             ],
             // Emailmarketing
             [

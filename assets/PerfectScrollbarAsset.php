@@ -8,10 +8,10 @@ class PerfectScrollbarAsset extends AssetBundle
     public $sourcePath = '@bower/perfect-scrollbar';
 
     public $css = [
-        'min/perfect-scrollbar.min.css',
+        'css/perfect-scrollbar.min.css',
     ];
 
     public $js = [
-        'min/perfect-scrollbar.min.js'
+        'js/min/perfect-scrollbar.jquery.min.js'
     ];
 }

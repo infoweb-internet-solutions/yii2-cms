@@ -43,7 +43,6 @@
         "costa-rico/yii2-images": "@stable",
         "mihaildev/yii2-ckeditor": "dev-infoweb as @stable",
         "zelenin/yii2-i18n-module": "dev-infoweb as @stable",
-        "2amigos/yii2-translateable-behavior" : "dev-infoweb as dev-master",
         "bower-asset/bootbox": "@stable",
         "bower-asset/fastclick": "@stable",
         "bower-asset/cookies-js": "@stable",

@@ -56,7 +56,7 @@ class Module extends \yii\base\Module
                 'url'       => Url::toRoute($item['url']),
                 'template'  => $template,
                 'visible'   => (isset($item['authItem']) && Yii::$app->user->can($item['authItem'])) ? true : false,
-                'active'    => (stripos(Yii::$app->request->url, $item['url']) !== false) ? true : false
+                'active'    => (stripos(Yii::$app->request->url, (isset($item['activeUrl'])) ? $item['activeUrl'] : $item['url']) !== false) ? true : false
             ];
         }
 

@@ -134,4 +134,5 @@ class Image extends BaseImage
 
         return true;
     }
+
 }

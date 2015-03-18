@@ -1,8 +1,13 @@
 <?php
 namespace infoweb\cms\behaviors;
+
 use yii;
 use yii\helpers\BaseFileHelper;
+use yii\web\UploadedFile;
+use yii\helpers\StringHelper;
+
 use infoweb\cms\models\Image;
+use infoweb\cms\models\ImageUploadForm;
 
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
@@ -230,6 +235,54 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
                 unlink($fileToRemove);
             }
             $img->delete();
+        }
+    }
+
+    /**
+     * Upload and attach images
+     *
+     * @param $model
+     */
+    public function uploadImage() {
+
+        // Upload image
+        $form = new ImageUploadForm();
+        $images = UploadedFile::getInstances($form, 'image');
+
+        $model = $this->owner;
+
+        // Remove old images if a new one is uploaded
+        if ($images) {
+            $model->removeImages();
+
+            foreach ($images as $k => $image) {
+
+                $_model = new ImageUploadForm();
+                $_model->image = $image;
+
+                if ($_model->validate()) {
+                    $path = \Yii::getAlias('@uploadsBasePath') . "/img/{$_model->image->baseName}.{$_model->image->extension}";
+
+                    $_model->image->saveAs($path);
+
+                    // Attach image to model
+                    $model->attachImage($path);
+
+                } else {
+                    foreach ($_model->getErrors('image') as $error) {
+                        $model->addError('image', $error);
+                    }
+                }
+            }
+
+            if ($model->hasErrors('image')){
+                $model->addError(
+                    'image',
+                    count($model->getErrors('image')) . Yii::t('app', 'of') . count($images) . ' ' . Yii::t('app', 'images not uploaded')
+                );
+            } else {
+                Yii::$app->session->setFlash(StringHelper::basename($this->owner->className()), Yii::t('app', '{n, plural, =1{Image} other{# images}} successfully uploaded', ['n' => count($images)]));
+            }
         }
     }
 

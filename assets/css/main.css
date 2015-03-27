@@ -79,6 +79,11 @@ h1.page-header {
     padding: 0 2px;
 }
 
+.fa-btn-icon {
+    font-size: 22px;
+    padding-right: 4px;
+}
+
 .table .glyphicon {
     font-size: 18px;
     padding: 0 2px;

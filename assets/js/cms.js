@@ -29,7 +29,7 @@
         $('.kv-toggle').unbind('click');
 
         // Add scrollbar to side menu
-        //$('.sidebar .kv-sidenav').height(window.innerHeight - 90 - 40).perfectScrollbar();
+        $('.sidebar .kv-sidenav').height(window.innerHeight - 90 - 40).perfectScrollbar();
 
         // Toggle bootstrap tooltip
         $("[data-toggle='tooltip']").tooltip({

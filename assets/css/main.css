@@ -84,7 +84,7 @@ h1.page-header {
 }
 
 .fa-btn-icon {
-    font-size: 22px;
+    font-size: 22px !important;
     padding-right: 4px;
 }
 

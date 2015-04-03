@@ -73,6 +73,15 @@ class Image extends BaseImage
 
         return $httpPath;
     }
+    
+    public function getBaseUrl()
+    {
+        $base = $this->getModule()->getStorePath();
+        $sub = $this->getSubDur();
+        $origin = $this->getPathToOrigin();
+
+        return $base.'/'.$sub.'/'.$this->name.'.'.pathinfo($origin, PATHINFO_EXTENSION);    
+    }
 
     public function getPath($size = false)
     {

@@ -7,7 +7,7 @@ class m150107_074600_create_image_tables extends Migration
 {
     public function up()
     {
-        /*$tableOptions = null;
+        $tableOptions = null;
 
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
@@ -21,11 +21,11 @@ class m150107_074600_create_image_tables extends Migration
         $this->createTable('image', [
             'id'                    => Schema::TYPE_PK,
             'name'                  => Schema::TYPE_STRING . '(255) NOT NULL',
-            'file_path'             => Schema::TYPE_STRING . '(400) NOT NULL',
-            'node_id'               => Schema::TYPE_STRING . '(255) NOT NULL',
-            'is_main'               => 'TINYINT(3) UNSIGNED NOT NULL DEFAULT \'1\'',
-            'model_name'            => Schema::TYPE_STRING . '(255) NOT NULL',
-            'url_alias'             => Schema::TYPE_STRING . '(255) NOT NULL',
+            'filePath'              => Schema::TYPE_STRING . '(400) NOT NULL',
+            'itemId'                => Schema::TYPE_STRING . '(255) NOT NULL',
+            'isMain'                => 'TINYINT(3) UNSIGNED NOT NULL DEFAULT \'1\'',
+            'modelName'             => Schema::TYPE_STRING . '(255) NOT NULL',
+            'urlAlias'              => Schema::TYPE_STRING . '(255) NOT NULL',
             'position'              => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
             'created_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
             'updated_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
@@ -46,12 +46,12 @@ class m150107_074600_create_image_tables extends Migration
 
         $this->addPrimaryKey('image_lang_image_id_language', '{{%image_lang}}', ['image_id', 'language']);
         $this->createIndex('language', '{{%image_lang}}', 'language');
-        $this->addForeignKey('FK_IMAGE_LANG_IMAGE_ID', '{{%image_lang}}', 'image_id', '{{%image}}', 'id', 'CASCADE', 'NO ACTION');*/
+        $this->addForeignKey('FK_IMAGE_LANG_IMAGE_ID', '{{%image_lang}}', 'image_id', '{{%image}}', 'id', 'CASCADE', 'NO ACTION');
     }
 
     public function down()
     {
-        /*$this->dropTable('image_lang');
-        $this->dropTable('image');*/
+        $this->dropTable('image_lang');
+        $this->dropTable('image');
     }
 }

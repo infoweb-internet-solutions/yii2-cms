@@ -294,7 +294,7 @@ return [
                 ],
             ],
         ],
-	'request' => [
+		'request' => [
             'class' => 'common\components\Request',
             'web'=> '/backend/web',
             'adminUrl' => '/admin'
@@ -327,7 +327,7 @@ return [
         'fr'    => 'Français',
         'en'    => 'English',
     ],
-    'companyName'   => 'Infoweb'
+    'companyName'   => 'YourCompany'
     ...
 ];
 ```
@@ -336,7 +336,9 @@ return [
 Docs
 -----
   
-Follow all usage instructions, but do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+Follow all usage instructions
+Do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+Do not run any migrations or import messages, we'll do this later
   
 - [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
@@ -375,7 +377,7 @@ Yii::setAlias('frontendUrl', Yii::getAlias('@baseUrl') . '/frontend/web');
 ```
 
 Apply migrations with console commands. This will create tables needed for the application to work.
-```
+```bash
 yii migrate/up
 ```
 

@@ -344,7 +344,7 @@ return [
             'enableAutoLogin' => true,
         ],
     ],
-	
+	...
 ];
 ```
   
@@ -546,7 +546,7 @@ class Request extends \yii\web\Request
 }
 ```
   
-Create a new user `/admin/user/register`
-If you can't access this page, remove `ac access` in `backend/config/main.php`
-
-Login `/admin` and enjoy!
+Create a new user `/admin/user/register`  
+If you can't access this page, remove `ac access` in `backend/config/main.php`  
+  
+Login `/admin` and enjoy!  

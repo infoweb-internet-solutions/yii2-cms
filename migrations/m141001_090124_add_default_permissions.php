@@ -56,6 +56,13 @@ class m141001_090124_add_default_permissions extends Migration
             'updated_at'    => time()
         ]);
 
+        $this->insert('{{%auth_item}}', [
+            'name'          => 'showAliasModule',
+            'type'          => 2,
+            'description'   => 'Show alias module icon in main-menu',
+            'created_at'    => time(),
+            'updated_at'    => time()
+        ]);
         
         // Create the auth item relation
         $this->insert('{{%auth_item_child}}', [
@@ -86,6 +93,11 @@ class m141001_090124_add_default_permissions extends Migration
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
             'child'         => 'showMediaModule'
+        ]);
+
+        $this->insert('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showAliasModule'
         ]);
 
     }
@@ -132,6 +144,13 @@ class m141001_090124_add_default_permissions extends Migration
             'parent'        => 'Superadmin',
             'child'         => 'showCatalogueModule'
         ]);
+
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showAliasModule'
+        ]);
+
+
         
         // Delete the auth items
         $this->delete('{{%auth_item}}', [
@@ -164,5 +183,9 @@ class m141001_090124_add_default_permissions extends Migration
             'type'          => 2,
         ]);
 
+        $this->delete('{{%auth_item}}', [
+            'name'          => 'showAliasModule',
+            'type'          => 2,
+        ]);
     }
 }

@@ -455,9 +455,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 ```
 
-@todo:
-Create user
-login to admin
   
 add to frontend/web/css  
 editor.css  
@@ -467,11 +464,10 @@ body {
 }
 ```
   
-and empty main.css
+and empty main.css file
   
   
-@todo: Add frontend config settings (request, etc..)
-Add to file in common components
+Add request class in common components
 Request.php
   
 ```php
@@ -531,3 +527,6 @@ class Request extends \yii\web\Request
     }
 }
 ```
+
+Create a new user 
+login to /admin

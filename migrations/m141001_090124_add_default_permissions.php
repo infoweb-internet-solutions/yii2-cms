@@ -83,6 +83,11 @@ class m141001_090124_add_default_permissions extends Migration
             'child'         => 'showTranslationsModule'
         ]);
 
+        $this->insert('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
+            'child'         => 'showMediaModule'
+        ]);
+
     }
 
     public function down()
@@ -120,6 +125,11 @@ class m141001_090124_add_default_permissions extends Migration
 
         $this->delete('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
+            'child'         => 'showMediaModule'
+        ]);
+
+        $this->delete('{{%auth_item_child}}', [
+            'parent'        => 'Superadmin',
             'child'         => 'showCatalogueModule'
         ]);
         
@@ -146,6 +156,11 @@ class m141001_090124_add_default_permissions extends Migration
         
         $this->delete('{{%auth_item}}', [
             'name'          => 'showTranslationsModule',
+            'type'          => 2,
+        ]);
+
+        $this->delete('{{%auth_item}}', [
+            'name'          => 'showMediaModule',
             'type'          => 2,
         ]);
 

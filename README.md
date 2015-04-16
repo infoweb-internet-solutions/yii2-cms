@@ -115,11 +115,6 @@ Adjust `common/config/main.php`
 ],
 ```
   
-Apply migrations with console commands. This will create tables needed for the application to work.
-```
-yii migrate/up
-```
-  
 Usage
 -----
 
@@ -377,6 +372,11 @@ Yii::setAlias('uploadsBaseUrl', Yii::getAlias('@baseUrl') . '/frontend/web/uploa
 Yii::setAlias('uploadsBasePath', Yii::getAlias('@basePath') . '/frontend/web/uploads');
 Yii::setAlias('frontendUrl', Yii::getAlias('@baseUrl') . '/frontend/web');
 ...
+```
+
+Apply migrations with console commands. This will create tables needed for the application to work.
+```
+yii migrate/up
 ```
 
 Import the translations and use category 'app':

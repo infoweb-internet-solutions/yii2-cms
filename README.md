@@ -283,6 +283,9 @@ return [
                 ]
             ]
         ],
+		'email' => [
+            'class' => 'infoweb\email\Module'
+        ],
     ],
     ...
     'components' => [

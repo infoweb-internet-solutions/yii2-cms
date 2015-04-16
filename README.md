@@ -331,6 +331,22 @@ return [
     ...
 ];
 ```
+
+and `frontend/config/main.php` as follows:
+
+```php
+return [
+    ...
+    'components' => [
+		// Update user component
+       'user' => [
+            'identityClass' => 'infoweb\user\models\User',
+            'enableAutoLogin' => true,
+        ],
+    ],
+	
+];
+```
   
   
 Docs
@@ -338,7 +354,7 @@ Docs
   
 Follow all usage instructions
 Do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
-Do not run any migrations or import messages, we'll do this later
+Do not run any migrations and don't import messages, we'll do this later
   
 - [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
@@ -381,16 +397,20 @@ Apply migrations with console commands. This will create tables needed for the a
 yii migrate/up
 ```
 
-Import the translations and use category 'app':
+Import the translations
 ```bash
-yii i18n/import @infoweb/cms/messages
+yii i18n/import @infoweb/cms/messages --interactive=0
+yii i18n/import @Zelenin/yii/modules/I18n/messages --interactive=0
+yii i18n/import @yii/messages --interactive=0 (or try without --interactive=0)
+yii i18n/import @infoweb/settings/messages --interactive=0
+yii i18n/import @infoweb/pages/messages --interactive=0
+yii i18n/import @infoweb/partials/messages --interactive=0
+yii i18n/import @infoweb/seo/messages --interactive=0
+yii i18n/import @infoweb/alias/messages --interactive=0
+yii i18n/import @infoweb/analytics/messages --interactive=0
+yii i18n/import @infoweb/email/messages --interactive=0
 ```
-
-After that, import the translations of the custom i18n repository by using category 'zelenin/modules/i18n':
-```bash
-yii i18n/import @Zelenin/yii/modules/I18n/messages
-```
-
+  
 Add htaccess files  
   
 Root  
@@ -456,19 +476,17 @@ RewriteRule . index.php
 ```
 
   
-add to frontend/web/css  
-editor.css  
-```
+Add new file`frontend/web/css/editor.css`  
+```css
 body {
     padding: 15px;
 }
 ```
   
-and empty main.css file
+and an empty `main.css` file
   
   
-Add request class in common components
-Request.php
+Add new class in `common/components/Request.php`
   
 ```php
 <?php
@@ -527,6 +545,8 @@ class Request extends \yii\web\Request
     }
 }
 ```
+  
+Create a new user `/admin/user/register`
+If you can't access this page, remove `ac access` in `backend/config/main.php`
 
-Create a new user 
-login to /admin
+Login `/admin` and enjoy!

@@ -8,7 +8,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 
 You can then install the application using the following command:
 
-```
+```bash
 php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta4"
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
 ```
@@ -35,7 +35,7 @@ Update the `config` section of `composer.json` if you want composer to download 
 ```
 
 Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` packages
-```
+```php
 "require": [
     ...
     "infoweb-internet-solutions/yii2-cms": "*",
@@ -44,7 +44,7 @@ Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` pack
 ```
 
 Add references to the custom repositories that are needed to override certain vendor packages
-```
+```php
 ...
 "repositories": [
     {
@@ -81,7 +81,7 @@ Adjust `adminEmail` in `backend/config/params.php`, `common/config/params.php` a
 Adjust `supportEmail` in `common/config/params.php`
 
 Configure the `fishvision/yii2-migrate` module in `common/config/main.php`
-```
+```php
 ...
 'controllerMap' => [
     'migrate' => [
@@ -96,7 +96,7 @@ Configure the `fishvision/yii2-migrate` module in `common/config/main.php`
 ```
 
 Adjust `backend/config/main.php`
-```
+```php
 'modules' => [
     'admin' => [
         'class' => 'mdm\admin\Module',
@@ -106,7 +106,7 @@ Adjust `backend/config/main.php`
 ```
   
 Adjust `common/config/main.php`
-```
+```php
 'components' => [
 	....
 	'authManager' => [

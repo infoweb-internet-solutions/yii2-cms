@@ -8,7 +8,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 
 You can then install the application using the following command:
 
-```
+```bash
 php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta4"
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
 ```
@@ -35,7 +35,7 @@ Update the `config` section of `composer.json` if you want composer to download 
 ```
 
 Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` packages
-```
+```php
 "require": [
     ...
     "infoweb-internet-solutions/yii2-cms": "*",
@@ -44,7 +44,7 @@ Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` pack
 ```
 
 Add references to the custom repositories that are needed to override certain vendor packages
-```
+```php
 ...
 "repositories": [
     {
@@ -81,7 +81,7 @@ Adjust `adminEmail` in `backend/config/params.php`, `common/config/params.php` a
 Adjust `supportEmail` in `common/config/params.php`
 
 Configure the `fishvision/yii2-migrate` module in `common/config/main.php`
-```
+```php
 ...
 'controllerMap' => [
     'migrate' => [
@@ -96,7 +96,7 @@ Configure the `fishvision/yii2-migrate` module in `common/config/main.php`
 ```
 
 Adjust `backend/config/main.php`
-```
+```php
 'modules' => [
     'admin' => [
         'class' => 'mdm\admin\Module',
@@ -106,18 +106,13 @@ Adjust `backend/config/main.php`
 ```
   
 Adjust `common/config/main.php`
-```
+```php
 'components' => [
 	....
 	'authManager' => [
 	    'class' => 'yii\rbac\DbManager',
 	]
 ],
-```
-  
-Apply migrations with console commands. This will create tables needed for the application to work.
-```
-yii migrate/up
 ```
   
 Usage
@@ -288,6 +283,9 @@ return [
                 ]
             ]
         ],
+		'email' => [
+            'class' => 'infoweb\email\Module'
+        ],
     ],
     ...
     'components' => [
@@ -299,7 +297,7 @@ return [
                 ],
             ],
         ],
-	'request' => [
+		'request' => [
             'class' => 'common\components\Request',
             'web'=> '/backend/web',
             'adminUrl' => '/admin'
@@ -332,8 +330,24 @@ return [
         'fr'    => 'Français',
         'en'    => 'English',
     ],
-    'companyName'   => 'Infoweb'
+    'companyName'   => 'YourCompany'
     ...
+];
+```
+
+and `frontend/config/main.php` as follows:
+
+```php
+return [
+    ...
+    'components' => [
+		// Update user component
+       'user' => [
+            'identityClass' => 'infoweb\user\models\User',
+            'enableAutoLogin' => true,
+        ],
+    ],
+	...
 ];
 ```
   
@@ -341,7 +355,9 @@ return [
 Docs
 -----
   
-Follow all usage instructions, but do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+Follow all usage instructions
+Do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+Do not run any migrations and don't import messages, we'll do this later
   
 - [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
@@ -379,16 +395,25 @@ Yii::setAlias('frontendUrl', Yii::getAlias('@baseUrl') . '/frontend/web');
 ...
 ```
 
-Import the translations and use category 'app':
+Apply migrations with console commands. This will create tables needed for the application to work.
 ```bash
-yii i18n/import @infoweb/cms/messages
+yii migrate/up
 ```
 
-After that, import the translations of the custom i18n repository by using category 'zelenin/modules/i18n':
+Import the translations
 ```bash
-yii i18n/import @Zelenin/yii/modules/I18n/messages
+yii i18n/import @infoweb/cms/messages --interactive=0
+yii i18n/import @Zelenin/yii/modules/I18n/messages --interactive=0
+yii i18n/import @yii/messages --interactive=0 (or try without --interactive=0)
+yii i18n/import @infoweb/settings/messages --interactive=0
+yii i18n/import @infoweb/pages/messages --interactive=0
+yii i18n/import @infoweb/partials/messages --interactive=0
+yii i18n/import @infoweb/seo/messages --interactive=0
+yii i18n/import @infoweb/alias/messages --interactive=0
+yii i18n/import @infoweb/analytics/messages --interactive=0
+yii i18n/import @infoweb/email/messages --interactive=0
 ```
-
+  
 Add htaccess files  
   
 Root  
@@ -453,24 +478,18 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 ```
 
-@todo:
-Create user
-login to admin
   
-add to frontend/web/css  
-editor.css  
-```
+Add new file`frontend/web/css/editor.css`  
+```css
 body {
     padding: 15px;
 }
 ```
   
-and empty main.css
+and an empty `main.css` file
   
   
-@todo: Add frontend config settings (request, etc..)
-Add to file in common components
-Request.php
+Add new class in `common/components/Request.php`
   
 ```php
 <?php
@@ -529,3 +548,8 @@ class Request extends \yii\web\Request
     }
 }
 ```
+  
+Create a new user `/admin/user/register`  
+If you can't access this page, remove `ac access` in `backend/config/main.php`  
+  
+Login `/admin` and enjoy!  

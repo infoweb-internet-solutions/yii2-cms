@@ -19,6 +19,6 @@ class BootstrapGrowlAsset extends AssetBundle
 {
     public $sourcePath = '@bower/bootstrap.growl/dist';
     public $js = [
-        'bootstrap-growl.min.js'
+        'bootstrap-notify.min.js',
     ];
 }

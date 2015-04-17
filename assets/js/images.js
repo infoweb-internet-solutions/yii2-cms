@@ -59,7 +59,7 @@ $(function() {
                                     $.pjax.reload({container: '#grid-pjax'});
 
                                     // @todo Update code
-                                    $.notify({
+                                    $.growl({
                                         message: ' ' + data.message,
                                         icon: 'glyphicon glyphicon-ok-sign'
                                     }, {
@@ -112,7 +112,7 @@ $(function() {
                     if (data.status == 1) {
 
                         // @todo Update code
-                        $.notify({
+                        $.growl({
                             message: ' ' + data.message,
                             icon: 'glyphicon glyphicon-ok-sign'
                         }, {
@@ -170,7 +170,7 @@ function afterUpload (event, data, previewId, index) {
     $('#file-upload').fileinput('clear');
 
     // Show growl message
-    $.notify({
+    $.growl({
         message: ' ' + response.message,
         icon: 'glyphicon glyphicon-ok-sign'
     }, {

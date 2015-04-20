@@ -37,9 +37,11 @@ class m150107_074600_create_image_tables extends Migration
         $this->createTable('{{%image_lang}}', [
             'image_id'              => Schema::TYPE_INTEGER . ' NOT NULL',
             'language'              => Schema::TYPE_STRING . '(2) NOT NULL',
-            'alt'                   => Schema::TYPE_STRING . ' NOT NULL',
-            'title'                 => Schema::TYPE_STRING . ' NOT NULL',
+            'alt'                   => Schema::TYPE_STRING . '(255) NOT NULL',
+            'title'                 => Schema::TYPE_STRING . '(255) NOT NULL',
+            'subtitle'              => Schema::TYPE_STRING . ' NOT NULL',
             'description'           => Schema::TYPE_TEXT . ' NOT NULL',
+            'url'                   => Schema::TYPE_STRING . '(255) NOT NULL',
             'created_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
             'updated_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
         ], $tableOptions);

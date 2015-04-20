@@ -43,12 +43,13 @@ class ImageLang extends \yii\db\ActiveRecord
                 return $model->language == Yii::$app->language;
             }],
             // Trim
-            [['alt', 'title', 'description'], 'trim'],
+            [['alt', 'title', 'subtitle', 'description', 'url'], 'trim'],
             // Types
             [['image_id', 'created_at', 'updated_at'], 'integer'],
             [['language'], 'string', 'max' => 2],
+            [['url'], 'url', 'defaultScheme' => 'http'],
             [['description'], 'string'],
-            [['alt', 'title'], 'string', 'max' => 255],
+            [['alt', 'title', 'subtitle', 'url'], 'string', 'max' => 255],
         ];
     }
 
@@ -76,6 +77,7 @@ class ImageLang extends \yii\db\ActiveRecord
             'image_id' => Yii::t('infoweb/sliders', 'Image ID'),
             'alt' => Yii::t('app', 'Alt'),
             'title' => Yii::t('app', 'Title'),
+            'subtitle' => Yii::t('infoweb/sliders', 'Subtitle'),
             'description' => Yii::t('app', 'Description'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),

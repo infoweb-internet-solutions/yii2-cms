@@ -28,7 +28,8 @@ class Module extends \yii\base\Module
         parent::init();
 
         // Gridview default settings
-        Yii::$container->set('kartik\grid\GridView', [
+
+        $gridviewSettings = [
             'export' => false,
             'responsive' => true,
             'floatHeader' => true,
@@ -41,7 +42,10 @@ class Module extends \yii\base\Module
                 ],
             ],
             'resizableColumns' => false,
-        ]);
+        ];
+
+        Yii::$container->set('kartik\grid\GridView', $gridviewSettings);
+        Yii::$container->set('infoweb\sortable\SortableGridView', $gridviewSettings);
 
         // Initialize moxiemanager session vars
         $this->initMoxiemanagerSession();

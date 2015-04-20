@@ -27,9 +27,20 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        // Disable kartik\grid\GridView export functionality for all instances
+        // Gridview default settings
         Yii::$container->set('kartik\grid\GridView', [
             'export' => false,
+            'responsive' => true,
+            'floatHeader' => true,
+            'floatHeaderOptions' => ['scrollingTop' => 88],
+            'hover' => true,
+            'pjax' => true,
+            'pjaxSettings' => [
+                'options' => [
+                    'id' => 'grid-pjax',
+                ],
+            ],
+            'resizableColumns' => false,
         ]);
 
         // Initialize moxiemanager session vars

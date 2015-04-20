@@ -77,7 +77,7 @@ class ImageLang extends \yii\db\ActiveRecord
             'image_id' => Yii::t('infoweb/sliders', 'Image ID'),
             'alt' => Yii::t('app', 'Alt'),
             'title' => Yii::t('app', 'Title'),
-            'subtitle' => Yii::t('infoweb/sliders', 'Subtitle'),
+            'subtitle' => Yii::t('app', 'Subtitle'),
             'description' => Yii::t('app', 'Description'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),

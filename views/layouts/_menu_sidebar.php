@@ -5,6 +5,7 @@ use kartik\widgets\SideNav;
 
 // The html template for the sidebar items
 $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-label">{label}</span></a>';
+
 ?>
 <div class="sidebar-nav navbar-collapse">
     
@@ -87,52 +88,93 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'label' => Yii::t('app', 'Modules'),
                         'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
                         'items' => Yii::$app->getModule('cms')->getSideBarItems('modules', $sideBarItemTemplate),
-                        'visible' => (Yii::$app->user->can('showModulesModule')) ? true : false,
+                        'visible' => true,
                     ],
                 ],
                 'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,
             ],
             // Shop
             [
-                'label' => Yii::t('ecommerce', 'Catalog'),
+                'label' => Yii::t('ecommerce', 'Ecommerce'),
                 'icon' => 'shopping-cart',
                 'template' => '<a href="{url}" title="{label}" class="kv-toggle">{icon}<span class="nav-label">{label}</span></a>',
-                'visible' => (Yii::$app->user->can('showShopModule')) ? true : false,
+                'visible' => (Yii::$app->user->can('showEcommerceModule')) ? true : false,
                 'items' => [
-                    // Categories
+                    // Catalogue
                     [
-                        'label' => Yii::t('ecommerce', 'Categories'),
-                        'url'   => Url::toRoute('/catalogue/category/index'),
-                        'template' => $sideBarItemTemplate,
-                        //'visible' => (Yii::$app->user->can('showCategoryModule')) ? true : false,
-                        'active' => (stripos(Yii::$app->request->url, '/catalogue/category') !== false) ? true : false
+                        'label' => Yii::t('ecommerce', 'Catalogue'),
+                        'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
+                        'visible' => (Yii::$app->user->can('showEcommerceCatalogueModule')) ? true : false,
+                        'items' => [
+                            
+                            // Products
+                            [
+                                'label' => Yii::t('ecommerce', 'Products'),
+                                'url'   => Url::toRoute('/catalogue/product/' . Yii::$app->session->get('ecommerce.products.view', 'index')),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceProductModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/catalogue/product') !== false) ? true : false
+                            ],                            
+                            // Attribute sets
+                            [
+                                'label' => Yii::t('ecommerce', 'Attributes'),
+                                'url'   => Url::toRoute('/catalogue/attribute-set/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceAttributeModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/catalogue/attribute-set') !== false || stripos(Yii::$app->request->url, '/catalogue/attribute-group') !== false || stripos(Yii::$app->request->url, '/catalogue/attribute') !== false) ? true : false
+                            ],
+                            // Option sets
+                            [
+                                'label' => Yii::t('ecommerce', 'Options'),
+                                'url'   => Url::toRoute('/catalogue/option-set/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceOptionModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/catalogue/option-set') !== false || stripos(Yii::$app->request->url, '/catalogue/option') !== false) ? true : false
+                            ],
+                            // Categories
+                            [
+                                'label' => Yii::t('ecommerce', 'Categories'),
+                                'url'   => Url::toRoute('/catalogue/category/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceCategoryModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/catalogue/category') !== false) ? true : false
+                            ],
+                            // Manufacturers
+                            [
+                                'label' => Yii::t('ecommerce', 'Manufacturers'),
+                                'url'   => Url::toRoute('/catalogue/manufacturer/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceManufacturerModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/catalogue/manufacturer') !== false) ? true : false
+                            ],
+                        ],
                     ],
-                    // Products
+                    // Sales
                     [
-                        'label' => Yii::t('ecommerce', 'Products'),
-                        'url'   => Url::toRoute('/catalogue/product/index'),
-                        'template' => $sideBarItemTemplate,
-                        //'visible' => (Yii::$app->user->can('showProductModule')) ? true : false,
-                        'active' => (stripos(Yii::$app->request->url, '/catalogue/product') !== false) ? true : false
+                        'label' => Yii::t('ecommerce', 'Sales'),
+                        'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
+                        'visible' => (Yii::$app->user->can('showEcommerceSalesModule')) ? true : false,
+                        'items' => [                           
+                            // Orders
+                            [
+                                'label' => Yii::t('ecommerce', 'Orders'),
+                                'url'   => Url::toRoute('/ecommerce-sales/order/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceSalesOrdersModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/ecommerce-sales/order') !== false) ? true : false
+                            ],
+                            // Customers
+                            [
+                                'label' => Yii::t('ecommerce', 'Customers'),
+                                'url'   => Url::toRoute('/ecommerce-sales/customer/index'),
+                                'template' => $sideBarItemTemplate,
+                                'visible' => (Yii::$app->user->can('showEcommerceSalesCustomersModule')) ? true : false,
+                                'active' => (stripos(Yii::$app->request->url, '/ecommerce-sales/customer') !== false) ? true : false
+                            ]
+                        ],
                     ],
-                    // Manufacturers
-                    [
-                        'label' => Yii::t('ecommerce', 'Manufacturers'),
-                        'url'   => Url::toRoute('/catalogue/manufacturer/index'),
-                        'template' => $sideBarItemTemplate,
-                        //'visible' => (Yii::$app->user->can('showProductModule')) ? true : false,
-                        'active' => (stripos(Yii::$app->request->url, '/catalogue/manufacturer') !== false) ? true : false
-                    ],
-                    // Attribute sets
-                    [
-                        'label' => Yii::t('ecommerce', 'Attributes'),
-                        'url'   => Url::toRoute('/catalogue/attribute-set/index'),
-                        'template' => $sideBarItemTemplate,
-                        //'visible' => (Yii::$app->user->can('showProductModule')) ? true : false,
-                        'active' => (stripos(Yii::$app->request->url, '/catalogue/attribute-set') !== false) ? true : false
-                    ],
-                ],
-            ],
+                ]    
+            ],           
             // Media
             [
                 'label' => Yii::t('infoweb/app', 'Media'),
@@ -164,10 +206,10 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
             [
                 'label' => Yii::t('infoweb/social-media', 'Social Media'),
                 'icon' => 'share-alt',
-                'url'   => Url::toRoute('/social-media/social-media'),
+                'url'   => Url::toRoute('/social-media/social'),
                 'template' => $sideBarItemTemplate,
                 'visible' => (Yii::$app->user->can('showSocialMediaModule')) ? true : false,
-                'active' => (stripos(Yii::$app->request->url, '/social-media/social-media') !== false) ? true : false
+                'active' => (stripos(Yii::$app->request->url, '/social-media/social') !== false) ? true : false
             ],
             // Emailmarketing
             [

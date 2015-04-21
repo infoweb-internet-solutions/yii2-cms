@@ -1,13 +1,18 @@
 <?php
 namespace infoweb\cms\behaviors;
+
 use yii;
 use yii\helpers\BaseFileHelper;
-use yii\db\Query;
+use yii\web\UploadedFile;
+use yii\helpers\StringHelper;
+
 use infoweb\cms\models\Image;
+use infoweb\cms\models\ImageUploadForm;
 
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
     /**
+     *
      * Method copies image file to module store and creates db record.
      *
      * @param $absolutePath
@@ -19,15 +24,16 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
     {
         if(!preg_match('#http#', $absolutePath)){
             if (!file_exists($absolutePath)) {
-                throw new \Exception(Yii::t('app', 'File {path} does not exist!', ['path' => $absolutePath]));
+                throw new \Exception('File not exist! :'.$absolutePath);
             }
+        }else{
+            //nothing
         }
 
-        if (!$this->owner->id) {
-            throw new \Exception(Yii::t('app', 'There was a problem while attaching the image'));
+        if (!$this->owner->primaryKey) {
+            throw new \Exception('Owner must have primaryKey when you attach image!');
         }
 
-        // Custom
         $pictureFileName = basename($absolutePath);
 
         $pictureSubDir = $this->getModule()->getModelSubDir($this->owner);
@@ -42,31 +48,24 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         copy($absolutePath, $newAbsolutePath);
 
-        if (!file_exists($absolutePath)) {
-            throw new \Exception(Yii::t('app', 'There was a problem while uploading the file'));
+        if (!file_exists($newAbsolutePath)) {
+            throw new \Exception('Cant copy file! ' . $absolutePath . ' to ' . $newAbsolutePath);
         }
 
-        // Custom
-        unlink($absolutePath);
-
-        if($this->modelClass === null) {
-            $image = new Image;
-        }else{
-            $image = new ${$this->modelClass}();
-        }
-        $image->itemId = $this->owner->id;
+        $image = new Image;
+        $image->itemId = $this->owner->primaryKey;
         $image->filePath = $pictureSubDir . '/' . $pictureFileName;
-        $modelName = $this->getModule()->getShortClass($this->owner);
-        $image->modelName = $modelName;
+        $image->modelName = $this->getModule()->getShortClass($this->owner);
+
 
         $image->urlAlias = $this->getAlias($image);
 
         // Custom
-        $nameWithoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $pictureFileName);
-        $image->name = $nameWithoutExt;
+        $image->name = substr(yii\helpers\Inflector::slug($pictureFileName), 0, -3);
         // Get the highest position
         // @todo Create function
-        $query = (new Query)->select('MAX(`position`)')->from(Image::tableName())->where(['modelName' => $modelName]);
+        $owner = $this->owner;
+        $query = (new yii\db\Query())->select('MAX(`position`)')->from(Image::tableName())->where(['modelName' => yii\helpers\StringHelper::basename($owner::className())]);
         $command = $query->createCommand();
         $image->position = $command->queryOne(\PDO::FETCH_COLUMN)+1;
 
@@ -93,6 +92,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         ){
             $this->setMainImage($image);
         }
+
 
         return $image;
     }
@@ -139,7 +139,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         $imageQuery = Image::find()
             ->where($finder);
-        $imageQuery->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
+        $imageQuery->orderBy(['position' => SORT_DESC]);
 
         $imageRecords = $imageQuery->all();
         if(!$imageRecords){
@@ -164,19 +164,39 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
     }
 
     /**
-     * returns main model image
-     * @return array|null|ActiveRecord
+     * Returns main model image
+     * @param   boolean $fallbackToPlaceholder      A flag to determine if a 
+     *                                              placeholder has to be used
+     *                                              when no image is found
+     * @param   mixed   $placeHolderPath            The alternative placeholder path
+     * @return  array|null|ActiveRecord
      */
-    public function getImage()
+    public function getImage($fallbackToPlaceholder = true, $placeHolderPath = null)
     {
         $finder = $this->getImagesFinder(['isMain' => 1]);
         $imageQuery = Image::find()
-            ->where($finder);
-        $imageQuery->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
+                        ->where($finder)
+                        ->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
 
         $img = $imageQuery->one();
-        if(!$img){
-            return $this->getModule()->getPlaceHolder();
+        
+        // No image model + fallback to placeholder or
+        // image model but image does not exist + fallback to placeholder
+        if ((!$img && $fallbackToPlaceholder) ||
+            ($img !== null && !file_exists($img->getBaseUrl()) && $fallbackToPlaceholder)) {
+            
+            // Custom placeholder
+            if ($placeHolderPath) {
+                $placeHolder = new Image([
+                    'filePath' => basename(Yii::getAlias($placeHolderPath)),
+                    'urlAlias' => basename($placeHolderPath)
+                ]);
+                
+                return $placeHolder;
+            // Default placeholder
+            } else {
+                return $this->getModule()->getPlaceHolder();    
+            }
         }
 
         return $img;
@@ -227,14 +247,62 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         if (!$img->isNewRecord) {
             $imgInfoweb = Image::findOne(['id' => $img->id]);
             $imgInfoweb->clearCache();
-    
+
             $storePath = $this->getModule()->getStorePath();
-    
+
             $fileToRemove = $storePath . DIRECTORY_SEPARATOR . $img->filePath;
             if (preg_match('@\.@', $fileToRemove) and is_file($fileToRemove)) {
                 unlink($fileToRemove);
             }
             $img->delete();
+        }
+    }
+
+    /**
+     * Upload and attach images
+     *
+     * @param $model
+     */
+    public function uploadImage() {
+
+        // Upload image
+        $form = new ImageUploadForm();
+        $images = UploadedFile::getInstances($form, 'image');
+
+        $model = $this->owner;
+
+        // Remove old images if a new one is uploaded
+        if ($images) {
+            $model->removeImages();
+
+            foreach ($images as $k => $image) {
+
+                $_model = new ImageUploadForm();
+                $_model->image = $image;
+
+                if ($_model->validate()) {
+                    $path = \Yii::getAlias('@uploadsBasePath') . "/img/{$_model->image->baseName}.{$_model->image->extension}";
+
+                    $_model->image->saveAs($path);
+
+                    // Attach image to model
+                    $model->attachImage($path);
+
+                } else {
+                    foreach ($_model->getErrors('image') as $error) {
+                        $model->addError('image', $error);
+                    }
+                }
+            }
+
+            if ($model->hasErrors('image')){
+                $model->addError(
+                    'image',
+                    count($model->getErrors('image')) . Yii::t('app', 'of') . count($images) . ' ' . Yii::t('app', 'images not uploaded')
+                );
+            } else {
+                Yii::$app->session->setFlash(StringHelper::basename($this->owner->className()), Yii::t('app', '{n, plural, =1{Image} other{# images}} successfully uploaded', ['n' => count($images)]));
+            }
         }
     }
 

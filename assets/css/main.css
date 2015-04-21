@@ -3,6 +3,10 @@ body {
 
 }
 
+body.modal-open {
+    padding-right: 0 !important;
+}
+
 * {
     outline: none !important;
 }
@@ -79,6 +83,11 @@ h1.page-header {
     padding: 0 2px;
 }
 
+.fa-btn-icon {
+    font-size: 22px !important;
+    padding-right: 4px;
+}
+
 .table .glyphicon {
     font-size: 18px;
     padding: 0 2px;
@@ -95,6 +104,14 @@ h1.page-header {
 
 .icon-active {
     color: #3c763d;  
+}
+
+.icon-gray {
+    color: #ccc;
+}
+
+.icon-blue {
+    color: #337ab7;
 }
 
 /**
@@ -274,6 +291,21 @@ form .checkboxList label input {
     top: 2px;
     margin-right: 4px;
 }
+
+/**
+ * Checlboxlist
+ */
+form .checkboxList label {
+    font-weight: normal;
+    width: 100%;
+}
+
+form .checkboxList label input {
+    position: relative;
+    top: 2px;
+    margin-right: 4px;
+}
+
 
 /**
  * 	Breadcrumbs

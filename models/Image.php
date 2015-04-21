@@ -30,7 +30,9 @@ class Image extends BaseImage
                 'translationAttributes' => [
                     'alt',
                     'title',
+                    'subtitle',
                     'description',
+                    'url',
                 ]
             ],
         ]);
@@ -72,6 +74,15 @@ class Image extends BaseImage
         $httpPath = \Yii::getAlias('@uploadsBaseUrl').'/img/cache/'.$sub.'/'.$this->urlAlias.$urlSize.'.'.pathinfo($origin, PATHINFO_EXTENSION);
 
         return $httpPath;
+    }
+    
+    public function getBaseUrl()
+    {
+        $base = $this->getModule()->getStorePath();
+        $sub = $this->getSubDur();
+        $origin = $this->getPathToOrigin();
+
+        return $base.'/'.$sub.'/'.$this->name.'.'.pathinfo($origin, PATHINFO_EXTENSION);    
     }
 
     public function getPath($size = false)
@@ -134,4 +145,5 @@ class Image extends BaseImage
 
         return true;
     }
+
 }

@@ -1,5 +1,5 @@
-testtest
-<?= Yii::t('frontend', 'Beste') . ' [name]' ?>
+
+<?= Yii::t('frontend', 'Beste') ?>
 <br><br>
 <?= Yii::t('frontend', 'Er is een nieuwe contactaanvraag met onderstaande gegevens') ?>
 <br><br>

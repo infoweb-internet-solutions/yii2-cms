@@ -27,10 +27,25 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        // Disable kartik\grid\GridView export functionality for all instances
-        Yii::$container->set('kartik\grid\GridView', [
+        // Gridview default settings
+
+        $gridviewSettings = [
             'export' => false,
-        ]);
+            'responsive' => true,
+            'floatHeader' => true,
+            'floatHeaderOptions' => ['scrollingTop' => 88],
+            'hover' => true,
+            'pjax' => true,
+            'pjaxSettings' => [
+                'options' => [
+                    'id' => 'grid-pjax',
+                ],
+            ],
+            'resizableColumns' => false,
+        ];
+
+        Yii::$container->set('kartik\grid\GridView', $gridviewSettings);
+        Yii::$container->set('infoweb\sortable\SortableGridView', $gridviewSettings);
 
         // Initialize moxiemanager session vars
         $this->initMoxiemanagerSession();
@@ -56,7 +71,7 @@ class Module extends \yii\base\Module
                 'url'       => Url::toRoute($item['url']),
                 'template'  => $template,
                 'visible'   => (isset($item['authItem']) && Yii::$app->user->can($item['authItem'])) ? true : false,
-                'active'    => (stripos(Yii::$app->request->url, $item['url']) !== false) ? true : false
+                'active'    => (stripos(Yii::$app->request->url, (isset($item['activeUrl'])) ? $item['activeUrl'] : $item['url']) !== false) ? true : false
             ];
         }
 
@@ -112,7 +127,7 @@ class Module extends \yii\base\Module
             ],
             'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
             'contentsCss' => $this->getCKEditorStylesheets(),
-            'extraAllowedContent' => 'div(*);table(*)',
+            'extraAllowedContent' => 'div(*);table(*);h1;h2;h3;h4;h5;h6;h7;h8',
             'extraPlugins' => 'codemirror,moxiemanager',
             //'tinymce' => false,
             'enterMode' => 2,

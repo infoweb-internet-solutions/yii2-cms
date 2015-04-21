@@ -88,7 +88,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'label' => Yii::t('app', 'Modules'),
                         'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
                         'items' => Yii::$app->getModule('cms')->getSideBarItems('modules', $sideBarItemTemplate),
-                        'visible' => true,
+                        'visible' => (Yii::$app->user->can('showModulesModule')) ? true : false,
                     ],
                 ],
                 'visible' => (Yii::$app->user->can('showContentModule')) ? true : false,

@@ -3,6 +3,10 @@ body {
 
 }
 
+body.modal-open {
+    padding-right: 0 !important;
+}
+
 * {
     outline: none !important;
 }
@@ -77,6 +81,11 @@ h1.page-header {
 .fa {
     font-size: 26px;
     padding: 0 2px;
+}
+
+.fa-btn-icon {
+    font-size: 22px !important;
+    padding-right: 4px;
 }
 
 .table .glyphicon {

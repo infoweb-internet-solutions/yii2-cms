@@ -8,71 +8,43 @@ The preferred way to install this extension is through [composer](http://getcomp
 
 You can then install the application using the following command:
 
-```
+```bash
 php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta4"
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
 ```
-  
-Create a new development database and adjust the components['db'] configuration in environments/dev/common/config/main-local.php accordingly.
 
-Create a new production database and adjust the components['db'] configuration in environments/prod/common/config/main-local.php accordingly.
+### Configure environments  
+Create a new dev and production database and adjust the `components['db']` configuration in `environments/dev/common/config/main-local.php` and `environments/prod/common/config/main-local.php` accordingly.
   
-Add the components['assetManager'] configuration in the same files:
-  
-```
+Add the `components['assetManager']` configuration in the same files:
+```php
 'assetManager' => [
     'linkAssets' => true,
 ],
 ```
   
-Also adjust the components['mailer'] configuration for both files.
-  
-Add to your composer file if you want to add git folders
-```
+Also remove the `components['mailer']` configuration from both files because it will be added to `common/config/main.php`
+ 
+### Update composer.json file  
+Update the `config` section of `composer.json` if you want composer to download git folders for the packages
+```json
 "config": {
     ...
 	"preferred-install": "source"
 },
 ```
-  
-Run command `init` to initialize the application with a specific environment.
-  
-Adjust `adminEmail` in backend/config/params.php
-Adjust 	`adminEmail` and `supportEmail` in common/config/params.php
-Adjust `adminEmail` in console/config/params.php
-  
-Either run
 
-```
-php composer.phar require infoweb-internet-solutions/yii2-cms "*"
+Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` packages
+```php
+"require": [
+    ...
+    "infoweb-internet-solutions/yii2-cms": "*",
+    "fishvision/yii2-migrate" : "*"
+]
 ```
 
-or add
-
-```
-"infoweb-internet-solutions/yii2-cms": "*"
-```
-
-to the require section of your `composer.json` file.
-
-Add new folders in frontend/web/
-
-```
-uploads/img
-uploads/files
-```
-
-and add .gitignore file in uploads folder
-
-```
-*
-!.gitignore
-```
-  
-Before using the module you also need to update the composer.json file of your project
-with a reference to the custom repositories that are needed to override certain
-vendor modules
-```
+Add references to the custom repositories that are needed to override certain vendor packages
+```php
 ...
 "repositories": [
     {
@@ -82,13 +54,49 @@ vendor modules
     {
         "type": "vcs",
         "url": "https://github.com/infoweb-internet-solutions/yii2-ckeditor"
-    },
+    }
 ]
 ...
 ```
 
-Adjust backend/config/main.php
+After this run `composer update` to install the package
+
+### Init environment  
+Run command `init` to initialize the application with a specific environment.
+
+Create folders in `frontend/web/`
 ```
+uploads/img
+uploads/files
+```
+
+and add `.gitignore` file in `uploads/`
+
+```
+*
+!.gitignore
+```
+  
+Adjust `adminEmail` in `backend/config/params.php`, `common/config/params.php` and `console/config/params.php`
+Adjust `supportEmail` in `common/config/params.php`
+
+Configure the `fishvision/yii2-migrate` module in `common/config/main.php`
+```php
+...
+'controllerMap' => [
+    'migrate' => [
+        'class' => 'fishvision\migrate\controllers\MigrateController',
+        'autoDiscover' => true,
+        'migrationPaths' => [
+            '@vendor'
+        ],
+    ],
+],
+...
+```
+
+Adjust `backend/config/main.php`
+```php
 'modules' => [
     'admin' => [
         'class' => 'mdm\admin\Module',
@@ -97,8 +105,8 @@ Adjust backend/config/main.php
 ],
 ```
   
-Adjust common/config/main.php
-```
+Adjust `common/config/main.php`
+```php
 'components' => [
 	....
 	'authManager' => [
@@ -107,17 +115,10 @@ Adjust common/config/main.php
 ],
 ```
   
-Apply migrations with console commands. This will create tables needed for the application to work.
-```
-yii migrate
-yii migrate/up --migrationPath=@vendor/yiisoft/yii2/rbac/migrations
-yii migrate/up --migrationPath=@vendor/infoweb-internet-solutions/yii2-cms/migrations
-```
-  
 Usage
 -----
 
-Once the extension is installed, simply modify your common application configuration as follows:
+Once the extension is installed, simply modify `common/config/main.php` as follows:
 
 ```php
 
@@ -241,7 +242,7 @@ return [
 ```
 (dont forget to update the settings of the **mailer** and **log** components!)
 
-your backend configuration as follows:
+`backend/config/main.php` as follows:
 
 ```php
 return [
@@ -256,7 +257,7 @@ return [
        	'gridview' =>  [
             'class' => '\kartik\grid\Module'
         ],
-  	'media' => [
+  	    'media' => [
             'class' => 'infoweb\cms\Module',
         ],
         'user' => [
@@ -282,6 +283,9 @@ return [
                 ]
             ]
         ],
+		'email' => [
+            'class' => 'infoweb\email\Module'
+        ],
     ],
     ...
     'components' => [
@@ -293,7 +297,7 @@ return [
                 ],
             ],
         ],
-	'request' => [
+		'request' => [
             'class' => 'common\components\Request',
             'web'=> '/backend/web',
             'adminUrl' => '/admin'
@@ -303,7 +307,7 @@ return [
 ];
 ```
 
-you backend parameters as follows:
+`backend/config/params.php` as follows:
 ```php
 return [
     ...
@@ -315,7 +319,7 @@ return [
 ]
 ```
 
-and your common parameters as follows:
+and `common/config/params.php` as follows:
 
 ```php
 return [
@@ -326,8 +330,24 @@ return [
         'fr'    => 'Français',
         'en'    => 'English',
     ],
-    'companyName'   => 'Infoweb'
+    'companyName'   => 'YourCompany'
     ...
+];
+```
+
+and `frontend/config/main.php` as follows:
+
+```php
+return [
+    ...
+    'components' => [
+		// Update user component
+       'user' => [
+            'identityClass' => 'infoweb\user\models\User',
+            'enableAutoLogin' => true,
+        ],
+    ],
+	...
 ];
 ```
   
@@ -335,7 +355,9 @@ return [
 Docs
 -----
   
-Follow all usage instructions, but do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+Follow all usage instructions
+Do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
+Do not run any migrations and don't import messages, we'll do this later
   
 - [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
@@ -350,21 +372,19 @@ Follow all usage instructions, but do not run composer, all modules are already 
   
 Images:
   
-Add to common config modules:
-  
+Enable the `rico\yii2images` module in `common/config/main.php`
+```php
 'yii2images' => [
-	'class' => 'rico\yii2images\Module',
-	'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
-	'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
-	'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
-	'placeHolderPath' => '@infoweb/cms/assets/img/placeholder.png',
+    'class' => 'rico\yii2images\Module',
+    'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
+    'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
+    'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
+    'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
 ],
-  
-`php yii migrate/up --migrationPath=@vendor/costa-rico/yii2-images/migrations`
-  
-  
-Add a couple of system aliases to your common/bootstrap.php file
-```
+```  
+   
+Add a couple of system aliases to `common/config/bootstrap.php`
+```php
 ...
 // System aliases
 Yii::setAlias('baseUrl', 'http://' . ((isset($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : '') . ((YII_ENV_DEV) ? '/directory-in-your-localhost' : ''));
@@ -375,21 +395,30 @@ Yii::setAlias('frontendUrl', Yii::getAlias('@baseUrl') . '/frontend/web');
 ...
 ```
 
-Import the translations and use category 'app':
-```
-yii i18n/import @infoweb/cms/messages
-```
-
-After that, import the translations of the custom i18n repository by using category 'zelenin/modules/i18n':
-```
-yii i18n/import @Zelenin/yii/modules/I18n/messages
+Apply migrations with console commands. This will create tables needed for the application to work.
+```bash
+yii migrate/up
 ```
 
+Import the translations
+```bash
+yii i18n/import @infoweb/cms/messages --interactive=0
+yii i18n/import @Zelenin/yii/modules/I18n/messages --interactive=0
+yii i18n/import @yii/messages --interactive=0 (or try without --interactive=0)
+yii i18n/import @infoweb/settings/messages --interactive=0
+yii i18n/import @infoweb/pages/messages --interactive=0
+yii i18n/import @infoweb/partials/messages --interactive=0
+yii i18n/import @infoweb/seo/messages --interactive=0
+yii i18n/import @infoweb/alias/messages --interactive=0
+yii i18n/import @infoweb/analytics/messages --interactive=0
+yii i18n/import @infoweb/email/messages --interactive=0
+```
+  
 Add htaccess files  
   
 Root  
 
-```
+```apache
 <IfModule mod_rewrite.c>
     Options +FollowSymlinks
     RewriteEngine On
@@ -422,7 +451,7 @@ Root
   
 backend/web/  
   
-```
+```apache
 RewriteEngine on
 
 # if a directory or a file exists, use it directly
@@ -437,7 +466,7 @@ Options FollowSymLinks
 
 frontend/web/
 
-```
+```apache
 RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -449,26 +478,20 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 ```
 
-@todo:
-Create user
-login to admin
   
-add to frontend/web/css  
-editor.css  
-```
+Add new file`frontend/web/css/editor.css`  
+```css
 body {
     padding: 15px;
 }
 ```
   
-and empty main.css
+and an empty `main.css` file
   
   
-@todo: Add frontend config settings (request, etc..)
-Add to file in common components
-Request.php
+Add new class in `common/components/Request.php`
   
-```
+```php
 <?php
 namespace common\components;
 
@@ -525,3 +548,8 @@ class Request extends \yii\web\Request
     }
 }
 ```
+  
+Create a new user `/admin/user/register`  
+If you can't access this page, remove `ac access` in `backend/config/main.php`  
+  
+Login `/admin` and enjoy!  

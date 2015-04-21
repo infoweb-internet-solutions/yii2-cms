@@ -1,8 +1,13 @@
 <?php
 namespace infoweb\cms\behaviors;
+
 use yii;
 use yii\helpers\BaseFileHelper;
+use yii\web\UploadedFile;
+use yii\helpers\StringHelper;
+
 use infoweb\cms\models\Image;
+use infoweb\cms\models\ImageUploadForm;
 
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
@@ -159,19 +164,39 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
     }
 
     /**
-     * returns main model image
-     * @return array|null|ActiveRecord
+     * Returns main model image
+     * @param   boolean $fallbackToPlaceholder      A flag to determine if a 
+     *                                              placeholder has to be used
+     *                                              when no image is found
+     * @param   mixed   $placeHolderPath            The alternative placeholder path
+     * @return  array|null|ActiveRecord
      */
-    public function getImage()
+    public function getImage($fallbackToPlaceholder = true, $placeHolderPath = null)
     {
         $finder = $this->getImagesFinder(['isMain' => 1]);
         $imageQuery = Image::find()
-            ->where($finder);
-        $imageQuery->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
+                        ->where($finder)
+                        ->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
 
         $img = $imageQuery->one();
-        if(!$img){
-            return $this->getModule()->getPlaceHolder();
+        
+        // No image model + fallback to placeholder or
+        // image model but image does not exist + fallback to placeholder
+        if ((!$img && $fallbackToPlaceholder) ||
+            ($img !== null && !file_exists($img->getBaseUrl()) && $fallbackToPlaceholder)) {
+            
+            // Custom placeholder
+            if ($placeHolderPath) {
+                $placeHolder = new Image([
+                    'filePath' => basename(Yii::getAlias($placeHolderPath)),
+                    'urlAlias' => basename($placeHolderPath)
+                ]);
+                
+                return $placeHolder;
+            // Default placeholder
+            } else {
+                return $this->getModule()->getPlaceHolder();    
+            }
         }
 
         return $img;
@@ -230,6 +255,54 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
                 unlink($fileToRemove);
             }
             $img->delete();
+        }
+    }
+
+    /**
+     * Upload and attach images
+     *
+     * @param $model
+     */
+    public function uploadImage() {
+
+        // Upload image
+        $form = new ImageUploadForm();
+        $images = UploadedFile::getInstances($form, 'image');
+
+        $model = $this->owner;
+
+        // Remove old images if a new one is uploaded
+        if ($images) {
+            $model->removeImages();
+
+            foreach ($images as $k => $image) {
+
+                $_model = new ImageUploadForm();
+                $_model->image = $image;
+
+                if ($_model->validate()) {
+                    $path = \Yii::getAlias('@uploadsBasePath') . "/img/{$_model->image->baseName}.{$_model->image->extension}";
+
+                    $_model->image->saveAs($path);
+
+                    // Attach image to model
+                    $model->attachImage($path);
+
+                } else {
+                    foreach ($_model->getErrors('image') as $error) {
+                        $model->addError('image', $error);
+                    }
+                }
+            }
+
+            if ($model->hasErrors('image')){
+                $model->addError(
+                    'image',
+                    count($model->getErrors('image')) . Yii::t('app', 'of') . count($images) . ' ' . Yii::t('app', 'images not uploaded')
+                );
+            } else {
+                Yii::$app->session->setFlash(StringHelper::basename($this->owner->className()), Yii::t('app', '{n, plural, =1{Image} other{# images}} successfully uploaded', ['n' => count($images)]));
+            }
         }
     }
 

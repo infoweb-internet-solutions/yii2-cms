@@ -30,7 +30,9 @@ class Image extends BaseImage
                 'translationAttributes' => [
                     'alt',
                     'title',
+                    'subtitle',
                     'description',
+                    'url',
                 ]
             ],
         ]);

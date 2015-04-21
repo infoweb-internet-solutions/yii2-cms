@@ -27,10 +27,25 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        // Disable kartik\grid\GridView export functionality for all instances
-        Yii::$container->set('kartik\grid\GridView', [
+        // Gridview default settings
+
+        $gridviewSettings = [
             'export' => false,
-        ]);
+            'responsive' => true,
+            'floatHeader' => true,
+            'floatHeaderOptions' => ['scrollingTop' => 88],
+            'hover' => true,
+            'pjax' => true,
+            'pjaxSettings' => [
+                'options' => [
+                    'id' => 'grid-pjax',
+                ],
+            ],
+            'resizableColumns' => false,
+        ];
+
+        Yii::$container->set('kartik\grid\GridView', $gridviewSettings);
+        Yii::$container->set('infoweb\sortable\SortableGridView', $gridviewSettings);
 
         // Initialize moxiemanager session vars
         $this->initMoxiemanagerSession();

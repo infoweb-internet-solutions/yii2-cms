@@ -57,7 +57,6 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $image->filePath = $pictureSubDir . '/' . $pictureFileName;
         $image->modelName = $this->getModule()->getShortClass($this->owner);
 
-
         $image->urlAlias = $this->getAlias($image);
 
         // Custom
@@ -305,6 +304,5 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
             }
         }
     }
-
 
 }

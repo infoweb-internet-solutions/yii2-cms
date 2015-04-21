@@ -27,6 +27,7 @@ class m150107_074600_create_image_tables extends Migration
             'modelName'             => Schema::TYPE_STRING . '(255) NOT NULL',
             'urlAlias'              => Schema::TYPE_STRING . '(255) NOT NULL',
             'position'              => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
+            'active'                => 'TINYINT(3) UNSIGNED NOT NULL DEFAULT \'1\'',
             'created_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
             'updated_at'            => Schema::TYPE_INTEGER . ' UNSIGNED NOT NULL',
         ], $tableOptions);

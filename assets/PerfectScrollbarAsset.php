@@ -5,13 +5,13 @@ use yii\web\AssetBundle as AssetBundle;
 
 class PerfectScrollbarAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/perfect-scrollbar/min';
+    public $sourcePath = '@bower/perfect-scrollbar';
 
     public $css = [
-        'perfect-scrollbar.min.css',
+        'css/perfect-scrollbar.min.css',
     ];
 
     public $js = [
-        'perfect-scrollbar.min.js'
+        'js/min/perfect-scrollbar.jquery.min.js'
     ];
 }

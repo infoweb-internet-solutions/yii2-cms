@@ -89,7 +89,15 @@
      */
     CMS.showFirstFormTabWithErrors = function(e) {
         if ($(".has-error").length) {
-            $("a[href=#"+$(".has-error").eq(0).parents(".tab-pane").attr("id")+"]").tab("show");
+            var parentTabs = $(".has-error").eq(0).parents(".tab-pane");
+            
+            // Show the last parent tab
+            $("a[href=#"+parentTabs.last().attr("id")+"]").tab("show");
+            
+            // If there are multiple parent tabs, show the first one
+            if (parentTabs.length > 1)
+                $("a[href=#"+parentTabs.first().attr("id")+"]").tab("show");
+                
             CMS.scrollToElement('.has-error');
         }    
     };

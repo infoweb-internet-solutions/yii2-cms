@@ -48,7 +48,8 @@
         "bower-asset/cookies-js": "@stable",
         "bower-asset/perfect-scrollbar": "@stable",
         "bower-asset/underscore": "@stable",
-        "bower-asset/fancybox": "@stable"
+        "bower-asset/fancybox": "@stable",
+        "kartik-v/yii2-social": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
@@ -56,4 +57,4 @@
         }
 	}
 }
-        
+

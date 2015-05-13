@@ -139,8 +139,8 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $imageQuery = Image::find()
             ->where($finder);
         $imageQuery->orderBy(['position' => SORT_DESC]);
-
         $imageRecords = $imageQuery->all();
+
         if(!$imageRecords){
             return [$this->getModule()->getPlaceHolder()];
         }

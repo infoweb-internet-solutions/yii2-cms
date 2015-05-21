@@ -59,6 +59,8 @@ Add references to the custom repositories that are needed to override certain ve
 ...
 ```
 
+Check if `"minimum-stability": "dev"` is set
+
 After this run `composer update` to install the package
 
 ### Init environment  
@@ -77,44 +79,9 @@ and add `.gitignore` file in `uploads/`
 !.gitignore
 ```
   
-Adjust `adminEmail` in `backend/config/params.php`, `common/config/params.php` and `console/config/params.php`
+Adjust `adminEmail` in `backend/config/params.php`, `common/config/params.php`, `frontend/config/params.php` and `console/config/params.php`
 Adjust `supportEmail` in `common/config/params.php`
 
-Configure the `fishvision/yii2-migrate` module in `common/config/main.php`
-```php
-...
-'controllerMap' => [
-    'migrate' => [
-        'class' => 'fishvision\migrate\controllers\MigrateController',
-        'autoDiscover' => true,
-        'migrationPaths' => [
-            '@vendor'
-        ],
-    ],
-],
-...
-```
-
-Adjust `backend/config/main.php`
-```php
-'modules' => [
-    'admin' => [
-        'class' => 'mdm\admin\Module',
-    ],
-    ...
-],
-```
-  
-Adjust `common/config/main.php`
-```php
-'components' => [
-	....
-	'authManager' => [
-	    'class' => 'yii\rbac\DbManager',
-	]
-],
-```
-  
 Usage
 -----
 
@@ -125,7 +92,6 @@ Once the extension is installed, simply modify `common/config/main.php` as follo
 use \kartik\datecontrol\Module;
 
 return [
-	'name' => 'My application',
     'language' => 'nl',
     'timeZone' => 'Europe/Brussels',
     ...
@@ -190,6 +156,13 @@ return [
                 ],
             ],
         ],
+		'authManager' => [
+			'class' => 'yii\rbac\DbManager',
+		],
+		'i18n' => [
+			'class' => Zelenin\yii\modules\I18n\components\I18N::className(),
+			'languages' => ['ru-RU', 'de-DE', 'it-IT']
+		],
     ],
     ...
     'modules' => [
@@ -237,7 +210,16 @@ return [
     'params' => [
         // Font Awesome Icon framework
         'icon-framework' => 'fa',  
-    ]
+    ],
+	'controllerMap' => [
+		'migrate' => [
+			'class' => 'fishvision\migrate\controllers\MigrateController',
+			'autoDiscover' => true,
+			'migrationPaths' => [
+				'@vendor'
+			],
+		],
+	],
 ];
 ```
 (dont forget to update the settings of the **mailer** and **log** components!)
@@ -286,6 +268,10 @@ return [
 		'email' => [
             'class' => 'infoweb\email\Module'
         ],
+		'admin' => [
+			'class' => 'mdm\admin\Module',
+		],
+		'i18n' => Zelenin\yii\modules\I18n\Module::className(),
     ],
     ...
     'components' => [
@@ -355,11 +341,10 @@ return [
 Docs
 -----
   
-Follow all usage instructions
-Do not run composer, all modules are already added to the infoweb-cms composer file and should be installed already
-Do not run any migrations and don't import messages, we'll do this later
+Follow all usage instructions  
+Do not run composer, all modules are included in the infoweb-cms composer file and should be already installed  
+Do not run any migrations and don't import messages, we'll do this later  
   
-- [Installation i18n module](https://github.com/zelenin/yii2-i18n-module)
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
 - [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
 - [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)

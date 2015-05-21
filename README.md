@@ -204,7 +204,14 @@ return [
             ],
             // Use custom convert action
             'convertAction' => '/cms/parse/convert-date-control'
-        ]
+        ],
+		'yii2images' => [
+			'class' => 'rico\yii2images\Module',
+			'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
+			'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
+			'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
+			'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
+		],
     ],
     ...
     'params' => [
@@ -241,29 +248,6 @@ return [
         ],
   	    'media' => [
             'class' => 'infoweb\cms\Module',
-        ],
-        'user' => [
-            'class' => 'dektrium\user\Module',
-            'enableUnconfirmedLogin' => true,
-            'confirmWithin' => 21600,
-            'cost' => 12,
-            'admins' => ['infoweb', 'admin'],
-            'modelMap' => [
-                'User' => 'infoweb\user\models\User',
-                'UserSearch' => 'infoweb\user\models\UserSearch',
-                'Profile' => 'infoweb\user\models\Profile',
-                'WebUser' => 'infoweb\user\models\WebUser',
-            ],
-            'controllerMap' => [
-                'admin' => 'infoweb\user\controllers\AdminController',
-                'settings' => 'infoweb\user\controllers\SettingsController',
-            ],
-            'modules' => [
-                // Register the custom module as a submodule
-                'infoweb-user' => [
-                    'class' => 'infoweb\user\Module'
-                ]
-            ]
         ],
 		'email' => [
             'class' => 'infoweb\email\Module'
@@ -355,18 +339,6 @@ Do not run any migrations and don't import messages, we'll do this later
 - [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
   
   
-Images:
-  
-Enable the `rico\yii2images` module in `common/config/main.php`
-```php
-'yii2images' => [
-    'class' => 'rico\yii2images\Module',
-    'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
-    'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
-    'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
-    'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
-],
-```  
    
 Add a couple of system aliases to `common/config/bootstrap.php`
 ```php

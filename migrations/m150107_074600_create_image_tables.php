@@ -18,7 +18,7 @@ class m150107_074600_create_image_tables extends Migration
             $this->dropTable('image');
         }
 
-        $this->createTable('image', [
+        $this->createTable('{{%image}}', [
             'id'                    => Schema::TYPE_PK,
             'name'                  => Schema::TYPE_STRING . '(255) NOT NULL',
             'filePath'              => Schema::TYPE_STRING . '(400) NOT NULL',

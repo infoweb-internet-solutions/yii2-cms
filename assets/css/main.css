@@ -178,6 +178,15 @@ h1.page-header {
 }
 
 /**
+ * Select 2
+ */
+
+.input-group .select2-container--krajee {
+    width: 100% !important;
+}
+
+
+/**
  * 	Table
  */
 

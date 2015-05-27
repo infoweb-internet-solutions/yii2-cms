@@ -872,8 +872,12 @@ a[data-toggle="tooltip"] {
 
 
 /**
- *     File upload widget
+ *  File upload widget
  */
 .file-preview-frame img {
     width: auto !important;
+}
+
+.file-drop-zone {
+    height: auto;
 }

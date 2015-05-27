@@ -20,7 +20,6 @@ class ImageAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         'yii\jui\JuiAsset',
         'infoweb\cms\assets\BootBoxAsset',
-        //'infoweb\cms\assets\BootstrapGrowlAsset',
         'kartik\growl\GrowlAsset',
         'infoweb\cms\assets\FancyboxAsset',
     ];

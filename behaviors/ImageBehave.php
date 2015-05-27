@@ -172,13 +172,13 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
      */
     public function getImage($fallbackToPlaceholder = true, $placeHolderPath = null)
     {
+
         $finder = $this->getImagesFinder(['isMain' => 1]);
-        $imageQuery = Image::find()
-                        ->where($finder)
-                        ->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
+
+        $imageQuery = Image::find()->where($finder);
 
         $img = $imageQuery->one();
-        
+
         // No image model + fallback to placeholder or
         // image model but image does not exist + fallback to placeholder
         if ((!$img && $fallbackToPlaceholder) ||

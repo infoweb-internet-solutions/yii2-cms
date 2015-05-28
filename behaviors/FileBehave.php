@@ -19,7 +19,7 @@ class FileBehave extends yii\base\Behavior
             $model = $this->owner;
             $model->file = UploadedFile::getInstance($model, 'file');
 
-            if ($model->validate()) {
+            if ($model->validate() && $model->file) {
 
                 $fileName = Inflector::slug($model->file->baseName) . '.' . $model->file->extension;
                 $folder = $this->getModelSubDir() . '/';
@@ -33,6 +33,8 @@ class FileBehave extends yii\base\Behavior
 
                 $model->file->saveAs(Yii::getAlias('@uploadsBasePath') . "/files/{$folder}{$model->path}");
 
+
+                $model->save();
             }
 
             return true;

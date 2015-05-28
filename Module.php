@@ -3,7 +3,8 @@
 namespace infoweb\cms;
 
 use Yii;
-use \yii\helpers\Url;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use yii\bootstrap\BootstrapAsset;
 use frontend\assets\FontAsset;
 
@@ -17,6 +18,31 @@ class Module extends \yii\base\Module
      * @var array   The items that are shown in the sidebar navigation
      */
     public $sideBarItems = [];
+    
+    /**
+     * The default configuration of the ckEditor
+     * @var array
+     */
+    public $ckEditorOptions = [
+        'height' => 300,
+        'preset' => 'custom',
+        'toolbarGroups' => [
+            ['name' => 'clipboard', 'groups' => ['mode','undo', 'selection', 'clipboard', 'doctools']],
+            ['name' => 'editing', 'groups' => ['tools']],
+            ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
+            ['name' => 'insert'],
+            ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
+            ['name' => 'colors'],
+            ['name' => 'links'],
+            ['name' => 'others'],
+            ['name' => 'styles']               
+        ],
+        'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
+        'extraAllowedContent' => 'div(*);table(*);h1;h2;h3;h4;h5;h6;h7;h8',
+        'extraPlugins' => 'codemirror,moxiemanager',
+        'enterMode' => 2,
+        'stylesSet' => [],
+    ];
     
     /**
      * @var array   The cached stylesheets for the ckeditor
@@ -112,28 +138,7 @@ class Module extends \yii\base\Module
 
     public function getCKEditorOptions()
     {
-        $editorOptions = [
-            'height' => 300,
-            'preset' => 'custom',
-            'toolbarGroups' => [
-                ['name' => 'clipboard', 'groups' => ['mode','undo', 'selection', 'clipboard', 'doctools']],
-                ['name' => 'editing', 'groups' => ['tools']],
-                ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-                ['name' => 'insert'],
-                ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-                ['name' => 'colors'],
-                ['name' => 'links'],
-                ['name' => 'others'],
-            ],
-            'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
-            'contentsCss' => $this->getCKEditorStylesheets(),
-            'extraAllowedContent' => 'div(*);table(*);h1;h2;h3;h4;h5;h6;h7;h8',
-            'extraPlugins' => 'codemirror,moxiemanager',
-            //'tinymce' => false,
-            'enterMode' => 2,
-        ];
-
-        return $editorOptions;
+        return ArrayHelper::merge($this->ckEditorOptions, ['contentsCss' => $this->getCKEditorStylesheets()]);
     }
 
     public function initMoxiemanagerSession()

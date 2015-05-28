@@ -1,10 +1,5 @@
 
-var growlTemplate =
-    '<div id="w0" class="alert col-xs-10 col-sm-10 col-md-3"><button type="button" class="close" data-growl="dismiss"><span aria-hidden="true">&times;</span></button>' +
-    '<span data-growl="icon"></span>' +
-    '<span data-growl="title"></span>' +
-    '<span data-growl="message"></span>' +
-    '<a href="#" data-growl="url"></a></div>';
+var growlTemplate = '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">&times;</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>';
 
 $(function() {
 
@@ -58,8 +53,7 @@ $(function() {
                                     // Success
                                     $.pjax.reload({container: '#grid-pjax'});
 
-                                    // @todo Update code
-                                    $.growl({
+                                    $.notify({
                                         message: ' ' + data.message,
                                         icon: 'glyphicon glyphicon-ok-sign'
                                     }, {
@@ -69,11 +63,6 @@ $(function() {
 
                                     });
 
-                                } else {
-                                    // @todo Do somehting
-
-                                    // Fail
-                                    console.log('fail');
                                 }
                             }
                         });
@@ -111,8 +100,7 @@ $(function() {
                 success: function (data) {
                     if (data.status == 1) {
 
-                        // @todo Update code
-                        $.growl({
+                        $.notify({
                             message: ' ' + data.message,
                             icon: 'glyphicon glyphicon-ok-sign'
                         }, {
@@ -167,10 +155,10 @@ function afterUpload (event, data, previewId, index) {
     $.pjax.reload({container: '#grid-pjax'});
 
     // Clear file input
-    $('#file-upload').fileinput('clear');
+    //$('#file-upload').fileinput('clear');
 
     // Show growl message
-    $.growl({
+    $.notify({
         message: ' ' + response.message,
         icon: 'glyphicon glyphicon-ok-sign'
     }, {

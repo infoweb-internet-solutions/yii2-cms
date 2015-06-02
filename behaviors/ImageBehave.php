@@ -8,6 +8,7 @@ use yii\helpers\StringHelper;
 
 use infoweb\cms\models\Image;
 use infoweb\cms\models\ImageUploadForm;
+use infoweb\cms\models\Placeholder;
 
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
@@ -166,14 +167,12 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
      *                                              when no image is found
      * @param   mixed   $placeHolderPath            The alternative placeholder path
      * @return  array|null|ActiveRecord
-
+     */   
     public function getImage($fallbackToPlaceholder = true, $placeHolderPath = null)
     {
-
-        $finder = $this->getImagesFinder(['isMain' => 1]);
-
+        $finder = $this->getImagesFinder(/*['isMain' => 1]*/);
         $imageQuery = Image::find()->where($finder);
-
+        $imageQuery->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
         $img = $imageQuery->one();
 
         // No image model + fallback to placeholder or
@@ -191,13 +190,36 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
                 return $placeHolder;
             // Default placeholder
             } else {
-                return $this->getModule()->getPlaceHolder();
+                return new Placeholder;
             }
         }
 
         return $img;
     }
-     * */
+     
+    /**
+     * returns main model image
+     * @return array|null|ActiveRecord
+     */
+    /*public function getImage()
+    {
+        if ($this->getModule()->className === null) {
+            $imageQuery = Image::find();
+        } else {
+            $class = $this->getModule()->className;
+            $imageQuery = $class::find();
+        }
+        $finder = $this->getImagesFinder(['isMain' => 1]);
+        $imageQuery->where($finder);
+        $imageQuery->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
+
+        $img = $imageQuery->one();
+        if(!$img){
+            return new Placeholder;
+        }
+
+        return $img;
+    }*/
 
     private function getImagesFinder($additionWhere = false)
     {
@@ -320,7 +342,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
      * @param   boolean $isMain     The main image flag
      * @param   string  $identifier The image identifier
      */
-    public function uploadImageByName($name = '', $isMain = false, $indentifier = '')
+    public function uploadImageByName($name = '', $isMain = false, $identifier = '')
     {
         // Load the image
         $image = $this->getUploadedImageByName($name);
@@ -328,6 +350,13 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         if ($image) {
             $owner = $this->owner;
             
+            // Delete current image
+            if (!empty($identifier)) {
+                $owner->removeImageByIdentifier($identifier);    
+            } else {
+                $owner->removeImages();
+            }
+
             // Create uploadform and set the image
             $upload = new ImageUploadForm;
             $upload->image = $image;
@@ -349,5 +378,62 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
                 }    
             }
         }
+    }
+    
+    /**
+     * Removes an image with a specific identifier
+     * 
+     * @param   string  $identifier     The identifier of the image
+     * @return  boolean
+     */
+    public function removeImageByIdentifier($identifier = '')
+    {
+        if ($identifier == '') {
+            return $this->owner->removeImages();    
+        }
+        
+        if (!$this->owner->isNewRecord) {
+            $image = Image::findOne([
+                'identifier'    => $identifier,
+                'itemId'        => $this->owner->id,
+                'modelName'     => $this->getModule()->getShortClass($this->owner)
+            ]);
+            
+            if ($image) {
+                $this->owner->removeImage($image);
+            }
+        }
+        
+        return true;   
+    }
+    
+    /**
+     * Returns a model's image with a specific identifier
+     * 
+     * @param   string  $identifier     The identifier of the image
+     * @return  array|null|ActiveRecord
+     */
+    public function getImageByIdentifier($identifier = '', $fallbackToPlaceholder = true, $placeHolderPath = null)
+    {
+        if ($identifier == '') {
+            return $this->owner->getImage($fallbackToPlaceholder, $placeHolderPath);    
+        }
+        
+        if ($this->getModule()->className === null) {
+            $imageQuery = Image::find();
+        } else {
+            $class = $this->getModule()->className;
+            $imageQuery = $class::find();
+        }
+        $finder = $this->getImagesFinder(['identifier' => $identifier]);
+        $imageQuery->where($finder);
+
+        $img = $imageQuery->one();
+
+        if(!$img){
+            return new Placeholder;
+        }
+
+        return $img;
     }
 }

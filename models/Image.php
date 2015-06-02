@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\BaseFileHelper;
+use yii\helpers\Html;
 
 class Image extends BaseImage
 {
@@ -144,4 +145,19 @@ class Image extends BaseImage
         return true;
     }
 
+    public function getFileInputWidgetPreview()
+    {
+        if ($this->name) {
+            return [
+                Html::img($this->getUrl(), ['class' => 'file-preview-image', 'alt' => $this->alt, 'title' => $this->alt])
+            ];
+        } else {
+            return [];
+        }    
+    }
+    
+    public function getFileInputWidgetCaption()
+    {
+        return $this->name;    
+    }
 }

@@ -116,7 +116,7 @@ class Image extends BaseImage
             //[['filePath', 'itemId', 'modelName', 'urlAlias'], 'required'],
             [['itemId', 'isMain', 'created_at', 'updated_at'], 'integer'],
             [['filePath', 'urlAlias'], 'string', 'max' => 400],
-            [['modelName'], 'string', 'max' => 150]
+            [['modelName', 'identifier'], 'string', 'max' => 255]
         ];
     }
 
@@ -135,12 +135,10 @@ class Image extends BaseImage
 
     public function clearCache(){
         $subDir = $this->getSubDur();
-
         $dirToRemove = $this->getModule()->getCachePath().DIRECTORY_SEPARATOR.$subDir;
         
         if(preg_match('/'.preg_quote($this->modelName, '/').'/', $dirToRemove)){
             BaseFileHelper::removeDirectory($dirToRemove);
-
         }
 
         return true;

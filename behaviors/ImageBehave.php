@@ -12,15 +12,15 @@ use infoweb\cms\models\ImageUploadForm;
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
     /**
+     * Copies the image to the assets folder and save's it in the database.
      *
-     * Method copies image file to module store and creates db record.
-     *
-     * @param $absolutePath
-     * @param bool $isFirst
-     * @return bool|Image
-     * @throws \Exception
+     * @param   string  $absolutePath   The path were the image is uploaded   
+     * @param   bool    $isMain         A flag to determine if the image is the main image
+     * @param   string  $identifier     The index that has to be set for the image in the database
+     * @return  bool|Image
+     * @throws  \Exception
      */
-    public function attachImage($absolutePath, $isMain = false)
+    public function attachImage($absolutePath, $isMain = false, $identifier = '')
     {
         if(!preg_match('#http#', $absolutePath)){
             if (!file_exists($absolutePath)) {
@@ -35,7 +35,6 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
 
         $pictureFileName = basename($absolutePath);
-
         $pictureSubDir = $this->getModule()->getModelSubDir($this->owner);
         $storePath = $this->getModule()->getStorePath($this->owner);
 
@@ -56,11 +55,10 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $image->itemId = $this->owner->primaryKey;
         $image->filePath = $pictureSubDir . '/' . $pictureFileName;
         $image->modelName = $this->getModule()->getShortClass($this->owner);
-
         $image->urlAlias = $this->getAlias($image);
-
-        // Custom
+        $image->identifier = $identifier;
         $image->name = substr(yii\helpers\Inflector::slug($pictureFileName), 0, -3);
+        
         // Get the highest position
         // @todo Create function
         $owner = $this->owner;
@@ -91,7 +89,6 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         ){
             $this->setMainImage($image);
         }
-
 
         return $image;
     }
@@ -306,4 +303,51 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
     }
 
+    public function getUploadedImages()
+    {
+        return UploadedFile::getInstances(new ImageUploadForm, 'image');
+    }
+    
+    public function getUploadedImageByName($name)
+    {
+        return UploadedFile::getInstanceByName($name);
+    }
+    
+    /**
+     * Uploads and attaches an image
+     * 
+     * @param   string  $name       The name if the image in the uploaded files array
+     * @param   boolean $isMain     The main image flag
+     * @param   string  $identifier The image identifier
+     */
+    public function uploadImageByName($name = '', $isMain = false, $indentifier = '')
+    {
+        // Load the image
+        $image = $this->getUploadedImageByName($name);
+        
+        if ($image) {
+            $owner = $this->owner;
+            
+            // Create uploadform and set the image
+            $upload = new ImageUploadForm;
+            $upload->image = $image;
+            
+            // Validate the upload
+            if ($upload->validate()) {
+                // Upload the file
+                $path = \Yii::getAlias('@uploadsBasePath') . "/img/{$upload->image->baseName}.{$upload->image->extension}";
+                $uploaded = $upload->image->saveAs($path);
+                
+                // Attach the file to the owner
+                if ($uploaded) {
+                    $owner->attachImage($path, $isMain, $identifier);        
+                }    
+            } else {
+                // Add upload errors to the owner
+                foreach ($upload->getErrors('image') as $error) {
+                    $owner->addError('image', $error);
+                }    
+            }
+        }
+    }
 }

@@ -164,12 +164,12 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
     /**
      * Returns main model image
-     * @param   boolean $fallbackToPlaceholder      A flag to determine if a 
+     * @param   boolean $fallbackToPlaceholder      A flag to determine if a
      *                                              placeholder has to be used
      *                                              when no image is found
      * @param   mixed   $placeHolderPath            The alternative placeholder path
      * @return  array|null|ActiveRecord
-     */
+
     public function getImage($fallbackToPlaceholder = true, $placeHolderPath = null)
     {
 
@@ -183,23 +183,24 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         // image model but image does not exist + fallback to placeholder
         if ((!$img && $fallbackToPlaceholder) ||
             ($img !== null && !file_exists($img->getBaseUrl()) && $fallbackToPlaceholder)) {
-            
+
             // Custom placeholder
             if ($placeHolderPath) {
                 $placeHolder = new Image([
                     'filePath' => basename(Yii::getAlias($placeHolderPath)),
                     'urlAlias' => basename($placeHolderPath)
                 ]);
-                
+
                 return $placeHolder;
             // Default placeholder
             } else {
-                return $this->getModule()->getPlaceHolder();    
+                return $this->getModule()->getPlaceHolder();
             }
         }
 
         return $img;
     }
+     * */
 
     private function getImagesFinder($additionWhere = false)
     {

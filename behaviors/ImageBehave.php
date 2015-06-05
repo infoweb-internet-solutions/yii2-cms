@@ -431,7 +431,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $img = $imageQuery->one();
 
         if(!$img){
-            return new Placeholder;
+            return $this->getImage($fallbackToPlaceholder, $placeHolderPath);
         }
 
         return $img;

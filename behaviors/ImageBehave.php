@@ -8,7 +8,7 @@ use yii\helpers\StringHelper;
 
 use infoweb\cms\models\Image;
 use infoweb\cms\models\ImageUploadForm;
-use infoweb\cms\models\Placeholder;
+use infoweb\cms\models\PlaceHolder;
 
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
@@ -190,7 +190,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
                 return $placeHolder;
             // Default placeholder
             } else {
-                return new Placeholder;
+                return new PlaceHolder;
             }
         }
 
@@ -215,7 +215,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         $img = $imageQuery->one();
         if(!$img){
-            return new Placeholder;
+            return new PlaceHolder;
         }
 
         return $img;

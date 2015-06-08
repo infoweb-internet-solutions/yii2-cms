@@ -83,8 +83,12 @@ class FileBehave extends yii\base\Behavior
 
         return Html::a(
             Yii::t('infoweb/app', 'View attached file'),
-            Yii::getAlias('@uploadsBaseUrl') . "/files/{$this->getModelSubDir()}/{$this->owner->path}",
+            $this->url,
             ['target' => '_blank']
         );
+    }
+
+    public function getUrl() {
+        return Yii::getAlias('@uploadsBaseUrl') . "/files/{$this->getModelSubDir()}/{$this->owner->path}";
     }
 }

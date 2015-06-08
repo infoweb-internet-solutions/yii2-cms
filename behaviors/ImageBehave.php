@@ -130,9 +130,9 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
      * First image alwats must be main image
      * @return array|yii\db\ActiveRecord[]
      */
-    public function getImages()
+    public function getImages($additionWhere = false)
     {
-        $finder = $this->getImagesFinder();
+        $finder = $this->getImagesFinder($additionWhere);
 
         $imageQuery = Image::find()
             ->where($finder);

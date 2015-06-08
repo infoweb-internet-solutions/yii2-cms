@@ -88,7 +88,7 @@ class FileBehave extends yii\base\Behavior
         );
     }
 
-    public function getUrl() {
+    public function getFileUrl() {
         return Yii::getAlias('@uploadsBaseUrl') . "/files/{$this->getModelSubDir()}/{$this->owner->path}";
     }
 }

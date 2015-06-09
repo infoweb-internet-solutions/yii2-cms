@@ -35,7 +35,7 @@
         $("[data-toggle='tooltip']").tooltip({
             container: 'body'
         });
-
+        
         // Toggle bootstrap popover
         //$("[data-toggle='popover']").popover();
 
@@ -74,7 +74,11 @@
                     }
                         
                 //}                   
-            });    
+            }); 
+            
+        // Trigger validation if a tabbed form is loaded    
+        if ($('.tabbed-form').length)
+            $('.tabbed-form').trigger('afterValidate');    
     };
     
     CMS.toggleSidebar = function(e) {

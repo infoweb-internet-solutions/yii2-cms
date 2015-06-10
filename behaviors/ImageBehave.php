@@ -80,18 +80,35 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
         $img = $this->owner->getImage();
 
-        //If main image not exists
-        if(
-            is_object($img) && get_class($img)=='rico\yii2images\models\PlaceHolder'
-            or
-            $img == null
-            or
-            $isMain
-        ){
-            $this->setMainImage($image);
-        }
+        $this->setMainImage($image);
 
         return $image;
+    }
+
+    /**
+     * Sets main image of model
+     * @param $img
+     * @throws \Exception
+     */
+    public function setMainImage($img)
+    {
+        if ($this->owner->primaryKey != $img->itemId) {
+            throw new \Exception('Image must belong to this model');
+        }
+
+        // Check if the main image is already set
+        $mainImage = $img->findOne(['isMain' => 1]);
+
+        if ($mainImage) {
+            return false;
+        }
+
+        // Reset main image
+        $img->updateAll(['isMain' => 0]);
+
+        // Set new main image
+        $img->setMain(true);
+        $img->save();
     }
 
     /** Make string part of image's url

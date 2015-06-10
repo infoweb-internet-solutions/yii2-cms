@@ -47,6 +47,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
             0775, true);
 
         copy($absolutePath, $newAbsolutePath);
+        unlink($absolutePath);
 
         if (!file_exists($newAbsolutePath)) {
             throw new \Exception('Cant copy file! ' . $absolutePath . ' to ' . $newAbsolutePath);

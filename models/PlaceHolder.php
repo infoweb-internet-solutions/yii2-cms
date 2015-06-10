@@ -22,8 +22,8 @@ class PlaceHolder extends Image
 
     private $modelName = '';
     private $itemId = '';
-    public $filePath = 'placeHolder.png';
-    public $urlAlias = 'placeHolder';
+    public $filePath = 'transparent-placeholder.png';
+    public $urlAlias = 'placeholder';
 
 
     /*  public function getUrl($size = false){

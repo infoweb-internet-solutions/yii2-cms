@@ -57,6 +57,12 @@ class Image extends BaseImage
 
     public function getUrl($size = false)
     {
+        // Check if the image exists or return a placeholder
+        if (!file_exists(Yii::getAlias('@uploadsBasePath/img/') . $this->filePath)) {
+            $img = new PlaceHolder;
+            return $img->getUrl($size);
+        }
+
         $urlSize = ($size) ? '_'.$size : '';
         $base = $this->getModule()->getCachePath();
         $sub = $this->getSubDur();

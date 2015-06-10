@@ -96,15 +96,17 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
             throw new \Exception('Image must belong to this model');
         }
 
+        $where = ['itemId' => $this->owner->id, 'modelName' => StringHelper::basename($this->owner->className())];
+
         // Check if the main image is already set
-        $mainImage = $img->findOne(['isMain' => 1]);
+        $mainImage = $img->findOne(yii\helpers\ArrayHelper::merge(['isMain' => 1], $where));
 
         if ($mainImage) {
             return false;
         }
 
         // Reset main image
-        $img->updateAll(['isMain' => 0]); // where: 'itemId' => $this->owner->id, 'modelName' => StringHelper::basename($this->owner->className()
+        $img->updateAll(['isMain' => 0], $where);
 
         // Clear images cache
         $this->owner->clearImagesCache();
@@ -131,18 +133,6 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         } else {
             return substr(md5(microtime()), 0, 10);
         }
-    }
-
-    /**
-     *
-     * Обновить алиасы для картинок
-     * Зачистить кэш
-     */
-    private function getAlias()
-    {
-        $imagesCount = count($this->owner->getImages());
-
-        return $this->getImage()->name . '-' . intval($imagesCount + 1);
     }
 
     /**
@@ -455,5 +445,18 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
 
         return $img;
+    }
+
+    /**
+     *
+     * Обновить алиасы для картинок
+     * Зачистить кэш
+     */
+    private function getAlias()
+    {
+        $aliasWords = $this->getAliasString();
+        $imagesCount = count($this->owner->getImages());
+
+        return $aliasWords . '-' . intval($imagesCount + 1);
     }
 }

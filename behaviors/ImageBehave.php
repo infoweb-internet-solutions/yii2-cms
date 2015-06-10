@@ -104,7 +104,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
 
         // Reset main image
-        $img->updateAll(['isMain' => 0]); // 'itemId' => $this->owner->id, 'modelName' => StringHelper::basename($this->owner->className()
+        $img->updateAll(['isMain' => 0]); // where: 'itemId' => $this->owner->id, 'modelName' => StringHelper::basename($this->owner->className()
 
         // Clear images cache
         $this->owner->clearImagesCache();
@@ -160,7 +160,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $imageRecords = $imageQuery->all();
 
         if(!$imageRecords){
-            return [$this->getModule()->getPlaceHolder()];
+            return [new PlaceHolder];
         }
         return $imageRecords;
     }
@@ -270,7 +270,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         $imageRecords = $imageQuery->all();
         if(!$imageRecords){
-            return [$this->getModule()->getPlaceHolder()];
+            return [new PlaceHolder];
         }
         return $imageRecords;
     }

@@ -104,11 +104,14 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
 
         // Reset main image
-        $img->updateAll(['isMain' => 0]);
+        $img->updateAll(['isMain' => 0]); // 'itemId' => $this->owner->id, 'modelName' => StringHelper::basename($this->owner->className()
+
+        // Clear images cache
+        $this->owner->clearImagesCache();
 
         // Set new main image
         $img->setMain(true);
-        $img->save();
+        return $img->save();
     }
 
     /** Make string part of image's url

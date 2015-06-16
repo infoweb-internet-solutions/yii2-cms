@@ -89,7 +89,7 @@ class Image extends BaseImage
         $sub = $this->getSubDur();
         $origin = $this->getPathToOrigin();
 
-        return $base.'/'.$sub.'/'.$this->name.'.'.pathinfo($origin, PATHINFO_EXTENSION);    
+        return $base.'/'.$this->filePath;
     }
 
     public function getPath($size = false)

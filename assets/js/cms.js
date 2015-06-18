@@ -151,9 +151,6 @@
             placeholder = el.prop('placeholder'),
             value = el.val(),
             keyCode = e.keyCode || e.which;
-                        
-        if (keyCode == 191 || keyCode == 111)
-            return false;
             
         return true;    
     };

@@ -38,10 +38,6 @@ class ImageLang extends \yii\db\ActiveRecord
         return [
             // Required
             [['image_id', 'language'], 'required'],
-            // Only required for the app language
-            [['alt'], 'required', 'when' => function($model) {
-                return $model->language == Yii::$app->language;
-            }],
             // Trim
             [['alt', 'title', 'subtitle', 'description', 'url'], 'trim'],
             // Types

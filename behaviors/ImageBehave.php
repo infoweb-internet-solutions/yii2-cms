@@ -441,8 +441,16 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         $img = $imageQuery->one();
 
-        if(!$img){
-            return $this->getImage($fallbackToPlaceholder, $placeHolderPath);
+        if(!$img && $fallbackToPlaceholder){
+
+            if (!$placeHolderPath) {
+                return new PlaceHolder;
+            } else {
+                return new Image([
+                    'filePath' => basename(Yii::getAlias($placeHolderPath)),
+                    'urlAlias' => basename($placeHolderPath)
+                ]);
+            }
         }
 
         return $img;

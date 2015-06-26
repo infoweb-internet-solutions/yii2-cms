@@ -135,7 +135,7 @@ class Image extends BaseImage
                         if ($crop) {
                             $image->cropThumbnailImage($size['width'], $size['height']);
                         } else {
-                            $image->resizeImage($size['width'], $size['height'], Imagick::FILTER_HAMMING, 1, false);
+                            $image->resizeImage($size['width'], $size['height'], \Imagick::FILTER_HAMMING, 1, false);
                         }
                     }elseif($size['height']){
                         $image->thumbnailImage(0, $size['height']);

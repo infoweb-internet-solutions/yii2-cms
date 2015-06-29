@@ -44,7 +44,7 @@ class Module extends \yii\base\Module
             ['name' => 'styles']               
         ],
         'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
-        'extraAllowedContent' => 'div(*);table(*);h1;h2;h3;h4;h5;h6;h7;h8',
+        'allowedContent' => true,
         'extraPlugins' => 'codemirror,moxiemanager',
         'enterMode' => 2,
         'stylesSet' => [],

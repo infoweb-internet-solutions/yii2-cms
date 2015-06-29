@@ -13,6 +13,12 @@ use yii\web\Session;
 class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'infoweb\cms\controllers';
+    
+    /**
+     * The php session name that is used for setting sessions
+     * @var string
+     */
+    public $sessionName = 'PHPSESSID';
 
     /**
      * @var array   The items that are shown in the sidebar navigation
@@ -145,6 +151,7 @@ class Module extends \yii\base\Module
     {
         $session = new Session;
         $session->open();
+        $session->name = $this->sessionName;
         $session['moxieman-is-logged-in'] = true;
         $session['moxieman-user'] = 'infoweb';
         $session['moxieman-license-key'] = Yii::$app->params['moxiemanager']['license-key'];

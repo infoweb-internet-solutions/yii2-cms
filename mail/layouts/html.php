@@ -25,7 +25,7 @@ $cmsAssets = CMSAsset::register($this);
                     <table style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; width: 100%; margin: 0; padding: 0;">
                         <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;">
                             <td style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0; text-align: right !important;" align="right">
-                                <a href="<?php echo Yii::$app->homeUrl; ?>">
+                                <a target="_blank" href="<?php echo Yii::$app->homeUrl; ?>">
                                     <?php echo Html::img(Url::to($cmsAssets->baseUrl.'/img/logo-iw-dark.png', true), ['alt' => 'Infoweb Internet Solutions', 'width' => '45px']); ?>
                                 </a>
                             </td>

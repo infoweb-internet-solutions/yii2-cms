@@ -38,8 +38,7 @@ Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` pack
 ```php
 "require": [
     ...
-    "infoweb-internet-solutions/yii2-cms": "*",
-    "fishvision/yii2-migrate" : "*"
+    "infoweb-internet-solutions/yii2-cms": "*"
 ]
 ```
 
@@ -310,12 +309,30 @@ and `frontend/config/main.php` as follows:
 ```php
 return [
     ...
+	'bootstrap' => [
+		...
+		'localeUrls'
+	],
     'components' => [
+		...
 		// Update user component
        'user' => [
             'identityClass' => 'infoweb\user\models\User',
             'enableAutoLogin' => true,
         ],
+		'localeUrls' => [
+			'class' => 'codemix\localeurls\LocaleUrls',
+			'languages' => ['nl', 'fr', 'en'],
+			'enableDefaultSuffix' => false
+		],
+		// Override the urlManager component
+		'urlManager' => [
+			'class' => 'codemix\localeurls\UrlManager',
+			'enablePrettyUrl' => true,
+			'showScriptName' => false,
+			'rules' => [
+			'<alias:[\d\w\-]+>' => 'site/index',
+		],
     ],
 	...
 ];

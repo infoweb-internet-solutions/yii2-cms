@@ -38,8 +38,7 @@ Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` pack
 ```php
 "require": [
     ...
-    "infoweb-internet-solutions/yii2-cms": "*",
-    "fishvision/yii2-migrate" : "*"
+    "infoweb-internet-solutions/yii2-cms": "*"
 ]
 ```
 
@@ -172,15 +171,15 @@ return [
             // format settings for displaying each date attribute (ICU format example)
             'displaySettings' => [
                 Module::FORMAT_DATE => 'php:d-m-Y',
-                Module::FORMAT_TIME => 'php:H:m:s a',
-                Module::FORMAT_DATETIME => 'dd-MM-yyyy HH:mm:ss a',
+                Module::FORMAT_TIME => 'php:H:i',
+                Module::FORMAT_DATETIME => 'dd-MM-yyyy HH:mm:ss',
             ],
 
             // format settings for saving each date attribute (PHP format example)
             'saveSettings' => [
                 Module::FORMAT_DATE => 'php:U', // saves as unix timestamp
                 Module::FORMAT_TIME => 'php:H:i:s',
-                Module::FORMAT_DATETIME => 'php:Y-m-d H:i:s',
+                Module::FORMAT_DATETIME => 'php:U',
             ],
 
             // set your display timezone
@@ -236,6 +235,8 @@ return [
 ```php
 return [
     ...
+	'name' => 'My application',
+	...
     'bootstrap' => ['log','cms'],
     ...
     'modules' => [
@@ -310,12 +311,30 @@ and `frontend/config/main.php` as follows:
 ```php
 return [
     ...
+	'bootstrap' => [
+		...
+		'localeUrls'
+	],
     'components' => [
+		...
 		// Update user component
        'user' => [
             'identityClass' => 'infoweb\user\models\User',
             'enableAutoLogin' => true,
         ],
+		'localeUrls' => [
+			'class' => 'codemix\localeurls\LocaleUrls',
+			'languages' => ['nl', 'fr', 'en'],
+			'enableDefaultSuffix' => false
+		],
+		// Override the urlManager component
+		'urlManager' => [
+			'class' => 'codemix\localeurls\UrlManager',
+			'enablePrettyUrl' => true,
+			'showScriptName' => false,
+			'rules' => [
+			'<alias:[\d\w\-]+>' => 'site/index',
+		],
     ],
 	...
 ];
@@ -407,6 +426,19 @@ Root
     RewriteCond %{REQUEST_FILENAME} !-f [OR]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^.*$ frontend/web/index.php
+</IfModule>
+
+# Optional
+
+# Upload limit
+php_value upload_max_filesize 200M
+php_value post_max_size 200M
+php_value max_execution_time 6000
+php_value max_input_time 2400
+php_value max_file_uploads 100
+
+<IfModule mod_php5.c>
+php_value memory_limit 256M
 </IfModule>
 ```
   
@@ -508,6 +540,14 @@ class Request extends \yii\web\Request
         }
     }
 }
+```
+  
+Add to gitignore
+```
+# Yii files
+README.md
+LICENSE.md
+requirements.php
 ```
   
 Create a new user `/admin/user/register`  

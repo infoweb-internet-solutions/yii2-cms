@@ -201,6 +201,17 @@
         obj.style.height = obj.contentWindow.document.body.scrollHeight + parseInt(adjustment) + 'px';
     };
     
+    CMS.addLoaderClass = function(obj) {
+        var h = (Math.max(document.documentElement.clientHeight, window.innerHeight || 0) - 91) / 2;
+        
+        obj.addClass('element-loading');
+        obj.css('background-position', 'center '+h+'px');
+    };
+    
+    CMS.removeLoaderClass = function(obj) {
+        obj.removeClass('element-loading');
+    };
+    
     
     // Sidebar widget
     var sidebar = function() {

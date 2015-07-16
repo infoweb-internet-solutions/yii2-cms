@@ -881,3 +881,15 @@ a[data-toggle="tooltip"] {
 .file-drop-zone {
     height: auto;
 }
+
+/**
+ * Ajax
+ */
+.element-loading {
+    opacity: 0.5;
+    background: #ffffff url('../img/loading.gif') center center no-repeat;
+}
+
+.element-loading * {
+    background: transparent !important;
+}

@@ -557,8 +557,23 @@ README.md
 LICENSE.md
 requirements.php
 ```
+
+Add the following to `console/config/main.php` to enable creation of users via the cli:
+```php
+'modules' => [
+    'user' => [
+        'class' => 'dektrium\user\Module',
+        'modelMap' => [
+            'User' => 'infoweb\user\models\User',
+        ],
+    ],
+],
+```
+
+You can then create the superadmin user with the following command:
+```bash
+yii user/create email@domain.com username password
+```
   
-Create a new user `/admin/user/register`  
-If you can't access this page, remove `ac access` in `backend/config/main.php`  
-  
-Login `/admin` and enjoy!  
+Login @ `/admin` and enjoy!
+(If you can't access this page, remove `ac access` in `backend/config/main.php`)

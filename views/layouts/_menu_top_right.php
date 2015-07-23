@@ -23,7 +23,7 @@ use yii\helpers\Url;
         <a href="#" id="dropdown-menu-user" class="dropdown-toggle user" data-toggle="dropdown">
             <img src="<?php echo (Yii::$app->user->identity->getImage(false)) ? Yii::$app->user->identity->image->getUrl('60px') : $this->params['cmsAssets']->baseUrl . '/img/avatar.png'; ?>" alt="avatar" class="avatar img-circle">
             <?php if (!empty(Yii::$app->user->identity->profile->name)) : ?>
-            <?php echo Yii::$app->user->identity->profile->name; ?>
+            <?php echo ((isset(Yii::$app->user->identity->profile->firstname)) ? Yii::$app->user->identity->profile->firstname . ' ' : '') . Yii::$app->user->identity->profile->name; ?>
             <?php else : ?>
             <?php echo Yii::$app->user->identity->username; ?>    
             <?php endif; ?>

@@ -265,6 +265,7 @@ return [
             'theme' => [
                 'pathMap' => [
                     '@app/views/layouts' => '@infoweb/cms/views/layouts',
+                    '@dektrium/user/views' => '@infoweb/user/views'
                 ],
             ],
         ],
@@ -397,7 +398,7 @@ yii i18n/import @infoweb/email/messages --interactive=0
 ```
 Yii messages import fails sometimes, try importing without --interactive=0 and keep hitting return until it's done
 ```bash
-yii i18n/import @yii/messages --interactive=0
+yii i18n/import @yii/messages
 
 ```
   

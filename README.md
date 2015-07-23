@@ -160,7 +160,7 @@ return [
 		],
 		'i18n' => [
 			'class' => Zelenin\yii\modules\I18n\components\I18N::className(),
-			'languages' => ['ru-RU', 'de-DE', 'it-IT']
+			'languages' => ['nl']
 		],
     ],
     ...
@@ -179,7 +179,7 @@ return [
             'saveSettings' => [
                 Module::FORMAT_DATE => 'php:U', // saves as unix timestamp
                 Module::FORMAT_TIME => 'php:H:i:s',
-                Module::FORMAT_DATETIME => 'php:U',
+                Module::FORMAT_DATETIME => 'php:Y-m-d H:i:s',
             ],
 
             // set your display timezone
@@ -209,7 +209,7 @@ return [
 			'imagesStorePath' => '@uploadsBasePath/img', //path to origin images
 			'imagesCachePath' => '@uploadsBasePath/img/cache', //path to resized copies
 			'graphicsLibrary' => 'GD', //but really its better to use 'Imagick'
-			'placeHolderPath' => '@infoweb/cms/assets/img/avatar.png',
+			'placeHolderPath' => '@infoweb/cms/assets/img/transparent-placeholder.png',
 		],
     ],
     ...
@@ -228,7 +228,7 @@ return [
 	],
 ];
 ```
-(dont forget to update the settings of the **mailer** and **log** components!)
+(dont forget to update the settings of the **mailer**, **log** and **i18n** components!)
 
 `backend/config/main.php` as follows:
 

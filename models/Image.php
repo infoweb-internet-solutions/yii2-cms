@@ -45,13 +45,13 @@ class Image extends BaseImage
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'name' => Yii::t('app', 'Image'),
             'filePath' => Yii::t('app', 'File Path'),
             'itemId' => Yii::t('app', 'Item ID'),
             'isMain' => Yii::t('app', 'Main image'),
             'modelName' => Yii::t('app', 'Attached to'),
             'urlAlias' => Yii::t('app', 'Url alias'),
+            'active' => Yii::t('app', 'Active'),
         ];
     }
 

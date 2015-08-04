@@ -28,8 +28,8 @@ class Frontend extends Component {
     }
 
     /**
-     * Returns a page, based on the alias that is provided in the request or, if
-     *  no alias is provided, the homepage
+     * Returns a page, based on the alias that is provided in the request or,
+     * if no alias is provided, the homepage
      *
      * @return  Page
      */
@@ -68,15 +68,25 @@ class Frontend extends Component {
         return $page;
     }
 
+    /**
+     * Get the active parent page
+     *
+     * @return Page
+     */
     public function getActiveParentPage()
     {
         if (isset($this->parentMenuItem->page)) {
             return $this->parentMenuItem->page;
         } else {
-            return null;
+            return new Page;
         }
     }
 
+    /**
+     * Get the active menu item
+     *
+     * @return null|static
+     */
     public function getActiveMenuItem()
     {
         $menuItem = MenuItem::findOne([
@@ -89,6 +99,11 @@ class Frontend extends Component {
         return $menuItem;
     }
 
+    /**
+     * Get the active parent menu item
+     *
+     * @return MenuItem
+     */
     public function getActiveParentMenuItem()
     {
         $menuItem = $this->menuItem->parent;
@@ -98,8 +113,5 @@ class Frontend extends Component {
         } else {
             return new MenuItem;
         }
-
     }
-
-
 }

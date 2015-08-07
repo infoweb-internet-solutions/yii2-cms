@@ -43,7 +43,7 @@ class Module extends \yii\base\Module
             ['name' => 'others'],
             ['name' => 'styles']               
         ],
-        'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
+        'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak,Font,FontSize',
         'allowedContent' => true,
         'extraPlugins' => 'codemirror,moxiemanager',
         'enterMode' => 2,

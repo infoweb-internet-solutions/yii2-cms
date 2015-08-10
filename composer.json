@@ -56,7 +56,8 @@
     "bower-asset/fancybox": "@stable",
     "jlorente/yii2-widget-remainingcharacters": "*",
     "codemix/yii2-localeurls": "*",
-    "fishvision/yii2-migrate" : "*"
+    "fishvision/yii2-migrate" : "*",
+    "kartik-v/yii2-builder": "*"
   },
   "autoload": {
     "psr-4": {

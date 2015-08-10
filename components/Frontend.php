@@ -75,8 +75,8 @@ class Frontend extends Component {
      */
     public function getActiveParentPage()
     {
-        if (isset($this->parentMenuItem->page)) {
-            return $this->parentMenuItem->page;
+        if (isset($this->parentMenuItem->entity_id)) {
+            return Page::findOne(['id' => $this->parentMenuItem->entity_id, 'active' => 1]);
         } else {
             return new Page;
         }

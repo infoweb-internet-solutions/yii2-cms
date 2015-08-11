@@ -26,6 +26,14 @@ class Frontend extends Component {
         $this->parentMenuItem = $this->activeParentMenuItem;
         $this->parentPage = $this->activeParentPage;
     }
+    
+    public function setPage($page)
+    {
+        $this->page = $page;
+        $this->menuItem = $this->activeMenuItem;
+        $this->parentMenuItem = $this->activeParentMenuItem;
+        $this->parentPage = $this->activeParentPage;
+    }
 
     /**
      * Returns a page, based on the alias that is provided in the request or,

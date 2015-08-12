@@ -576,4 +576,3 @@ yii user/create email@domain.com username password
 ```
   
 Login @ `/admin` and enjoy!
-(If you can't access this page, remove `ac access` in `backend/config/main.php`)

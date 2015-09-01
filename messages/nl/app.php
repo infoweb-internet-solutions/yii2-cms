@@ -93,7 +93,7 @@ return [
     'Users' => 'Gebruikers',
     'Veld' => '',
     'View' => 'Bekijken',
-    'View {modelClass}: ' => '',
+    'View {modelClass}' => 'Bekijk {modelClass}',
     'Waarde' => '',
     'Website' => 'Website',
     'Welcome' => 'Welkom',

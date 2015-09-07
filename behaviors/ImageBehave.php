@@ -8,19 +8,20 @@ use yii\helpers\StringHelper;
 
 use infoweb\cms\models\Image;
 use infoweb\cms\models\ImageUploadForm;
+use infoweb\cms\models\PlaceHolder;
 
 class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 {
     /**
+     * Copies the image to the assets folder and save's it in the database.
      *
-     * Method copies image file to module store and creates db record.
-     *
-     * @param $absolutePath
-     * @param bool $isFirst
-     * @return bool|Image
-     * @throws \Exception
+     * @param   string  $absolutePath   The path were the image is uploaded   
+     * @param   bool    $isMain         A flag to determine if the image is the main image
+     * @param   string  $identifier     The index that has to be set for the image in the database
+     * @return  bool|Image
+     * @throws  \Exception
      */
-    public function attachImage($absolutePath, $isMain = false)
+    public function attachImage($absolutePath, $isMain = false, $identifier = '')
     {
         if(!preg_match('#http#', $absolutePath)){
             if (!file_exists($absolutePath)) {
@@ -35,7 +36,6 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
 
         $pictureFileName = basename($absolutePath);
-
         $pictureSubDir = $this->getModule()->getModelSubDir($this->owner);
         $storePath = $this->getModule()->getStorePath($this->owner);
 
@@ -47,6 +47,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
             0775, true);
 
         copy($absolutePath, $newAbsolutePath);
+        unlink($absolutePath);
 
         if (!file_exists($newAbsolutePath)) {
             throw new \Exception('Cant copy file! ' . $absolutePath . ' to ' . $newAbsolutePath);
@@ -56,12 +57,10 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $image->itemId = $this->owner->primaryKey;
         $image->filePath = $pictureSubDir . '/' . $pictureFileName;
         $image->modelName = $this->getModule()->getShortClass($this->owner);
-
-
         $image->urlAlias = $this->getAlias($image);
-
-        // Custom
+        $image->identifier = $identifier;
         $image->name = substr(yii\helpers\Inflector::slug($pictureFileName), 0, -3);
+        
         // Get the highest position
         // @todo Create function
         $owner = $this->owner;
@@ -82,19 +81,40 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
         $img = $this->owner->getImage();
 
-        //If main image not exists
-        if(
-            is_object($img) && get_class($img)=='rico\yii2images\models\PlaceHolder'
-            or
-            $img == null
-            or
-            $isMain
-        ){
-            $this->setMainImage($image);
-        }
-
+        $this->setMainImage($image);
 
         return $image;
+    }
+
+    /**
+     * Sets main image of model
+     * @param $img
+     * @throws \Exception
+     */
+    public function setMainImage($img)
+    {
+        if ($this->owner->primaryKey != $img->itemId) {
+            throw new \Exception('Image must belong to this model');
+        }
+
+        $where = ['itemId' => $this->owner->id, 'modelName' => StringHelper::basename($this->owner->className())];
+
+        // Check if the main image is already set
+        $mainImage = $img->findOne(yii\helpers\ArrayHelper::merge(['isMain' => 1], $where));
+
+        if ($mainImage) {
+            return false;
+        }
+
+        // Reset main image
+        $img->updateAll(['isMain' => 0], $where);
+
+        // Clear images cache
+        $this->owner->clearImagesCache();
+
+        // Set new main image
+        $img->setMain(true);
+        return $img->save();
     }
 
     /** Make string part of image's url
@@ -117,33 +137,21 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
     }
 
     /**
-     *
-     * Обновить алиасы для картинок
-     * Зачистить кэш
-     */
-    private function getAlias()
-    {
-        $imagesCount = count($this->owner->getImages());
-
-        return $this->getImage()->name . '-' . intval($imagesCount + 1);
-    }
-
-    /**
      * Returns model images
      * First image alwats must be main image
      * @return array|yii\db\ActiveRecord[]
      */
-    public function getImages()
+    public function getImages($additionWhere = false, $fallbackToPlaceholder = true)
     {
-        $finder = $this->getImagesFinder();
+        $finder = $this->getImagesFinder($additionWhere);
 
         $imageQuery = Image::find()
             ->where($finder);
         $imageQuery->orderBy(['position' => SORT_DESC]);
-
         $imageRecords = $imageQuery->all();
-        if(!$imageRecords){
-            return [$this->getModule()->getPlaceHolder()];
+
+        if(!$imageRecords && $fallbackToPlaceholder){
+            return [new PlaceHolder];
         }
         return $imageRecords;
     }
@@ -165,42 +173,64 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
     /**
      * Returns main model image
-     * @param   boolean $fallbackToPlaceholder      A flag to determine if a 
+     * @param   boolean $fallbackToPlaceholder      A flag to determine if a
      *                                              placeholder has to be used
      *                                              when no image is found
      * @param   mixed   $placeHolderPath            The alternative placeholder path
      * @return  array|null|ActiveRecord
-     */
+     */   
     public function getImage($fallbackToPlaceholder = true, $placeHolderPath = null)
     {
-        $finder = $this->getImagesFinder(['isMain' => 1]);
-        $imageQuery = Image::find()
-                        ->where($finder)
-                        ->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
-
+        $finder = $this->getImagesFinder(/*['isMain' => 1]*/);
+        $imageQuery = Image::find()->where($finder);
+        $imageQuery->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
         $img = $imageQuery->one();
-        
+
         // No image model + fallback to placeholder or
         // image model but image does not exist + fallback to placeholder
         if ((!$img && $fallbackToPlaceholder) ||
             ($img !== null && !file_exists($img->getBaseUrl()) && $fallbackToPlaceholder)) {
-            
+
             // Custom placeholder
             if ($placeHolderPath) {
                 $placeHolder = new Image([
                     'filePath' => basename(Yii::getAlias($placeHolderPath)),
                     'urlAlias' => basename($placeHolderPath)
                 ]);
-                
+
                 return $placeHolder;
             // Default placeholder
             } else {
-                return $this->getModule()->getPlaceHolder();    
+                return new PlaceHolder;
             }
         }
 
         return $img;
     }
+     
+    /**
+     * returns main model image
+     * @return array|null|ActiveRecord
+     */
+    /*public function getImage()
+    {
+        if ($this->getModule()->className === null) {
+            $imageQuery = Image::find();
+        } else {
+            $class = $this->getModule()->className;
+            $imageQuery = $class::find();
+        }
+        $finder = $this->getImagesFinder(['isMain' => 1]);
+        $imageQuery->where($finder);
+        $imageQuery->orderBy(['isMain' => SORT_DESC, 'id' => SORT_ASC]);
+
+        $img = $imageQuery->one();
+        if(!$img){
+            return new PlaceHolder;
+        }
+
+        return $img;
+    }*/
 
     private function getImagesFinder($additionWhere = false)
     {
@@ -231,7 +261,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         $imageRecords = $imageQuery->all();
         if(!$imageRecords){
-            return [$this->getModule()->getPlaceHolder()];
+            return [new PlaceHolder];
         }
         return $imageRecords;
     }
@@ -306,5 +336,136 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         }
     }
 
+    public function getUploadedImages()
+    {
+        return UploadedFile::getInstances(new ImageUploadForm, 'image');
+    }
+    
+    public function getUploadedImageByName($name)
+    {
+        return UploadedFile::getInstanceByName($name);
+    }
+    
+    /**
+     * Uploads and attaches an image
+     * 
+     * @param   string  $name       The name if the image in the uploaded files array
+     * @param   boolean $isMain     The main image flag
+     * @param   string  $identifier The image identifier
+     */
+    public function uploadImageByName($name = '', $isMain = false, $identifier = '')
+    {
+        // Load the image
+        $image = $this->getUploadedImageByName($name);
+        
+        if ($image) {
+            $owner = $this->owner;
+            
+            // Delete current image
+            if (!empty($identifier)) {
+                $owner->removeImageByIdentifier($identifier);    
+            } else {
+                $owner->removeImages();
+            }
 
+            // Create uploadform and set the image
+            $upload = new ImageUploadForm;
+            $upload->image = $image;
+            
+            // Validate the upload
+            if ($upload->validate()) {
+                // Upload the file
+                $path = \Yii::getAlias('@uploadsBasePath') . "/img/{$upload->image->baseName}.{$upload->image->extension}";
+                $uploaded = $upload->image->saveAs($path);
+                
+                // Attach the file to the owner
+                if ($uploaded) {
+                    $owner->attachImage($path, $isMain, $identifier);        
+                }    
+            } else {
+                // Add upload errors to the owner
+                foreach ($upload->getErrors('image') as $error) {
+                    $owner->addError('image', $error);
+                }    
+            }
+        }
+    }
+    
+    /**
+     * Removes an image with a specific identifier
+     * 
+     * @param   string  $identifier     The identifier of the image
+     * @return  boolean
+     */
+    public function removeImageByIdentifier($identifier = '')
+    {
+        if ($identifier == '') {
+            return $this->owner->removeImages();    
+        }
+        
+        if (!$this->owner->isNewRecord) {
+            $image = Image::findOne([
+                'identifier'    => $identifier,
+                'itemId'        => $this->owner->id,
+                'modelName'     => $this->getModule()->getShortClass($this->owner)
+            ]);
+            
+            if ($image) {
+                $this->owner->removeImage($image);
+            }
+        }
+        
+        return true;   
+    }
+    
+    /**
+     * Returns a model's image with a specific identifier
+     * 
+     * @param   string  $identifier     The identifier of the image
+     * @return  array|null|ActiveRecord
+     */
+    public function getImageByIdentifier($identifier = '', $fallbackToPlaceholder = true, $placeHolderPath = null)
+    {
+        if ($identifier == '') {
+            return $this->owner->getImage($fallbackToPlaceholder, $placeHolderPath);    
+        }
+        
+        if ($this->getModule()->className === null) {
+            $imageQuery = Image::find();
+        } else {
+            $class = $this->getModule()->className;
+            $imageQuery = $class::find();
+        }
+        $finder = $this->getImagesFinder(['identifier' => $identifier]);
+        $imageQuery->where($finder);
+
+        $img = $imageQuery->one();
+
+        if(!$img && $fallbackToPlaceholder){
+
+            if (!$placeHolderPath) {
+                return new PlaceHolder;
+            } else {
+                return new Image([
+                    'filePath' => basename(Yii::getAlias($placeHolderPath)),
+                    'urlAlias' => basename($placeHolderPath)
+                ]);
+            }
+        }
+
+        return $img;
+    }
+
+    /**
+     *
+     * Обновить алиасы для картинок
+     * Зачистить кэш
+     */
+    private function getAlias()
+    {
+        $aliasWords = $this->getAliasString();
+        $imagesCount = count($this->owner->getImages());
+
+        return $aliasWords . '-' . intval($imagesCount + 1);
+    }
 }

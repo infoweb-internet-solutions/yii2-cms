@@ -4,8 +4,8 @@ namespace infoweb\cms\models;
 
 use Yii;
 use yii\base\Model;
-use yii\data\ActiveDataProvider;
-use infoweb\cms\models\Image;
+use yii\data\ActiveDataProvider;;
+use yii\helpers\StringHelper;
 
 /**
  * SearchSlider represents the model behind the search form about `app\models\Slider`.
@@ -39,9 +39,15 @@ class ImageSearch extends Image
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $id)
+    public function search($params, $id, $className = null)
     {
         $query = Image::find()->where(['itemId' => $id]);
+
+        if ($className) {
+            $query->andWhere([
+                'modelName' => StringHelper::basename($className),
+            ]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

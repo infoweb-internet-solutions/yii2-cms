@@ -26,7 +26,7 @@ class Frontend extends Component {
         $this->parentMenuItem = $this->activeParentMenuItem;
         $this->parentPage = $this->activeParentPage;
     }
-    
+
     public function setPage($page)
     {
         $this->page = $page;
@@ -48,7 +48,7 @@ class Frontend extends Component {
 
             // Load the alias translation
             $aliasLang = AliasLang::findOne([
-                'url'       => Yii::$app->request->get('alias'),
+                'url'       => ((Yii::$app->request->get('brand', null) !== null) ? Yii::$app->request->get('brand') . '-' : '') . Yii::$app->request->get('alias'),
                 'language'  => Yii::$app->language
             ]);
 
@@ -97,6 +97,7 @@ class Frontend extends Component {
      */
     public function getActiveMenuItem()
     {
+
         $menuItem = MenuItem::findOne([
             'entity' => MenuItem::ENTITY_PAGE,
             'entity_id' => $this->page->id,

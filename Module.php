@@ -3,7 +3,8 @@
 namespace infoweb\cms;
 
 use Yii;
-use \yii\helpers\Url;
+use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use yii\bootstrap\BootstrapAsset;
 use frontend\assets\FontAsset;
 
@@ -14,10 +15,41 @@ class Module extends \yii\base\Module
     public $controllerNamespace = 'infoweb\cms\controllers';
 
     /**
+     * The php session name that is used for setting sessions
+     * @var string
+     */
+    public $sessionName = 'PHPSESSID';
+
+    /**
      * @var array   The items that are shown in the sidebar navigation
      */
     public $sideBarItems = [];
-    
+
+    /**
+     * The default configuration of the ckEditor
+     * @var array
+     */
+    public $ckEditorOptions = [
+        'height' => 300,
+        'preset' => 'custom',
+        'toolbarGroups' => [
+            ['name' => 'clipboard', 'groups' => ['mode','undo', 'selection', 'clipboard', 'doctools']],
+            ['name' => 'editing', 'groups' => ['tools']],
+            ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
+            ['name' => 'insert'],
+            ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
+            ['name' => 'colors'],
+            ['name' => 'links'],
+            ['name' => 'others'],
+            ['name' => 'styles']
+        ],
+        'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak,Font,FontSize',
+        'allowedContent' => true,
+        'extraPlugins' => 'codemirror,moxiemanager',
+        'enterMode' => 2,
+        'stylesSet' => [],
+    ];
+
     /**
      * @var array   The cached stylesheets for the ckeditor
      */
@@ -27,10 +59,25 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        // Disable kartik\grid\GridView export functionality for all instances
-        Yii::$container->set('kartik\grid\GridView', [
+        // Gridview default settings
+
+        $gridviewSettings = [
             'export' => false,
-        ]);
+            'responsive' => true,
+            'floatHeader' => true,
+            'floatHeaderOptions' => ['scrollingTop' => 88],
+            'hover' => true,
+            'pjax' => true,
+            'pjaxSettings' => [
+                'options' => [
+                    'id' => 'grid-pjax',
+                ],
+            ],
+            'resizableColumns' => false,
+        ];
+
+        Yii::$container->set('kartik\grid\GridView', $gridviewSettings);
+        Yii::$container->set('infoweb\sortable\SortableGridView', $gridviewSettings);
 
         // Initialize moxiemanager session vars
         $this->initMoxiemanagerSession();
@@ -77,7 +124,7 @@ class Module extends \yii\base\Module
                 Yii::getAlias('@frontendUrl') . '/css/main.css',
                 Yii::getAlias('@frontendUrl') . '/css/editor.css'
             ];
-            
+
             // Add font assets if they exist
             if (class_exists('\frontend\assets\FontAsset')) {
                 // Get the font asset
@@ -86,50 +133,30 @@ class Module extends \yii\base\Module
                 // Add google fonts
                 foreach ($fontAsset->css as $font) {
                     $css[] = $fontAsset->basePath . '/' . $font;
-                }    
-            }        
-    
+                }
+            }
+
             $this->_ckEditorStylesheets = $css;
         }
-            
+
         return $this->_ckEditorStylesheets;
     }
 
     public function getCKEditorOptions()
     {
-        $editorOptions = [
-            'height' => 300,
-            'preset' => 'custom',
-            'toolbarGroups' => [
-                ['name' => 'clipboard', 'groups' => ['mode','undo', 'selection', 'clipboard', 'doctools']],
-                ['name' => 'editing', 'groups' => ['tools']],
-                ['name' => 'paragraph', 'groups' => ['templates', 'list', 'indent', 'align']],
-                ['name' => 'insert'],
-                ['name' => 'basicstyles', 'groups' => ['basicstyles', 'cleanup']],
-                ['name' => 'colors'],
-                ['name' => 'links'],
-                ['name' => 'others'],
-            ],
-            'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak',
-            'contentsCss' => $this->getCKEditorStylesheets(),
-            'extraAllowedContent' => 'div(*);table(*);h1;h2;h3;h4;h5;h6;h7;h8',
-            'extraPlugins' => 'codemirror,moxiemanager',
-            //'tinymce' => false,
-            'enterMode' => 2,
-        ];
-
-        return $editorOptions;
+        return ArrayHelper::merge($this->ckEditorOptions, ['contentsCss' => $this->getCKEditorStylesheets()]);
     }
 
     public function initMoxiemanagerSession()
     {
         $session = new Session;
         $session->open();
+        $session->name = $this->sessionName;
         $session['moxieman-is-logged-in'] = true;
         $session['moxieman-user'] = 'infoweb';
         $session['moxieman-license-key'] = Yii::$app->params['moxiemanager']['license-key'];
         $session['moxieman-filesystem-rootpath'] = Yii::getAlias('@uploadsBasePath');
         $session['moxieman-filesystem-wwwroot'] = Yii::getAlias('@basePath');
-        $session['moxieman-filesystem-urlprefix'] = Yii::getAlias('@baseUrl');    
+        $session['moxieman-filesystem-urlprefix'] = Yii::getAlias('@baseUrl');
     }
 }

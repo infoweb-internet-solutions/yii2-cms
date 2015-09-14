@@ -17,8 +17,8 @@ use yii\web\AssetBundle;
  */
 class BootstrapGrowlAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap.growl/dist';
+    public $sourcePath = '@bower/bootstrap.growl';
     public $js = [
-        'bootstrap-growl.min.js'
+        'bootstrap-notify.min.js'
     ];
 }

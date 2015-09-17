@@ -45,7 +45,7 @@ class Module extends \yii\base\Module
         ],
         'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak,Font,FontSize',
         'allowedContent' => true,
-        'extraPlugins' => 'codemirror,moxiemanager',
+        'extraPlugins' => 'codemirror,moxiemanager,dialogui,dialog,lineutils,widget,image2',
         'enterMode' => 2,
         'stylesSet' => [],
     ];
@@ -157,6 +157,6 @@ class Module extends \yii\base\Module
         $session['moxieman-license-key'] = Yii::$app->params['moxiemanager']['license-key'];
         $session['moxieman-filesystem-rootpath'] = Yii::getAlias('@uploadsBasePath');
         $session['moxieman-filesystem-wwwroot'] = Yii::getAlias('@basePath');
-        $session['moxieman-filesystem-urlprefix'] = Yii::getAlias('@baseUrl');    
+        $session['moxieman-filesystem-urlprefix'] = YII_DEBUG ? Yii::getAlias('@baseUrl') : '';
     }
 }

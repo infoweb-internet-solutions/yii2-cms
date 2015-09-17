@@ -157,6 +157,6 @@ class Module extends \yii\base\Module
         $session['moxieman-license-key'] = Yii::$app->params['moxiemanager']['license-key'];
         $session['moxieman-filesystem-rootpath'] = Yii::getAlias('@uploadsBasePath');
         $session['moxieman-filesystem-wwwroot'] = Yii::getAlias('@basePath');
-        $session['moxieman-filesystem-urlprefix'] = YII_DEBUG ? Yii::getAlias('@baseUrl') : '';
+        $session['moxieman-filesystem-urlprefix'] = YII_DEBUG ? Yii::getAlias('@baseUrl') : '/';
     }
 }

@@ -141,13 +141,13 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
      * First image alwats must be main image
      * @return array|yii\db\ActiveRecord[]
      */
-    public function getImages($additionWhere = false, $fallbackToPlaceholder = true)
+    public function getImages($additionWhere = false, $fallbackToPlaceholder = true, $sort = ['position' => SORT_DESC])
     {
         $finder = $this->getImagesFinder($additionWhere);
 
         $imageQuery = Image::find()
             ->where($finder);
-        $imageQuery->orderBy(['position' => SORT_DESC]);
+        $imageQuery->orderBy($sort);
         $imageRecords = $imageQuery->all();
 
         if(!$imageRecords && $fallbackToPlaceholder){

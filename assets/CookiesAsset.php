@@ -8,6 +8,6 @@ class CookiesAsset extends AssetBundle
     public $sourcePath = '@bower/cookies-js';
     
     public $js = [
-        'dist/cookies.min.js'
+        'src/cookies.js'
     ];
 }

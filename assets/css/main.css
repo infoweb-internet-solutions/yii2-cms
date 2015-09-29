@@ -684,6 +684,10 @@ a[data-toggle="tooltip"] {
     font-size: 16px;
 }
 
+.dark-sidebar-layout .navbar .fa-globe {
+    font-size: 22px;
+}
+
 .dark-sidebar-layout .sidebar .glyphicon,
 .dark-sidebar-layout .sidebar .table .glyphicon {
     font-size: 10px; 
@@ -787,11 +791,11 @@ a[data-toggle="tooltip"] {
 
 .dark-sidebar-layout .navbar-top-controls {
     font-size: 14px;
-    color: #000;
+    color: #333;
 }
 
 .dark-sidebar-layout .navbar-top-controls a {
-    color: #000;
+    color: #333;
     font-weight: bold;
 }
 
@@ -853,11 +857,22 @@ a[data-toggle="tooltip"] {
 
 .dark-sidebar-layout .navbar-top-controls > li {
     float: left;
-    margin-left: 10px;
 }
 
 .dark-sidebar-layout .navbar-top-controls > li > a {
-    padding: 15px;
+    padding: 15px 10px;
+}
+
+.dark-sidebar-layout .navbar-top-controls > li > a {
+    padding: 15px 10px;
+}
+
+.dark-sidebar-layout .navbar-top-controls > li.nav-item-globe a {
+    padding: 13px 10px
+}
+
+.dark-sidebar-layout .navbar-top-controls > li > a.btn-unread-emails {
+    padding: 15px 35px 15px 10px;
 }
 
 .dark-sidebar-layout .navbar-top-controls .unread-emails {

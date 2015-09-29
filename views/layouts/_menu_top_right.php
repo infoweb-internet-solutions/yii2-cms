@@ -8,6 +8,12 @@ use yii\helpers\Url;
 
     <?php if (!Yii::$app->user->isGuest) : ?>
 
+    <li class="pull-left nav-item-globe">
+        <a target="_blank" href="<?= str_replace('/admin', '', Yii::$app->homeUrl); ?>" title="<?php echo Yii::t('infoweb/cms', 'View website'); ?>">
+            <i class="fa fa-globe fa-fw"></i>
+        </a>
+    </li>
+
     <?php if (Yii::$app->getModule('email')) : ?>
     <li class="pull-left nav-item-unread-mails">
         <a href="<?= Url::toRoute('/email/email'); ?>" class="btn-unread-emails" title="<?php echo Yii::t('infoweb/email', 'Emails'); ?>">

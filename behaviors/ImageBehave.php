@@ -404,19 +404,17 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         if ($identifier == '') {
             return $this->owner->removeImages();    
         }
-        
-        if (!$this->owner->isNewRecord) {
-            $image = Image::findOne([
-                'identifier'    => $identifier,
-                'itemId'        => $this->owner->id,
-                'modelName'     => $this->getModule()->getShortClass($this->owner)
-            ]);
-            
-            if ($image) {
-                $this->owner->removeImage($image);
-            }
+
+        $image = Image::findOne([
+            'identifier'    => $identifier,
+            'itemId'        => $this->owner->id,
+            'modelName'     => $this->getModule()->getShortClass($this->owner)
+        ]);
+
+        if ($image) {
+            $this->owner->removeImage($image);
         }
-        
+
         return true;   
     }
     
@@ -474,13 +472,14 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
     /**
      * Url for removing images in image widget
      *
+     * @param null $identifier
      * @return string
      */
-    public function getRemoveRequest()
+    public function getRemoveRequest($identifier = null)
     {
-        $action = Url::to(['/cms/image/remove-images']);
+        $action = Url::to(['/cms/image/remove-image']);
         $className = str_replace('\\', '\\\\', $this->owner->className());
 
-        return "'{$action}', {modelId: '{$this->owner->id}', model: '{$className}'}";
+        return "'{$action}', {modelId: '{$this->owner->id}', model: '{$className}', identifier: '{$identifier}'}";
     }
 }

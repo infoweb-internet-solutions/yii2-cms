@@ -6,13 +6,15 @@ use yii\web\Response;
 
 class ImageController extends \yii\web\Controller
 {
+
     /**
-     * Removes all images that are attached to a model
+     * Removes a specific image from the model
      *
      * @param   string      $model
+     * @param   string      $identifier
      * @return  string      JSON response
      */
-    public function actionRemoveImages()
+    public function actionRemoveImage()
     {
         // Default response
         $response = [
@@ -24,16 +26,16 @@ class ImageController extends \yii\web\Controller
 
         if (isset($post['model']) && !empty($post['model'])) {
 
-            // Load model
+            /// Load model
             $model = Yii::createObject(['class' => $post['model'], 'id' => $post['modelId']]);
 
-            // Remove the images
-            $model->removeImages();
+            // Remove the image
+            $model->removeImageByIdentifier($post['identifier']);
         }
 
         // Return validation in JSON format
         Yii::$app->response->format = Response::FORMAT_JSON;
         return $response;
     }
-    
+
 }

@@ -5,6 +5,8 @@ use yii;
 use yii\helpers\BaseFileHelper;
 use yii\web\UploadedFile;
 use yii\helpers\StringHelper;
+use yii\helpers\Url;
+use yii\web\Response;
 
 use infoweb\cms\models\Image;
 use infoweb\cms\models\ImageUploadForm;
@@ -467,5 +469,18 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $imagesCount = count($this->owner->getImages());
 
         return $aliasWords . '-' . intval($imagesCount + 1);
+    }
+
+    /**
+     * Url for removing images in image widget
+     *
+     * @return string
+     */
+    public function getRemoveRequest()
+    {
+        $action = Url::to(['/cms/image/remove-images']);
+        $className = str_replace('\\', '\\\\', $this->owner->className());
+
+        return "'{$action}', {modelId: '{$this->owner->id}', model: '{$className}'}";
     }
 }

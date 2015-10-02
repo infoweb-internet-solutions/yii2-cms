@@ -36,16 +36,20 @@ use yii\helpers\Url;
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-menu-user">
+            <?php if (Yii::$app->user->can('showProfile')): ?>
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" href="<?= Url::toRoute('/user/settings/profile'); ?>" title="<?php echo Yii::t('user', 'Profile'); ?>">
                     <span class="fa fa-fw fa-user"></span> <?php echo Yii::t('user', 'Profile'); ?>
                 </a>
             </li>
+            <?php endif; ?>
+            <?php if (Yii::$app->user->can('showAccount')): ?>
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" href="<?= Url::toRoute('/user/settings/account'); ?>" title="<?php echo Yii::t('app', 'Account'); ?>">
                     <span class="fa fa-fw fa-cogs"></span> <?php echo Yii::t('user', 'Account'); ?>
                 </a>
             </li>
+            <?php endif; ?>
             <li role="presentation">
                 <a role="menuitem" tabindex="-1" href="<?= Url::toRoute('/user/security/logout', true); ?>" title="<?php echo Yii::t('user', 'Logout'); ?>" data-method="post">
                     <span class="fa fa-fw fa-power-off"></span> <?php echo Yii::t('user', 'Logout'); ?>

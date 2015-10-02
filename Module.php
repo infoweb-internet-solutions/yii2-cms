@@ -60,7 +60,6 @@ class Module extends \yii\base\Module
         parent::init();
 
         // Gridview default settings
-
         $gridviewSettings = [
             'export' => false,
             'responsive' => true,
@@ -78,6 +77,24 @@ class Module extends \yii\base\Module
 
         Yii::$container->set('kartik\grid\GridView', $gridviewSettings);
         Yii::$container->set('infoweb\sortable\SortableGridView', $gridviewSettings);
+
+        // Fileinput default settings
+        $fileInputSettings = [
+            'pluginOptions' => [
+                'showPreview' => true,
+                'showCaption' => true,
+                'showRemove' => true,
+                'showUpload' => false,
+                'browseLabel' => Yii::t('app', 'Browse'),
+                'removeLabel' => Yii::t('app', 'Remove'),
+                'removeTitle' => Yii::t('app', 'Remove selected files'),
+                'uploadLabel' => Yii::t('app', 'Upload'),
+                'uploadTitle' => Yii::t('app', 'Upload selected files'),
+                'cancelLabel' => Yii::t('app', 'Cancel'),
+            ],
+        ];
+
+        Yii::$container->set('kartik\widgets\FileInput', $fileInputSettings);
 
         // Initialize moxiemanager session vars
         $this->initMoxiemanagerSession();

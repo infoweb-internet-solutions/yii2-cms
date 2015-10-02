@@ -5,6 +5,8 @@ use yii;
 use yii\helpers\BaseFileHelper;
 use yii\web\UploadedFile;
 use yii\helpers\StringHelper;
+use yii\helpers\Url;
+use yii\web\Response;
 
 use infoweb\cms\models\Image;
 use infoweb\cms\models\ImageUploadForm;
@@ -402,19 +404,17 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         if ($identifier == '') {
             return $this->owner->removeImages();    
         }
-        
-        if (!$this->owner->isNewRecord) {
-            $image = Image::findOne([
-                'identifier'    => $identifier,
-                'itemId'        => $this->owner->id,
-                'modelName'     => $this->getModule()->getShortClass($this->owner)
-            ]);
-            
-            if ($image) {
-                $this->owner->removeImage($image);
-            }
+
+        $image = Image::findOne([
+            'identifier'    => $identifier,
+            'itemId'        => $this->owner->id,
+            'modelName'     => $this->getModule()->getShortClass($this->owner)
+        ]);
+
+        if ($image) {
+            $this->owner->removeImage($image);
         }
-        
+
         return true;   
     }
     
@@ -467,5 +467,19 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $imagesCount = count($this->owner->getImages());
 
         return $aliasWords . '-' . intval($imagesCount + 1);
+    }
+
+    /**
+     * Url for removing images in image widget
+     *
+     * @param null $identifier
+     * @return string
+     */
+    public function getRemoveRequest($identifier = null)
+    {
+        $action = Url::to(['/cms/image/remove-image']);
+        $className = str_replace('\\', '\\\\', $this->owner->className());
+
+        return "'{$action}', {modelId: '{$this->owner->id}', model: '{$className}', identifier: '{$identifier}'}";
     }
 }

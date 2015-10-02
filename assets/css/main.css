@@ -39,6 +39,9 @@ h1.page-header {
     height: auto;
 }
 
+.file-input .glyphicon {
+    padding-right: 5px;
+}
 
 /**
  *  Gridview

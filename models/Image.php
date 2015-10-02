@@ -83,6 +83,22 @@ class Image extends BaseImage
         return $httpPath;
     }
     
+    /**
+     * Returns the path to the image
+     * 
+     * @param   string|boolean      The size of the image
+     * @param   boolean             Does cropping have to be applied
+     * @return  string
+     * @uses    infoweb\cms\models\Image::getUrl()
+     */
+    public function getPath($size = false, $crop = true)
+    {
+        $url = $this->getUrl($size, $crop);
+        
+        // Replace the baseUrl with the basePath
+        return str_replace(\Yii::getAlias('@uploadsBaseUrl'), \Yii::getAlias('@uploadsBasePath'), $url);
+    }
+    
     public function getBaseUrl()
     {
         $base = $this->getModule()->getStorePath();

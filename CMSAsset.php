@@ -6,19 +6,20 @@ use yii\web\AssetBundle as AssetBundle;
 class CMSAsset extends AssetBundle
 {
     public $sourcePath = '@infoweb/cms/assets/';
-    
+
     public $css = [
         'http://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700',
         'css/sb-admin-2.css',
         'css/main.css'
     ];
-    
+
     public $js = [
+        'js/jquery-plugins/jquery.duplicateable.js',
         'js/i18n.js',
         'js/cms.js',
         'js/main.js'
     ];
-    
+
     public $depends = [
         'backend\assets\AppAsset',
         'yii\web\YiiAsset',

@@ -180,6 +180,10 @@ h1.page-header {
     margin-top: 0;
 }
 
+a[data-toggle="tab"] i.fa {
+    font-size: 18px;
+}
+
 /**
  * Select 2
  */
@@ -906,4 +910,25 @@ a[data-toggle="tooltip"] {
 
 .element-loading * {
     background: transparent !important;
+}
+
+/**
+ * Duplicateable jquery plugin
+ */
+.duplicateable-container,
+.duplicateable-all-container {
+    float: right;
+}
+
+.duplicateable-all-container {
+    margin-left: 20px;
+}
+
+.duplicateable-container i,
+.duplicateable-all-container i {
+    font-size: 18px;
+}
+
+.duplicateable-container a.copied {
+    opacity: 0.3;
 }

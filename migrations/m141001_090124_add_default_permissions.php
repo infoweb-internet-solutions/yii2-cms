@@ -31,7 +31,7 @@ class m141001_090124_add_default_permissions extends Migration
             'created_at'    => time(),
             'updated_at'    => time()
         ]);
-        
+
         $this->insert('{{%auth_item}}', [
             'name'          => 'showUsersModule',
             'type'          => 2,
@@ -64,22 +64,6 @@ class m141001_090124_add_default_permissions extends Migration
             'updated_at'    => time()
         ]);
 
-        $this->insert('{{%auth_item}}', [
-            'name'          => 'showProfile',
-            'type'          => 2,
-            'description'   => 'Show profile icon in user dropdown',
-            'created_at'    => time(),
-            'updated_at'    => time()
-        ]);
-
-        $this->insert('{{%auth_item}}', [
-            'name'          => 'showAccount',
-            'type'          => 2,
-            'description'   => 'Show account icon in user dropdown',
-            'created_at'    => time(),
-            'updated_at'    => time()
-        ]);
-        
         // Create the auth item relation
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
@@ -95,12 +79,12 @@ class m141001_090124_add_default_permissions extends Migration
             'parent'        => 'Superadmin',
             'child'         => 'showRightsModule'
         ]);
-        
+
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
             'child'         => 'showUsersModule'
         ]);
-        
+
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
             'child'         => 'showTranslationsModule'
@@ -114,16 +98,6 @@ class m141001_090124_add_default_permissions extends Migration
         $this->insert('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
             'child'         => 'showAliasModule'
-        ]);
-
-        $this->insert('{{%auth_item_child}}', [
-            'parent'        => 'Superadmin',
-            'child'         => 'showProfile',
-        ]);
-
-        $this->insert('{{%auth_item_child}}', [
-            'parent'        => 'Superadmin',
-            'child'         => 'showAccount',
         ]);
     }
 
@@ -144,7 +118,7 @@ class m141001_090124_add_default_permissions extends Migration
             'parent'        => 'Superadmin',
             'child'         => 'showRightsModule'
         ]);
-        
+
         $this->delete('{{%auth_item_child}}', [
             'parent'        => 'Superadmin',
             'child'         => 'showUsersModule'
@@ -175,16 +149,6 @@ class m141001_090124_add_default_permissions extends Migration
             'child'         => 'showAliasModule'
         ]);
 
-        $this->delete('{{%auth_item_child}}', [
-            'parent'        => 'Superadmin',
-            'child'         => 'showProfile'
-        ]);
-
-        $this->delete('{{%auth_item_child}}', [
-            'parent'        => 'Superadmin',
-            'child'         => 'showAccount'
-        ]);
-        
         // Delete the auth items
         $this->delete('{{%auth_item}}', [
             'name'          => 'showContentModule',
@@ -200,12 +164,12 @@ class m141001_090124_add_default_permissions extends Migration
             'name'          => 'showRightsModule',
             'type'          => 2,
         ]);
-        
+
         $this->delete('{{%auth_item}}', [
             'name'          => 'showUsersModule',
             'type'          => 2,
         ]);
-        
+
         $this->delete('{{%auth_item}}', [
             'name'          => 'showTranslationsModule',
             'type'          => 2,
@@ -218,16 +182,6 @@ class m141001_090124_add_default_permissions extends Migration
 
         $this->delete('{{%auth_item}}', [
             'name'          => 'showAliasModule',
-            'type'          => 2,
-        ]);
-
-        $this->delete('{{%auth_item}}', [
-            'name'          => 'showProfile',
-            'type'          => 2,
-        ]);
-
-        $this->delete('{{%auth_item}}', [
-            'name'          => 'showAccount',
             'type'          => 2,
         ]);
     }

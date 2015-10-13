@@ -22,6 +22,7 @@ return [
     'Choose a type' => 'Selecteer een type',
     'Choose a {field}' => '',
     'Choose a {item}' => 'Kies een {item}',
+    'Choose the amount of {item}' => 'Kies het aantal {item}',
     'Close' => 'Sluiten',
     'Company' => 'Bedrijf',
     'Content' => 'Inhoud',

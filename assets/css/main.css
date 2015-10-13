@@ -43,6 +43,11 @@ h1.page-header {
     padding-right: 5px;
 }
 
+.file-input {
+    margin-bottom: 50px;
+    display: block;
+}
+
 /**
  *  Gridview
  */

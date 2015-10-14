@@ -43,7 +43,7 @@
         $(document)
             .on('click', '.navbar-minimalize', CMS.toggleSidebar)
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
-            .on('click', '[id^=grid-pjax] [data-toggleable=true]', CMS.pjaxGridItemToggle)
+            .on('click', '[id^=grid-pjax] [data-toggleable]', CMS.pjaxGridItemToggle)
             .on('keyup change', '[data-slugable=true]', CMS.slugifyAttribute)
             .on('keydown', '[data-slugified=true]', CMS.validateSlug)
             .on('pjax:complete', CMS.pjaxComplete)

@@ -5,9 +5,9 @@ use yii\web\AssetBundle as AssetBundle;
 
 class CookiesAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/cookies-js';
-    
+    public $sourcePath = '@bower/js-cookie';
+
     public $js = [
-        'src/cookies.js'
+        'src/js.cookie.js'
     ];
 }

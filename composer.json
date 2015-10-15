@@ -50,7 +50,7 @@
     "zelenin/yii2-i18n-module": "dev-infoweb as @stable",
     "bower-asset/bootbox": "@stable",
     "bower-asset/fastclick": "@stable",
-    "bower-asset/cookies-js": "@stable",
+    "bower-asset/js-cookie": "@stable",
     "bower-asset/perfect-scrollbar": "@stable",
     "bower-asset/underscore": "@stable",
     "bower-asset/fancybox": "@stable",

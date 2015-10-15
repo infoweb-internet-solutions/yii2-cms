@@ -51,7 +51,7 @@ class ImageSearch extends Image
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'  => ['defaultOrder' => ['position' => SORT_DESC ]]
+            'sort'  => ['defaultOrder' => ['position' => Yii::$app->getModule('cms')->imagesSorting ]]
         ]);
 
         if (!($this->load($params) && $this->validate())) {

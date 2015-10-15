@@ -13,7 +13,7 @@ use yii\web\Session;
 class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'infoweb\cms\controllers';
-    
+
     /**
      * The php session name that is used for setting sessions
      * @var string
@@ -24,7 +24,13 @@ class Module extends \yii\base\Module
      * @var array   The items that are shown in the sidebar navigation
      */
     public $sideBarItems = [];
-    
+
+    /**
+     * The sorting of images in modules and widgets that use the image behavior
+     * @var string
+     */
+    public $imagesSorting = SORT_DESC;
+
     /**
      * The default configuration of the ckEditor
      * @var array
@@ -41,7 +47,7 @@ class Module extends \yii\base\Module
             ['name' => 'colors'],
             ['name' => 'links'],
             ['name' => 'others'],
-            ['name' => 'styles']               
+            ['name' => 'styles']
         ],
         'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak,Font,FontSize',
         'allowedContent' => true,
@@ -49,7 +55,7 @@ class Module extends \yii\base\Module
         'enterMode' => 2,
         'stylesSet' => [],
     ];
-    
+
     /**
      * @var array   The cached stylesheets for the ckeditor
      */
@@ -141,7 +147,7 @@ class Module extends \yii\base\Module
                 Yii::getAlias('@frontendUrl') . '/css/main.css',
                 Yii::getAlias('@frontendUrl') . '/css/editor.css'
             ];
-            
+
             // Add font assets if they exist
             if (class_exists('\frontend\assets\FontAsset')) {
                 // Get the font asset
@@ -150,12 +156,12 @@ class Module extends \yii\base\Module
                 // Add google fonts
                 foreach ($fontAsset->css as $font) {
                     $css[] = $fontAsset->basePath . '/' . $font;
-                }    
-            }        
-    
+                }
+            }
+
             $this->_ckEditorStylesheets = $css;
         }
-            
+
         return $this->_ckEditorStylesheets;
     }
 

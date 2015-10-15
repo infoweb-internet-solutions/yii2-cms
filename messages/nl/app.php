@@ -12,6 +12,7 @@ return [
     'Add {modelClass}' => 'Voeg {modelClass} toe',
     'Alt' => 'Alt-tekst',
     'Are you sure you want to delete this item?' => '',
+    'Are you sure you want to delete {n, plural, =1{this image} other{# images}}?' => 'Ben je zeker dat je  deze  {n, plural, =1{afbeelding} other{# afbeeldingen}} wilt verwijderen?',
     'Assigments' => 'Toewijzingen',
     'Attached to' => 'Gekoppeld aan',
     'Brief description' => 'Korte beschrijving',
@@ -135,5 +136,6 @@ return [
     '{item} has been updated' => '{item} is gewijzigd',
     '{item} successfully created' => '{item} succesvol toegevoegd',
     '{item} successfully updated' => '{item} succesvol gewijzigd',
+    '{n, plural, =1{Image} other{# Images}} successfully deleted' => '{n, plural, =1{Afbeelding} other{# Afbeeldingen}} met succes verwijderd',
     '{n, plural, =1{Image} other{# images}} successfully uploaded' => '{n, plural, =1{Image} other{# images}} met success geupload',
 ];

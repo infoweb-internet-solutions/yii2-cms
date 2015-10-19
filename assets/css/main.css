@@ -39,11 +39,11 @@ h1.page-header {
     height: auto;
 }
 
-.file-input .glyphicon {
+.images-index .file-input .glyphicon {
     padding-right: 5px;
 }
 
-.file-input {
+.images-index .file-input {
     margin-bottom: 50px;
     display: block;
 }
@@ -74,9 +74,16 @@ h1.page-header {
 .sortable .handle {
     font-size: 17px;
     padding: 9px;
+    color: #999999;
 }
 
-.sortable .handle:hover {
+.sortable .ui-sortable-handle {
+    font-size: 17px;
+    padding: 9px;
+    color: #333333;
+}
+
+.sortable .ui-sortable-handle:hover {
     cursor: move;
 }
 

@@ -9,7 +9,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 You can then install the application using the following command:
 
 ```bash
-php composer.phar global require "fxp/composer-asset-plugin:1.0.0-beta4"
+php composer.phar global require "fxp/composer-asset-plugin:~1.0"
 php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-advanced advanced
 ```
 

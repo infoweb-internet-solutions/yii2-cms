@@ -74,7 +74,8 @@
                     }
 
                 //}
-            });
+            })
+            .on('pjax:complete', '#grid-pjax', CMS.initSortable);
 
         // Trigger validation if a tabbed form is loaded
         if ($('.tabbed-form').length)
@@ -82,6 +83,13 @@
 
         // Init the duplicateable jquery plugin
         $('[data-duplicateable="true"]').duplicateable();
+    };
+
+    /**
+     * Refresh sortable
+     */
+    CMS.initSortable = function() {
+        $('#sortable tbody').sortable('refresh');
     };
 
     CMS.toggleSidebar = function(e) {

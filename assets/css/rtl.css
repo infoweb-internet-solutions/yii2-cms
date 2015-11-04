@@ -1,0 +1,5 @@
+
+.rtl input,
+.rtl textarea {
+    text-align: right;
+}

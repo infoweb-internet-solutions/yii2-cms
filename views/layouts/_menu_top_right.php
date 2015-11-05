@@ -16,7 +16,7 @@ use yii\helpers\Url;
 
     <?php if (Yii::$app->getModule('email') && Yii::$app->user->can('showEmailModule')) : ?>
     <li class="pull-left nav-item-unread-mails"<?php if (Yii::$app->getModule('email')->getUnreadEmails()): ?> style="padding-right: 25px;"<?php endif; ?>>
-        <a href="<?= Url::toRoute('/email/email'); ?>" class="btn-unread-emails" title="<?php echo Yii::t('infoweb/email', 'Emails'); ?>">
+        <a href="<?= Url::toRoute(['/email/email', 'actionType' => 'received']); ?>" class="btn-unread-emails" title="<?php echo Yii::t('infoweb/email', 'Emails'); ?>">
             <i class="fa fa-envelope fa-fw"></i>
             <?php if (Yii::$app->getModule('email')->getUnreadEmails()): ?>
             &nbsp;
@@ -28,13 +28,13 @@ use yii\helpers\Url;
     </li>
     <?php endif; ?>
 
-    <li class="dropdown pull-left">        
+    <li class="dropdown pull-left">
         <a href="#" id="dropdown-menu-user" class="dropdown-toggle user" data-toggle="dropdown">
             <img src="<?php echo (Yii::$app->user->identity->getImage(false)) ? Yii::$app->user->identity->image->getUrl('60px') : $this->params['cmsAssets']->baseUrl . '/img/avatar.png'; ?>" alt="avatar" class="avatar img-circle">
             <?php if (!empty(Yii::$app->user->identity->profile->name)) : ?>
             <?php echo ((isset(Yii::$app->user->identity->profile->firstname)) ? Yii::$app->user->identity->profile->firstname . ' ' : '') . Yii::$app->user->identity->profile->name; ?>
             <?php else : ?>
-            <?php echo Yii::$app->user->identity->username; ?>    
+            <?php echo Yii::$app->user->identity->username; ?>
             <?php endif; ?>
             <span class="caret"></span>
         </a>
@@ -57,9 +57,9 @@ use yii\helpers\Url;
                 <a role="menuitem" tabindex="-1" href="<?= Url::toRoute('/user/security/logout', true); ?>" title="<?php echo Yii::t('user', 'Logout'); ?>" data-method="post">
                     <span class="fa fa-fw fa-power-off"></span> <?php echo Yii::t('user', 'Logout'); ?>
                 </a>
-            </li>    
+            </li>
         </ul>
     </li>
-    
+
     <?php endif; ?>
 </ul>

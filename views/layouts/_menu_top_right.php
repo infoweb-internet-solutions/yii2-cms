@@ -15,12 +15,15 @@ use yii\helpers\Url;
     </li>
 
     <?php if (Yii::$app->getModule('email') && Yii::$app->user->can('showEmailModule')) : ?>
-    <li class="pull-left nav-item-unread-mails">
+    <li class="pull-left nav-item-unread-mails"<?php if (Yii::$app->getModule('email')->getUnreadEmails()): ?> style="padding-right: 25px;"<?php endif; ?>>
         <a href="<?= Url::toRoute('/email/email'); ?>" class="btn-unread-emails" title="<?php echo Yii::t('infoweb/email', 'Emails'); ?>">
-            <i class="fa fa-envelope fa-fw"></i>&nbsp;
-            <span class="label label-danger unread-emails<?php if (!Yii::$app->getModule('email')->getUnreadEmails()): ?> hidden<?php endif; ?>">
+            <i class="fa fa-envelope fa-fw"></i>
+            <?php if (Yii::$app->getModule('email')->getUnreadEmails()): ?>
+            &nbsp;
+            <span class="label label-danger unread-emails">
                 <?php echo Yii::$app->getModule('email')->getUnreadEmails(); ?>
             </span>
+        <?php endif; ?>
         </a>
     </li>
     <?php endif; ?>

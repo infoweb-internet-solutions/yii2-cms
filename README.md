@@ -38,6 +38,7 @@ Add the `infoweb-internet-solutions/yii2-cms` and `fishvision/yii2-migrate` pack
 ```php
 "require": [
     ...
+    "fishvision/yii2-migrate": "*",
     "infoweb-internet-solutions/yii2-cms": "*"
 ]
 ```
@@ -78,8 +79,7 @@ and add `.gitignore` file in `uploads/`
 !.gitignore
 ```
   
-Adjust `adminEmail` in `backend/config/params.php`, `common/config/params.php`, `frontend/config/params.php` and `console/config/params.php`
-Adjust `supportEmail` in `common/config/params.php`
+Remove `adminEmail` and `supportEmail` in `backend/config/params.php`, `common/config/params.php`, `frontend/config/params.php` and `console/config/params.php` and at them to `environments/dev/common/config/params-local.php` and `environments/prod/common/config/params-local.php`
 
 Usage
 -----
@@ -91,12 +91,19 @@ Once the extension is installed, simply modify `common/config/main.php` as follo
 use \kartik\datecontrol\Module;
 
 return [
+	...
+    'name' => 'My Application',
     'language' => 'nl',
     'timeZone' => 'Europe/Brussels',
     ...
     'components' => [
         ...        
-        
+        'cache' => [
+            'class' => 'yii\caching\DbCache',
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         // Rewrite url's
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -314,7 +321,7 @@ return [
     ...
     'components' => [
 		'user' => [
-            'identityClass' => 'infoweb\user\models\User',
+            'identityClass' => 'infoweb\user\models\frontend\User',
             'enableAutoLogin' => true,
         ],
         'log' => [
@@ -340,9 +347,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '404'               => 'site/error',
                 '<alias:[\d\w\-]+>' => 'site/index',
             ],
         ],
+        'page' => [
+            'class' => 'infoweb\pages\components\Page'
+        ]
     ],
 	...
 ];

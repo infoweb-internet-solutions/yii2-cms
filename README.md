@@ -406,6 +406,7 @@ yii i18n/import @infoweb/seo/messages --interactive=0
 yii i18n/import @infoweb/alias/messages --interactive=0
 yii i18n/import @infoweb/analytics/messages --interactive=0
 yii i18n/import @infoweb/email/messages --interactive=0
+yii i18n/import @infoweb/sliders/messages --interactive=0
 ```
 Yii messages import fails sometimes, try importing without --interactive=0 and keep hitting return until it's done
 ```bash

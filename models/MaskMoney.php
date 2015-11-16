@@ -24,6 +24,16 @@ use kartik\money\MaskMoneyAsset;
 class MaskMoney extends \kartik\money\MaskMoney
 {
     /**
+    * @inherit doc
+    */
+    protected $_pluginName = 'maskMoney';
+
+    /**
+     * @var array HTML attributes for the displayed input
+     */
+    protected $_displayOptions = [];
+
+    /**
      * @inherit doc
      */
     public function init()

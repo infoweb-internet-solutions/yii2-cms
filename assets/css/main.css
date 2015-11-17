@@ -52,7 +52,8 @@ h1.page-header {
  *  Gridview
  */
 
-.floatThead-wrapper {
+.floatThead-wrapper,
+.kv-thead-float {
     border-top: 1px solid #DDD;
 }
 
@@ -943,4 +944,12 @@ a[data-toggle="tooltip"] {
 
 .duplicateable-container a.copied {
     opacity: 0.3;
+}
+
+
+/**
+ * Bootstrap dropdown buttons
+ */
+.dropdown-menu {
+    z-index: 1100;
 }

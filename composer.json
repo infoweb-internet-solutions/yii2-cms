@@ -55,6 +55,7 @@
     "bower-asset/underscore": "@stable",
     "bower-asset/fancybox": "@stable",
     "bower-asset/bootstrap-hover-dropdown": "@stable",
+    "bower-asset/x-editable": "@stable",
     "jlorente/yii2-widget-remainingcharacters": "*",
     "codemix/yii2-localeurls": "*",
     "fishvision/yii2-migrate" : "*",
@@ -66,4 +67,4 @@
     }
   }
 }
-        
+

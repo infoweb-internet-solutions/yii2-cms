@@ -33,7 +33,7 @@ class Image extends BaseImage
                     'title',
                     'subtitle',
                     'description',
-                    'url',
+                    'link',
                 ]
             ],
         ]);

@@ -75,7 +75,7 @@
 
                 //}
             })
-            .on('pjax:complete', '#grid-pjax', CMS.initSortable);
+            //.on('pjax:complete', '#grid-pjax', CMS.initSortable);
 
         // Trigger validation if a tabbed form is loaded
         if ($('.tabbed-form').length)

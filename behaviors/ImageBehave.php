@@ -61,7 +61,7 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
         $image->modelName = $this->getModule()->getShortClass($this->owner);
         $image->urlAlias = $this->getAlias($image);
         $image->identifier = $identifier;
-        $image->name = substr(yii\helpers\Inflector::slug($pictureFileName), 0, -3);
+        $image->name = substr($pictureFileName, 0, -3);
         
         // Get the highest position
         // @todo Create function

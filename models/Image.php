@@ -4,6 +4,7 @@ namespace infoweb\cms\models;
 use Yii;
 use rico\yii2images\models\Image as BaseImage;
 use dosamigos\translateable\TranslateableBehavior;
+use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;

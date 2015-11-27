@@ -440,7 +440,7 @@ class BaseInflector extends \yii\helpers\BaseInflector
      * @param string $string input string
      * @return string
      */
-    protected static function transliterate($string)
+    public static function transliterate($string)
     {
         if (static::hasIntl()) {
             return transliterator_transliterate(static::$transliterator, $string);
@@ -452,7 +452,7 @@ class BaseInflector extends \yii\helpers\BaseInflector
     /**
      * @return boolean if intl extension is loaded
      */
-    protected static function hasIntl()
+    public static function hasIntl()
     {
         return extension_loaded('intl');
     }

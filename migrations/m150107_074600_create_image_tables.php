@@ -12,7 +12,7 @@ class m150107_074600_create_image_tables extends Migration
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        
+
         // Drop image table
         if ($this->db->schema->getTableSchema('image', true)) {
             $this->dropTable('image');
@@ -20,7 +20,6 @@ class m150107_074600_create_image_tables extends Migration
 
         $this->createTable('{{%image}}', [
             'id'                    => Schema::TYPE_PK,
-            'name'                  => Schema::TYPE_STRING . '(255) NOT NULL',
             'filePath'              => Schema::TYPE_STRING . '(400) NOT NULL',
             'itemId'                => Schema::TYPE_STRING . '(255) NOT NULL',
             'isMain'                => 'TINYINT(3) UNSIGNED NOT NULL DEFAULT \'1\'',
@@ -33,7 +32,7 @@ class m150107_074600_create_image_tables extends Migration
         ], $tableOptions);
 
         $this->createIndex('itemId', '{{%image}}', 'itemId');
-        
+
         // Create 'image_lang' table
         $this->createTable('{{%image_lang}}', [
             'image_id'              => Schema::TYPE_INTEGER . ' NOT NULL',

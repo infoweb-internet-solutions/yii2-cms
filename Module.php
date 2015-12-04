@@ -49,7 +49,7 @@ class Module extends \yii\base\Module
             ['name' => 'others'],
             ['name' => 'styles']
         ],
-        'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,Table,SpecialChar,PageBreak,Font,FontSize',
+        'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,SpecialChar,PageBreak,Font,FontSize',
         'allowedContent' => true,
         'extraPlugins' => 'codemirror,moxiemanager,dialogui,dialog,lineutils,widget,image2',
         'enterMode' => 2,

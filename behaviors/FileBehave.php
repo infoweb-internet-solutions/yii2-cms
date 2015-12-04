@@ -77,7 +77,7 @@ class FileBehave extends yii\base\Behavior
 
     public function getHint() {
 
-        if ($this->owner->isNewRecord) {
+        if ($this->owner->isNewRecord || !$this->file) {
             return '';
         }
 

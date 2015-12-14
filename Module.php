@@ -70,7 +70,7 @@ class Module extends \yii\base\Module
             'export' => false,
             'responsive' => true,
             'floatHeader' => true,
-            'floatHeaderOptions' => ['scrollingTop' => 88],
+            'floatHeaderOptions' => ['top' => 88],
             'hover' => true,
             'pjax' => true,
             'pjaxSettings' => [

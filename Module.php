@@ -69,8 +69,8 @@ class Module extends \yii\base\Module
         $gridviewSettings = [
             'export' => false,
             'responsive' => true,
-            'floatHeader' => true,
-            'floatHeaderOptions' => ['top' => 88],
+            'floatHeader' => false,
+            //'floatHeaderOptions' => ['top' => 88],
             'hover' => true,
             'pjax' => true,
             'pjaxSettings' => [

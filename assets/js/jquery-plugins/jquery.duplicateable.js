@@ -135,11 +135,13 @@
             // The field is a CKeditor
             if (element.is('textarea') && element.next().hasClass('cke') && typeof CKEDITOR !== 'undefined') {
                 var ckeditorId = model.toLowerCase() + '-' + language.toLowerCase() + '-' + attribute.toLowerCase(),
-                    value = CKEDITOR.instances[ckeditorId].getData();
+                    value = CKEDITOR.instances[ckeditorId].getData(),
+                    // The name of the editor instance has to match this pattern
+                    regex = new RegExp('^'+model.toLowerCase()+'-[a-z]{2}-'+attribute.toLowerCase()+'$');
 
                 // Set the content of all other
                 $.each(CKEDITOR.instances, function(i) {
-                    if (i !== ckeditorId) {
+                    if (i !== ckeditorId && regex.test(i)) {
                         CKEDITOR.instances[i].setData(value);
                     }
                 });

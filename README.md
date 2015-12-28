@@ -17,7 +17,20 @@ php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-
 Create a new dev and production database and adjust the `components['db']` configuration in `environments/dev/common/config/main-local.php` and `environments/prod/common/config/main-local.php` accordingly.
   
 Remove the `components['mailer']` configuration from both files because it will be added to `common/config/main.php`
- 
+  
+Add  to `environments/prod/common/config/main-local.php`
+```php
+'controllerMap' => [
+	'migrate' => [
+		'class' => 'fishvision\migrate\controllers\MigrateController',
+		'autoDiscover' => true,
+		'migrationPaths' => [
+			'@vendor'
+		],
+	],
+],  
+```
+  
 ### Update composer.json file  
 Update the `config` section of `composer.json` if you want composer to download git folders for the packages
 ```json
@@ -213,17 +226,8 @@ return [
     ...
     'params' => [
         // Font Awesome Icon framework
-        'icon-framework' => 'fa',  
+        'icon-framework' => 'fa',
     ],
-	'controllerMap' => [
-		'migrate' => [
-			'class' => 'fishvision\migrate\controllers\MigrateController',
-			'autoDiscover' => true,
-			'migrationPaths' => [
-				'@vendor'
-			],
-		],
-	],
 ];
 ```
 (dont forget to update the settings of the **mailer**, **log** and **i18n** components!)

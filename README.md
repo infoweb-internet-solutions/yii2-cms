@@ -16,14 +16,7 @@ php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-
 ### Configure environments  
 Create a new dev and production database and adjust the `components['db']` configuration in `environments/dev/common/config/main-local.php` and `environments/prod/common/config/main-local.php` accordingly.
   
-Add the `components['assetManager']` configuration in the same files:
-```php
-'assetManager' => [
-    'linkAssets' => true,
-],
-```
-  
-Also remove the `components['mailer']` configuration from both files because it will be added to `common/config/main.php`
+Remove the `components['mailer']` configuration from both files because it will be added to `common/config/main.php`
  
 ### Update composer.json file  
 Update the `config` section of `composer.json` if you want composer to download git folders for the packages
@@ -64,7 +57,6 @@ Check if `"minimum-stability": "dev"` is set
 After this run `composer update` to install the package
 
 ### Init environment  
-Run command `init` to initialize the application with a specific environment.
 
 Create folders in `frontend/web/`
 ```
@@ -80,7 +72,9 @@ and add `.gitignore` file in `uploads/`
 ```
   
 Remove `adminEmail` and `supportEmail` in `backend/config/params.php`, `common/config/params.php`, `frontend/config/params.php` and `console/config/params.php` and at them to `environments/dev/common/config/params-local.php` and `environments/prod/common/config/params-local.php`
-
+  
+Run command `init` to initialize the application with a specific environment.
+  
 Usage
 -----
 
@@ -162,9 +156,6 @@ return [
                 ],
             ],
         ],
-		'authManager' => [
-			'class' => 'yii\rbac\DbManager',
-		],
 		'i18n' => [
 			'class' => Zelenin\yii\modules\I18n\components\I18N::className(),
 			'languages' => ['nl']
@@ -263,7 +254,28 @@ return [
 		'admin' => [
 			'class' => 'mdm\admin\Module',
 		],
-		'i18n' => Zelenin\yii\modules\I18n\Module::className(),
+		'i18n' => [
+            'class' => Zelenin\yii\modules\I18n\Module::className(),
+        ],
+		'settings' => [
+            'class' => 'infoweb\settings\Module'
+        ],
+		'pages' => [
+			'class' => 'infoweb\pages\Module',
+        ],
+		'partials' => [
+			'class' => 'infoweb\partials\Module',
+		],
+		'seo' => [
+			'class' => 'infoweb\seo\Module',
+		],
+		'menu' => [
+            'class' => 'infoweb\menu\Module',
+        ],
+		'alias' => [
+			'class' => 'infoweb\alias\Module',
+			'reservedUrls' => ['page'] // Url's that are reserved by the application
+		],
     ],
     ...
     'components' => [
@@ -368,12 +380,6 @@ Do not run composer, all modules are included in the infoweb-cms composer file a
 Do not run any migrations and don't import messages, we'll do this later  
   
 - [Installation user module](https://github.com/infoweb-internet-solutions/yii2-cms-user)
-- [Installation settings module](https://github.com/infoweb-internet-solutions/yii2-cms-settings)
-- [Installation pages module](https://github.com/infoweb-internet-solutions/yii2-cms-pages)
-- [Installation partials module](https://github.com/infoweb-internet-solutions/yii2-cms-partials)
-- [Installation seo module](https://github.com/infoweb-internet-solutions/yii2-cms-seo)
-- [Installation menu module](https://github.com/infoweb-internet-solutions/yii2-cms-menu)
-- [Installation alias module](https://github.com/infoweb-internet-solutions/yii2-cms-alias)
 - [Installation analytics widget](https://github.com/infoweb-internet-solutions/yii2-cms-analytics)
   
   

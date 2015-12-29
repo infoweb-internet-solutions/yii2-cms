@@ -104,7 +104,7 @@ return [
     'timeZone' => 'Europe/Brussels',
     ...
     'components' => [
-        ...        
+        ...
         'cache' => [
             'class' => 'yii\caching\DbCache',
         ],
@@ -401,6 +401,18 @@ Yii::setAlias('frontendUrl', Yii::getAlias('@baseUrl') . '/frontend/web');
 ```
 
 Apply migrations with console commands. This will create tables needed for the application to work.
+Add to `commonfig/config/main.php` to run all migrations and remove this afterwards.
+```php
+'controllerMap' => [
+	'migrate' => [
+		'class' => 'fishvision\migrate\controllers\MigrateController',
+		'autoDiscover' => true,
+		'migrationPaths' => [
+			'@vendor'
+		],
+	],
+],
+```
 ```bash
 yii migrate/up
 ```

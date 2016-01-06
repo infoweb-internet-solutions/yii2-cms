@@ -49,6 +49,13 @@ h1.page-header {
 }
 
 /**
+ * File input kartik
+ */
+.file-input .glyphicon-folder-open {
+    margin-right: 3px;
+}
+
+/**
  *  Gridview
  */
 

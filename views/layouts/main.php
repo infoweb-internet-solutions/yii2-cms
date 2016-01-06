@@ -52,10 +52,10 @@ $this->params['cmsAssets'] = $cmsAssets;
             </li>
         </ul>
         <?php endif; ?>
-    
+
         <?php // Top right menu ?>
         <?= $this->render('_menu_top_right') ?>
-       
+
         <?php // Sidebar ?>
         <div role="navigation" class="navbar-default sidebar">
 
@@ -73,11 +73,11 @@ $this->params['cmsAssets'] = $cmsAssets;
             */ ?>
             <?php // Sidebar menu ?>
             <?= $this->render('_menu_sidebar') ?>
-            
+
         </div>
-        
+
         <?php NavBar::end(); ?>
-    
+
         <?php if (!Yii::$app->user->isGuest) : ?>
             
         <?php // Breadcrumbs ?>

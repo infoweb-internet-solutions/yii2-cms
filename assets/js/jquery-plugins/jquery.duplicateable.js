@@ -73,10 +73,10 @@
 
             // Split the name of the element into pieces
             // A valid element should have a name structure of modelName[language][attributeName]
-            var parts = $(this.element).attr('name').match(/([\w\d]+)\[(\w+)\]\[(\w+)\]/);
+            var parts = $(this.element).attr('name').match(/([\w\d]+)\[([-\w]+)\]\[([-\w]+)\]/);
 
             // Dont create the button if the element name does not matches the pattern
-            if (!parts.length || parts.length < 4)
+            if (!parts || !parts.length || parts.length < 4)
                 return false;
 
             var icon = $('<i></i>')
@@ -137,7 +137,7 @@
                 var ckeditorId = model.toLowerCase() + '-' + language.toLowerCase() + '-' + attribute.toLowerCase(),
                     value = CKEDITOR.instances[ckeditorId].getData(),
                     // The name of the editor instance has to match this pattern
-                    regex = new RegExp('^'+model.toLowerCase()+'-[a-z]{2}-'+attribute.toLowerCase()+'$');
+                    regex = new RegExp('^'+model.toLowerCase()+'-[a-z]{2}(-[a-zA-Z]{2,})?-'+attribute.toLowerCase()+'$');
 
                 // Set the content of all other
                 $.each(CKEDITOR.instances, function(i) {

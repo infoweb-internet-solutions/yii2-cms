@@ -42,7 +42,7 @@ class ImageLang extends \yii\db\ActiveRecord
             [['alt', 'title', 'subtitle', 'description', 'link'], 'trim'],
             // Types
             [['image_id', 'created_at', 'updated_at'], 'integer'],
-            [['language'], 'string', 'max' => 2],
+            [['language'], 'string', 'max' => 10],
             [['link'], 'url', 'defaultScheme' => 'http'],
             [['description'], 'string'],
             [['alt', 'title', 'subtitle', 'link'], 'string', 'max' => 255],

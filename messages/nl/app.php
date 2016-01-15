@@ -131,4 +131,5 @@ return [
     '{n, plural, =1{Image} other{# Images}} successfully deleted' => '{n, plural, =1{Afbeelding} other{# Afbeeldingen}} met succes verwijderd',
     '{n, plural, =1{Image} other{# images}} successfully deleted' => '',
     '{n, plural, =1{Image} other{# images}} successfully uploaded' => '{n, plural, =1{Image} other{# images}} met success geupload',
+    'Image is required' => 'Afbeelding is verplicht',
 ];

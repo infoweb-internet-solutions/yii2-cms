@@ -1,8 +1,9 @@
 <?php
 use yii\helpers\Html;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use yii\helpers\Url;
+use yii\bootstrap\NavBar;
+use yii\bootstrap\Modal;
+use yii\widgets\Breadcrumbs;
 use kartik\icons\Icon;
 use infoweb\cms\CMSAsset;
 
@@ -25,8 +26,8 @@ $this->params['cmsAssets'] = $cmsAssets;
         <?php $this->head() ?>
     </head>
     <body class="dark-sidebar-layout<?php echo (isset($_COOKIE['infoweb-admin-sidebar-state']) && $_COOKIE['infoweb-admin-sidebar-state'] == 'closed') ? ' mini-navbar' : ''; ?><?php echo (Yii::$app->user->isGuest) ? ' is-guest' : ''; ?>">
-        <?php $this->beginBody() ?>   
-    
+        <?php $this->beginBody() ?>
+
         <?php
         // Navbar
         NavBar::begin([
@@ -38,7 +39,7 @@ $this->params['cmsAssets'] = $cmsAssets;
             'renderInnerContainer' => false,
         ]);
         ?>
-        
+
         <?php // Sidebar toggler ?>
         <?php if (!Yii::$app->user->isGuest) : ?>
         <ul class="nav navbar-left hidden-xs sidebar-toggle" style="display: none;">
@@ -79,14 +80,14 @@ $this->params['cmsAssets'] = $cmsAssets;
         <?php NavBar::end(); ?>
 
         <?php if (!Yii::$app->user->isGuest) : ?>
-            
+
         <?php // Breadcrumbs ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        
+
         <?php endif; ?>
-    
+
         <?php // Page content ?>
         <div id="page-wrapper" <?php echo (isset($this->params['breadcrumbs'])) ? 'class="breadcrumb-padding"' :''; ?>>
             <?= $content ?>
@@ -94,8 +95,51 @@ $this->params['cmsAssets'] = $cmsAssets;
             <footer class="footer">
                 <span class="pull-left">&copy; Infoweb <?= date('Y') ?></span>
                 <span class="pull-right"><?php /*<?= Yii::powered() ?>*/ ?></span>
-            </footer>    
+            </footer>
         </div>
+
+        <?php // Duplicateable plugin modal ?>
+        <?php Modal::begin([
+            'id' => 'duplicateable-modal',
+            'header' => '<h2>'.Yii::t('infoweb/cms', 'Duplicate content').'</h2>',
+            'footer' => '<button type="button" class="btn btn-primary" id="do-duplication">'.Yii::t('infoweb/cms', 'Duplicate').'</button><button type="button" class="btn btn-default" data-dismiss="modal">'.Yii::t('app', 'Close').'</button>'
+        ]); ?>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3><?= Yii::t('infoweb/cms', 'Languages'); ?></h3>
+                <ul class="duplicateable-languages">
+                    <?php foreach (Yii::$app->params['languages'] as $k => $v) : ?>
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="<?php echo $k; ?>" name="duplicateable-languages[]" class="duplicateable-languages" checked /> <?php echo $v; ?>
+                            </label>
+                        </div>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h3><?= Yii::t('infoweb/cms', 'Options'); ?></h3>
+                <ul class="duplicateable-settings">
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="1" name="duplicate-empty-values" class="duplicate-empty-values" /> <?= Yii::t('infoweb/cms', 'Duplicate empty fields'); ?>
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="1" name="overwrite-values" class="overwrite-values" checked /> <?= Yii::t('infoweb/cms', 'Overwrite populated fields'); ?>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <?php Modal::end(); ?>
 
         <?php $this->endBody() ?>
     </body>

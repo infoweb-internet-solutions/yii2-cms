@@ -953,6 +953,14 @@ a[data-toggle="tooltip"] {
     opacity: 0.3;
 }
 
+#duplicateable-modal h3 {
+    margin-top: 0;
+}
+
+#duplicateable-modal ul {
+    list-style: none;
+    padding-left: 0;
+}
 
 /**
  * Bootstrap dropdown buttons

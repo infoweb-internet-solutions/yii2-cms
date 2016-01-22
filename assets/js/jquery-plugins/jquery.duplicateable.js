@@ -61,7 +61,7 @@
                 $(this).replaceWith(container);
 
                 // Bind the click event to the button
-                btn.on('click', plugin.duplicateAllContent);
+                btn.on('click', plugin.showDuplicateableModal);
             });
         },
         /**
@@ -102,62 +102,181 @@
                 .after(container);
 
             // Bind the click event to the button
-            btn.on('click', this.duplicateContent);
+            btn.on('click', this.showDuplicateableModal);
         },
-        /**
-         * Duplicates the content of all duplicateable attributes in the active tab pane
-         *
-         * @param  Event
-         * @return void
-         */
-        duplicateAllContent: function(e) {
-            e.preventDefault();
-            var language = $(this).attr('data-duplicateable-language');
+        showDuplicateableModal: function(e) {
+            // Collect data attributes of the pushed btn
+            var modal = $('#duplicateable-modal'),
+                duplicateableData = {
+                    scope: 'all',
+                    language: $(this).attr('data-duplicateable-language')
+                };
 
-            // Trigger a click on all the duplicate buttons with the same language in the active tab pane
-            $('.tab-pane.active .duplicateable-btn[data-duplicateable-language="'+language+'"]').trigger('click');
+            // Collect extra data attributes
+            if ($(this).hasClass('duplicateable-btn')) {
+                duplicateableData.scope = 'element';
+                duplicateableData.model = $(this).attr('data-duplicateable-model');
+                duplicateableData.attribute = $(this).attr('data-duplicateable-attribute');
+            }
+
+            // Set the data attributes of the modal
+            $.each(duplicateableData, function(i) {
+                modal.data('duplicateable.'+i, this);
+            });
+
+            // Reset the checkboxes in the modal:
+            // - Re-enable and check all languages
+            // - Disable and uncheck the language of the clicked toggler
+            // - Uncheck the "duplicate empty values" setting
+            // - Check the "overwrite values" setting
+            modal.find('.duplicateable-languages :checkbox').prop('checked', true).prop('disabled', false);
+            modal.find('.duplicateable-languages :checkbox[value="'+duplicateableData.language+'"]').prop('checked', false).prop('disabled', true);
+            modal.find('.duplicate-empty-values').prop('checked', false);
+            modal.find('.overwrite-values').prop('checked', true);
+            modal.modal('show');
         },
         /**
-         * Duplicates the content of the element into the similar elements
+         * Creates a settings object, based on the state of the duplicateable modal
          *
-         * @param  Event
-         * @return void
+         * @return object
          */
-        duplicateContent: function(e) {
+        extractSettingsFromModal: function() {
+            // Create the settings object
+            var settings = {
+                    modal: $('#duplicateable-modal'),
+                    duplicateEmptyValues: $('.duplicate-empty-values').is(':checked'),
+                    overwriteValues: $('.overwrite-values').is(':checked'),
+                };
+            settings.scope = settings.modal.data('duplicateable.scope');
+            settings.language = settings.modal.data('duplicateable.language');
+            settings.selectedLanguages = settings.modal.find('.duplicateable-languages:checked').map(function() {
+                return this.value;
+            }).get();
+
+            return settings;
+        },
+        /**
+         * Duplicates content
+         *
+         * @param {Event} e
+         */
+        duplicate: function(e) {
             e.preventDefault();
-            var btn = this,
-                model = $(this).attr('data-duplicateable-model'),
-                language = $(this).attr('data-duplicateable-language'),
-                attribute = $(this).attr('data-duplicateable-attribute'),
-                element = $('[name="'+model+'['+language+']['+attribute+']"]'),
-                value = element.val();
+            // Create the settings object
+            var settings = Plugin.prototype.extractSettingsFromModal();
+
+            // Duplicate single element
+            if (settings.scope == 'element') {
+
+                settings.model = settings.modal.data('duplicateable.model');
+                settings.attribute = settings.modal.data('duplicateable.attribute');
+                // The original element
+                var element = $('[name="'+settings.model+'['+settings.language+']['+settings.attribute+']"]');
+
+                Plugin.prototype.duplicateElement(element, settings).done(function() {
+                    // Close the modal
+                    $('#duplicateable-modal').modal('hide');
+                });
+
+            // Duplicate all elements
+            } else {
+                var promises = [],
+                    elements = $('.tab-pane.active .duplicateable-btn[data-duplicateable-language="'+settings.language+'"]');
+
+                $.each(elements, function() {
+                    var dfd = $.Deferred();
+                    settings.model = $(this).attr('data-duplicateable-model');
+                    settings.language = $(this).attr('data-duplicateable-language');
+                    settings.attribute = $(this).attr('data-duplicateable-attribute');
+                    // The original element
+                    var element = $('[name="'+settings.model+'['+settings.language+']['+settings.attribute+']"]');
+
+                    Plugin.prototype.duplicateElement(element, settings).done(function() {
+                        dfd.resolve();
+                    });
+
+                    promises.push(dfd);
+                });
+
+                $.when.apply($, promises).done(function() {
+                    // Close the modal
+                    $('#duplicateable-modal').modal('hide');
+                });
+            }
+        },
+        /**
+         * Duplicates a single element
+         *
+         * @param {jQuery object}  element     The element who's content has to be duplicated
+         * @param {object} settings
+         * @return {Promise}
+         */
+        duplicateElement: function(element, settings) {
+            var promises = [];
+            // Extend the settings
+            settings.value = element.val(),
+            settings.ckeditorId = false;
 
             // The field is a CKeditor
             if (element.is('textarea') && element.next().hasClass('cke') && typeof CKEDITOR !== 'undefined') {
-                var ckeditorId = model.toLowerCase() + '-' + language.toLowerCase() + '-' + attribute.toLowerCase(),
-                    value = CKEDITOR.instances[ckeditorId].getData(),
-                    // The name of the editor instance has to match this pattern
-                    regex = new RegExp('^'+model.toLowerCase()+'-[a-z]{2}(-[a-zA-Z]{2,})?-'+attribute.toLowerCase()+'$');
-
-                // Set the content of all other
-                $.each(CKEDITOR.instances, function(i) {
-                    if (i !== ckeditorId && regex.test(i)) {
-                        CKEDITOR.instances[i].setData(value);
-                    }
-                });
-            // The field is an input element
-            } else {
-                // Copy the value to the similar elements
-                $('[name^="'+model+'"][name$="['+attribute+']"]')
-                    .not('[name="'+model+'['+language+']['+attribute+']"]')
-                    .val(value);
+                settings.ckeditorId = settings.model.toLowerCase() + '-' + settings.language.toLowerCase() + '-' + settings.attribute.toLowerCase();
+                settings.value = CKEDITOR.instances[settings.ckeditorId].getData();
             }
 
-            // Animate the btn style
-            $(btn).addClass('copied');
-            setTimeout(function() {
-                $(btn).removeClass('copied');
-            }, 750);
+            $.each(settings.selectedLanguages, function() {
+                var dfd = $.Deferred();
+                Plugin.prototype.copyContent(settings, this).done(function() {
+                    dfd.resolve();
+                });
+                promises.push(dfd);
+            });
+
+            return $.when.apply($, promises).promise();
+        },
+        /**
+         * Copy content to an element, based on the settings that are passed:
+         *     - model: The model name
+         *     - attribute: The attribute name
+         *     - value: The value that has to be copied
+         *     - ckeditorId: false or the id of the ckeditor instance
+         *     - duplicateEmptyValues: if true, the value has to be copied even
+         *                             if it's empty
+         *     - overwriteValues: if true, the value has to be copied even if the
+         *                        field is not empty
+         *
+         * @param  {object} settings
+         * @param  {string} language    The language of element that receives the content
+         * @return {Promise}
+         */
+        copyContent: function(settings, language) {
+            var dfd = $.Deferred();
+            // Duplicate empty values?
+            if (settings.value !== '' || (settings.value === '' && settings.duplicateEmptyValues)) {
+                // CKEditor
+                if (typeof settings.ckeditorId !== 'undefined' && settings.ckeditorId !== false) {
+                    // The ckeditorId of the original element is provided, so to find
+                    // the id of the element's instance, we have to replace the original
+                    // language with the provided one
+                    var ckeditorId = settings.ckeditorId.replace(settings.language, language),
+                        currentValue = CKEDITOR.instances[ckeditorId].getData();
+
+                    // Overwrite values?
+                    if (settings.overwriteValues || (!settings.overwriteValues && currentValue === '')) {
+                        CKEDITOR.instances[ckeditorId].setData(settings.value);
+                    }
+                // Input field
+                } else {
+                    var currentValue = $('[name="'+settings.model+'['+language+']['+settings.attribute+']"]').val();
+
+                    // Overwrite values?
+                    if (settings.overwriteValues || (!settings.overwriteValues && currentValue === '')) {
+                        $('[name="'+settings.model+'['+language+']['+settings.attribute+']"]').val(settings.value);
+                    }
+                }
+            }
+
+            dfd.resolve();
+            return dfd.promise();
         }
     });
 
@@ -170,5 +289,8 @@
             }
         });
     };
+
+    // Bind event to the duplication btn
+    $('#duplicateable-modal #do-duplication').on('click', Plugin.prototype.duplicate);
 
 })( jQuery, window, document );

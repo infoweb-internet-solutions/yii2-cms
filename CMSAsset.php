@@ -26,7 +26,6 @@ class CMSAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'infoweb\cms\assets\BootBoxAsset',
-        'infoweb\cms\assets\FastClickAsset',
         'infoweb\cms\assets\CookiesAsset',
         'kartik\sidenav\SideNavAsset',
         'infoweb\cms\assets\MoxieManagerAsset',

@@ -24,7 +24,7 @@ h1.page-header {
 }
 
 .is-guest .sidebar {
-    display: none;    
+    display: none;
 }
 
 .is-guest .breadcrumb {
@@ -126,7 +126,7 @@ h1.page-header {
 }
 
 .icon-active {
-    color: #3c763d;  
+    color: #3c763d;
 }
 
 .icon-gray {
@@ -186,6 +186,10 @@ h1.page-header {
 
 .navbar-inverse .navbar-brand {
     color: #FFF;
+}
+
+.navbar-right {
+    margin-right: 0;
 }
 
 /**
@@ -279,7 +283,6 @@ a[data-toggle="tab"] i.fa {
 }
 
 .sidebar .avatar {
-    widht: 100%;
     padding: 20px;
     font-weight: bold;
     font-size: 18px;
@@ -661,7 +664,7 @@ a[data-toggle="tooltip"] {
     background-color: #303641;
     font-family: "Lato",Calibri,Arial,sans-serif;
     font-size: 13px;
-    overflow-y: scroll;    
+    overflow-y: scroll;
 }
 
 .dark-sidebar-layout .navbar-fixed-top {
@@ -675,11 +678,11 @@ a[data-toggle="tooltip"] {
 }
 
 .dark-sidebar-layout .navbar-brand .brand-logo {
-    left: 15px;    
+    left: 15px;
 }
 
 .dark-sidebar-layout.mini-navbar .navbar-brand .brand-logo {
-    left: 18px;    
+    left: 18px;
 }
 
 .dark-sidebar-layout.mini-navbar .navbar-brand {
@@ -717,8 +720,8 @@ a[data-toggle="tooltip"] {
 
 .dark-sidebar-layout .sidebar .glyphicon,
 .dark-sidebar-layout .sidebar .table .glyphicon {
-    font-size: 10px; 
-    color: #FFF;   
+    font-size: 10px;
+    color: #FFF;
 }
 
 .dark-sidebar-layout .sidebar .nav-pills > li.active > a,
@@ -742,7 +745,7 @@ a[data-toggle="tooltip"] {
 
 .dark-sidebar-layout .sidebar ul li a:visited,
 .dark-sidebar-layout .sidebar ul li a:focus {
-    background-color: #303641;  
+    background-color: #303641;
 }
 
 .dark-sidebar-layout .sidebar .kv-sidenav .active > ul li a {

@@ -2,6 +2,7 @@
 
 namespace infoweb\cms;
 
+use kartik\icons\FontAwesomeAsset;
 use Yii;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
@@ -51,7 +52,7 @@ class Module extends \yii\base\Module
         ],
         'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,SpecialChar,PageBreak,Font,FontSize',
         'allowedContent' => true,
-        'extraPlugins' => 'codemirror,moxiemanager,dialogui,dialog,lineutils,widget',
+        'extraPlugins' => 'codemirror,moxiemanager,dialogui,dialog,lineutils,widget,fontawesome',
         'enterMode' => 2,
         'stylesSet' => [],
     ];
@@ -138,14 +139,16 @@ class Module extends \yii\base\Module
         // No cached version found
         if (!$this->_ckEditorStylesheets) {
 
-            // Get the bootstrap asset url
+            // Get the asset url's
             $bootstrapAsset = BootstrapAsset::register(Yii::$app->view);
+            $fontAwesome = FontAwesomeAsset::register(Yii::$app->view);
 
             // Add default css
             $css = [
                 $bootstrapAsset->baseUrl . '/css/bootstrap.min.css',
                 Yii::getAlias('@frontendUrl') . '/css/main.css',
-                Yii::getAlias('@frontendUrl') . '/css/editor.css'
+                Yii::getAlias('@frontendUrl') . '/css/editor.css',
+                $fontAwesome->baseUrl . '/' . $fontAwesome->css[0],
             ];
 
             // Add font assets if they exist

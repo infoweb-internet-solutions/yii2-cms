@@ -172,7 +172,7 @@ class Module extends \yii\base\Module
 
     public function initMoxiemanagerSession()
     {
-        $session = new Session;
+        $session = Yii::$app->session;
         $session->open();
         $session->name = $this->sessionName;
         $session['moxieman-is-logged-in'] = true;

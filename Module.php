@@ -6,9 +6,8 @@ use Yii;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\BootstrapAsset;
+use kartik\icons\FontAwesomeAsset;
 use frontend\assets\FontAsset;
-
-use yii\web\Session;
 
 class Module extends \yii\base\Module
 {
@@ -138,14 +137,16 @@ class Module extends \yii\base\Module
         // No cached version found
         if (!$this->_ckEditorStylesheets) {
 
-            // Get the bootstrap asset url
+            // Get the asset url's
             $bootstrapAsset = BootstrapAsset::register(Yii::$app->view);
+            $fontAwesome = FontAwesomeAsset::register(Yii::$app->view);
 
             // Add default css
             $css = [
                 $bootstrapAsset->baseUrl . '/css/bootstrap.min.css',
                 Yii::getAlias('@frontendUrl') . '/css/main.css',
-                Yii::getAlias('@frontendUrl') . '/css/editor.css'
+                Yii::getAlias('@frontendUrl') . '/css/editor.css',
+                $fontAwesome->baseUrl . '/' . $fontAwesome->css[0],
             ];
 
             // Add font assets if they exist

@@ -59,7 +59,7 @@
     "jlorente/yii2-widget-remainingcharacters": "*",
     "codemix/yii2-localeurls": "*",
     "fishvision/yii2-migrate" : "*",
-    "kartik-v/yii2-builder": "*"
+    "creocoder/yii2-translateable": "~1.0"
   },
   "autoload": {
     "psr-4": {

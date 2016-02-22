@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\BootstrapAsset;
+use yii\web\Session;
 use kartik\icons\FontAwesomeAsset;
 use frontend\assets\FontAsset;
 

@@ -3,7 +3,7 @@ namespace infoweb\cms\models;
 
 use Yii;
 use rico\yii2images\models\Image as BaseImage;
-use dosamigos\translateable\TranslateableBehavior;
+use creocoder\translateable\TranslateableBehavior;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
@@ -27,7 +27,7 @@ class Image extends BaseImage
                     return time();
                 },
             ],
-            'trans' => [
+            'translateable' => [
                 'class' => TranslateableBehavior::className(),
                 'translationAttributes' => [
                     'alt',
@@ -83,10 +83,10 @@ class Image extends BaseImage
 
         return $httpPath;
     }
-    
+
     /**
      * Returns the path to the image
-     * 
+     *
      * @param   string|boolean      The size of the image
      * @param   boolean             Does cropping have to be applied
      * @return  string
@@ -95,11 +95,11 @@ class Image extends BaseImage
     public function getPath($size = false, $crop = true)
     {
         $url = $this->getUrl($size, $crop);
-        
+
         // Replace the baseUrl with the basePath
         return str_replace(\Yii::getAlias('@uploadsBaseUrl'), \Yii::getAlias('@uploadsBasePath'), $url);
     }
-    
+
     public function getBaseUrl()
     {
         $base = $this->getModule()->getStorePath();
@@ -139,12 +139,12 @@ class Image extends BaseImage
             if($this->getModule()->graphicsLibrary == 'Imagick'){
                 $image = new \Imagick($imagePath);
                 $image->setImageCompressionQuality(100);
-                
-                // If the dimensions of the original image match the requested 
+
+                // If the dimensions of the original image match the requested
                 // dimensions the original image is just copied to the new path
                 if ($image->getImageWidth() == $size['width'] && $image->getImageHeight() == $size['height']) {
                     copy($imagePath, $pathToSave);
-                    return $image;    
+                    return $image;
                 }
 
                 if($size){
@@ -168,13 +168,13 @@ class Image extends BaseImage
 
                 $image = new \abeautifulsite\SimpleImage($imagePath);
 
-                // If the dimensions of the original image match the requested 
+                // If the dimensions of the original image match the requested
                 // dimensions the original image is just copied to the new path
                 if ($image->get_width() == $size['width'] && $image->get_height() == $size['height']) {
                     copy($imagePath, $pathToSave);
-                    return $image;    
+                    return $image;
                 }
-                
+
                 if($size){
                     if($size['height'] && $size['width']){
 
@@ -267,7 +267,7 @@ class Image extends BaseImage
     public function clearCache(){
         $subDir = $this->getSubDur();
         $dirToRemove = $this->getModule()->getCachePath().DIRECTORY_SEPARATOR.$subDir;
-        
+
         if(preg_match('/'.preg_quote($this->modelName, '/').'/', $dirToRemove)){
             BaseFileHelper::removeDirectory($dirToRemove);
         }
@@ -283,12 +283,12 @@ class Image extends BaseImage
             ];
         } else {
             return [];
-        }    
+        }
     }
-    
+
     public function getFileInputWidgetCaption()
     {
-        return $this->name;    
+        return $this->name;
     }
 
 }

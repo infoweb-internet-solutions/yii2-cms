@@ -1,6 +1,7 @@
 <?php
 namespace infoweb\cms\behaviors;
 
+use infoweb\cms\models\ImageLang;
 use yii;
 use yii\helpers\BaseFileHelper;
 use yii\web\UploadedFile;
@@ -72,6 +73,13 @@ class ImageBehave extends \rico\yii2images\behaviors\ImageBehave
 
         if(!$image->save()){
             return false;
+        }
+
+        // Add the translations
+        foreach (Yii::$app->params['languages'] as $language => $data) {
+            $imageLang = new ImageLang();
+            $imageLang->language = $language;
+            $image->link('translations', $imageLang);
         }
 
         if (count($image->getErrors()) > 0) {

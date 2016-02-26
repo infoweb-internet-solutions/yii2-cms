@@ -154,7 +154,7 @@
      * @return  void
      */
     CMS.slugifyAttribute = function(e) {
-        var targetElement = $($(this).data('slug-target')),
+        var targetElement = $($(this).data('slug-target').toLowerCase()),
             targetPlaceholder = targetElement.prop('placeholder'),
             slug = I18N.slugify($(this).val());
 

@@ -195,7 +195,7 @@ h1.page-header {
 
 .tab-content {
     margin-top : 20px;
-    padding    : 0;
+    padding    : 0 !important;
 }
 
 .tab-content .page-header:first-child {

@@ -30,15 +30,19 @@ echo "<?php\n";
 namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
 
 use Yii;
+use <?= ltrim($generator->baseControllerClass, '\\') ?>;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\base\Model;
+
 use <?= ltrim($generator->modelClass, '\\') ?>;
 <?php if (!empty($generator->searchModelClass)): ?>
 use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>;
 <?php else: ?>
 use yii\data\ActiveDataProvider;
 <?php endif; ?>
-use <?= ltrim($generator->baseControllerClass, '\\') ?>;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use <?= ltrim($generator->modelLangClass, '\\') ?>;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -175,13 +179,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 
         } catch (Exception $e) {
             // Set flash message
-            Yii::$app->getSession()->setFlash(<?= $modelClass ?>-error, $e->getMessage());
+            Yii::$app->getSession()->setFlash('<?= $modelClass ?>'-error, $e->getMessage());
 
             return $this->redirect(['index']);
         }
 
         // Set flash message
-        Yii::$app->getSession()->setFlash(<?= $modelClass ?>, Yii::t('app', '"{item}" has been deleted', ['item' => $title]));
+        Yii::$app->getSession()->setFlash('<?= $modelClass ?>', Yii::t('app', '"{item}" has been deleted', ['item' => $title]));
 
         return $this->redirect(['index']);
     }
@@ -307,9 +311,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 
         // Set flash message
         if ($this->action->id == 'create') {
-            Yii::$app->getSession()->setFlash(<?= $modelClass ?>, Yii::t('app', '"{item}" has been created', ['item' => $model->title]));
+            Yii::$app->getSession()->setFlash('<?= $modelClass ?>', Yii::t('app', '"{item}" has been created', ['item' => $model->question]));
         } else {
-            Yii::$app->getSession()->setFlash(<?= $modelClass ?>, Yii::t('app', '"{item}" has been updated', ['item' => $model->title]));
+            Yii::$app->getSession()->setFlash('<?= $modelClass ?>', Yii::t('app', '"{item}" has been updated', ['item' => $model->question]));
         }
 
         // Take appropriate action based on the pushed button

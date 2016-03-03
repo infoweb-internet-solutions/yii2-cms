@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
@@ -12,31 +11,67 @@ $safeAttributes = $model->safeAttributes();
 if (empty($safeAttributes)) {
     $safeAttributes = $model->attributes();
 }
+$modelClass = StringHelper::basename($generator->modelClass);
+$moduleName = $generator->getModuleName();
 
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Tabs;
+use infoweb\<?= $moduleName ?>\assets\<?= $modelClass ?>Asset;
 
-/* @var $this yii\web\View */
-/* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
-/* @var $form yii\widgets\ActiveForm */
+// Register asset bundle(s)
+<?= $modelClass ?>Asset::register($this);
+
 ?>
+<div class="news-form">
 
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
+    <?= "<?php" ?> // Flash messages ?>
+    <?= "<?=" ?> $this->render('_flash_messages'); ?>
 
-    <?= "<?php " ?>$form = ActiveForm::begin(); ?>
+    <?= "<?php" ?>
+    // Init the form
+    $form = ActiveForm::begin([
+        'id'                        => '<?= $modelClass ?>-form',
+        'options'                   => [
+            'class' => 'tabbed-form',
+            'enctype' => 'multipart/form-data'
+        ],
+        'enableAjaxValidation'      => true,
+        'enableClientValidation'    => false,
+    ]);
 
-<?php foreach ($generator->getColumnNames() as $attribute) {
-    if (in_array($attribute, $safeAttributes)) {
-        echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
-    }
-} ?>
-    <div class="form-group">
-        <?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    // Initialize the tabs
+    $tabs = [];
+
+    // Add the main tabs
+    $tabs = [
+        [
+            'label' => Yii::t('app', 'General'),
+            'content' => $this->render('_default_tab', [
+                'model' => $model,
+                'form' => $form
+            ]),
+            'active' => true,
+        ],
+        [
+            'label' => Yii::t('app', 'Data'),
+            'content' => $this->render('_data_tab', [
+                'model' => $model,
+                'form' => $form,
+            ]),
+        ],
+    ];
+
+    // Display the tabs
+    echo Tabs::widget(['items' => $tabs]);
+    ?>
+
+    <div class="form-group buttons">
+        <?= "<?=" ?> $this->render('@infoweb/cms/views/ui/formButtons', ['model' => $model]) ?>
     </div>
 
-    <?= "<?php " ?>ActiveForm::end(); ?>
+    <?= "<?php" ?> ActiveForm::end(); ?>
 
 </div>

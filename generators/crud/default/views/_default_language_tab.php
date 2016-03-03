@@ -3,6 +3,13 @@ use yii\helpers\StringHelper;
 $modelClass = StringHelper::basename($generator->modelClass);
 $moduleName = $generator->getModuleName();
 
+
+$model = new $generator->modelLangClass();
+$safeAttributes = $model->safeAttributes();
+if (empty($safeAttributes)) {
+    $safeAttributes = $model->attributes();
+}
+
 echo "<?php\n";
 ?>
 use mihaildev\ckeditor\CKEditor;
@@ -21,4 +28,12 @@ use kartik\widgets\FileInput;
         'editorOptions' => Yii::$app->getModule('cms')->getCKEditorOptions(),
         'options' => ['data-duplicateable' => Yii::$app->getModule('<?= $moduleName ?>')->allowContentDuplication ? 'true' : 'false']
     ]); ?>
+
+    <?php foreach ($generator->getLangColumnNames() as $attribute) {
+        if (in_array($attribute, $safeAttributes)) {
+            echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+        }
+    } ?>
+
+
 </div>

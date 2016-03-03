@@ -245,6 +245,10 @@ class Generator extends \yii\gii\Generator
             }
         }
         $column = $tableSchema->columns[$attribute];
+
+        //echo '<pre>'; print_r($column); echo '</pre>'; exit();
+        mail('ruben@infoweb.be', __FILE__ . ' => ' . __LINE__, $column->type);
+
         if ($column->phpType === 'boolean') {
             return "\$form->field(\$model, '$attribute')->checkbox()";
         } elseif ($column->type === 'text') {
@@ -545,6 +549,23 @@ class Generator extends \yii\gii\Generator
     {
         /* @var $class ActiveRecord */
         $class = $this->modelClass;
+        if (is_subclass_of($class, 'yii\db\ActiveRecord')) {
+            return $class::getTableSchema()->getColumnNames();
+        } else {
+            /* @var $model \yii\base\Model */
+            $model = new $class();
+
+            return $model->attributes();
+        }
+    }
+
+    /**
+     * @return array model column names
+     */
+    public function getLangColumnNames()
+    {
+        /* @var $class ActiveRecord */
+        $class = $this->modelLangClass;
         if (is_subclass_of($class, 'yii\db\ActiveRecord')) {
             return $class::getTableSchema()->getColumnNames();
         } else {

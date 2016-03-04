@@ -37,6 +37,7 @@ use yii\helpers\ArrayHelper;
 use yii\base\Model;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
+use yii\base\Exception;
 
 use <?= ltrim($generator->modelClass, '\\') ?>;
 <?php if (!empty($generator->searchModelClass)): ?>
@@ -181,7 +182,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 
         } catch (Exception $e) {
             // Set flash message
-            Yii::$app->getSession()->setFlash('<?= $modelClass ?>'-error, $e->getMessage());
+            Yii::$app->getSession()->setFlash('<?= $modelClass ?>-error', $e->getMessage());
 
             return $this->redirect(['index']);
         }

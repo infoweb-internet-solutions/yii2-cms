@@ -39,6 +39,8 @@ class Generator extends \yii\gii\Generator
     public $baseControllerClass = 'yii\web\Controller';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
+    protected $typesPath = '@infoweb/cms/generators/crud/default/types/';
+    public $gridColumns;
 
     /**
      * @var boolean whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
@@ -246,11 +248,10 @@ class Generator extends \yii\gii\Generator
         }
         $column = $tableSchema->columns[$attribute];
 
-        //echo '<pre>'; print_r($column); echo '</pre>'; exit();
-        mail('ruben@infoweb.be', __FILE__ . ' => ' . __LINE__, $column->type);
-
         if ($column->phpType === 'boolean') {
             return "\$form->field(\$model, '$attribute')->checkbox()";
+        } elseif ($column->type === Schema::TYPE_SMALLINT) {
+            return Yii::$app->view->render($this->typesPath . 'boolean', ['attribute' => $attribute]);
         } elseif ($column->type === 'text') {
             return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
         } else {
@@ -266,6 +267,54 @@ class Generator extends \yii\gii\Generator
                 }
                 return "\$form->field(\$model, '$attribute')->dropDownList("
                     . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
+            } elseif ($column->phpType !== 'string' || $column->size === null) {
+                return "\$form->field(\$model, '$attribute')->$input()";
+            } else {
+                return "\$form->field(\$model, '$attribute')->$input(['maxlength' => true])";
+            }
+        }
+    }
+
+    /**
+     * Generates code for active field
+     * @param string $attribute
+     * @return string
+     */
+    public function generateActiveLangField($attribute)
+    {
+        $tableSchema = $this->getLangTableSchema();
+
+        if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
+            if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
+                return "\$form->field(\$model, '$attribute')->passwordInput()";
+            } else {
+
+                return "\$form->field(\$model, '$attribute')";
+            }
+        }
+        $column = $tableSchema->columns[$attribute];
+
+        if ($column->phpType === 'boolean') {
+            return "\$form->field(\$model, '$attribute')->checkbox()";
+        } elseif ($column->type === Schema::TYPE_SMALLINT) {
+            return Yii::$app->view->render($this->typesPath, ['attribute' => $attribute]);
+        } elseif ($column->type === Schema::TYPE_STRING) {
+            return Yii::$app->view->render($this->typesPath . 'lang/string', ['attribute' => $attribute, 'moduleName' => $this->getModuleName(), 'generator' => $this]);
+        } elseif ($column->type === Schema::TYPE_TEXT) {
+            return Yii::$app->view->render($this->typesPath . 'lang/text', ['attribute' => $attribute, 'moduleName' => $this->getModuleName(), 'generator' => $this]);
+        } else {
+            if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
+                $input = 'passwordInput';
+            } else {
+                $input = 'textInput';
+            }
+            if (is_array($column->enumValues) && count($column->enumValues) > 0) {
+                $dropDownOptions = [];
+                foreach ($column->enumValues as $enumValue) {
+                    $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
+                }
+                return "\$form->field(\$model, '$attribute')->dropDownList("
+                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
             } elseif ($column->phpType !== 'string' || $column->size === null) {
                 return "\$form->field(\$model, '$attribute')->$input()";
             } else {
@@ -543,6 +592,21 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
+     * Returns table schema for current model class or false if it is not an active record
+     * @return boolean|\yii\db\TableSchema
+     */
+    public function getLangTableSchema()
+    {
+        /* @var $class ActiveRecord */
+        $class = $this->modelLangClass;
+        if (is_subclass_of($class, 'yii\db\ActiveRecord')) {
+            return $class::getTableSchema();
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * @return array model column names
      */
     public function getColumnNames()
@@ -560,7 +624,17 @@ class Generator extends \yii\gii\Generator
     }
 
     /**
-     * @return array model column names
+     * @return array model active column names
+     */
+    public function getActiveColumnNames()
+    {
+        $columns = $this->getColumnNames();
+        $columns = array_diff($columns, ['id', 'position', 'created_at', 'updated_at']);
+        return $columns;
+    }
+
+    /**
+     * @return array lang model column names
      */
     public function getLangColumnNames()
     {
@@ -574,6 +648,16 @@ class Generator extends \yii\gii\Generator
 
             return $model->attributes();
         }
+    }
+
+    /**
+     * @return array lang model active column names
+     */
+    public function getActiveLangColumnNames()
+    {
+        $columns = $this->getLangColumnNames();
+        $columns = array_diff($columns, ['node_id', 'language', 'created_at', 'updated_at']);
+        return $columns;
     }
 
     public function getShortModelClass()

@@ -68,6 +68,14 @@ class Generator extends \yii\gii\Generator
     /**
      * @inheritdoc
      */
+    public function getGridColumns()
+    {
+        return ['test' => 'test'];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return array_merge(parent::rules(), [

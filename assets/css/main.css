@@ -338,6 +338,10 @@ form .checkboxList label input {
     margin-right : 4px;
 }
 
+form .select2-search__field {
+    width: 100% !important;
+}
+
 /**
  * 	Breadcrumbs
  */

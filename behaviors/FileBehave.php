@@ -82,7 +82,7 @@ class FileBehave extends yii\base\Behavior
         }
 
         return Html::a(
-            Yii::t('infoweb/app', 'View attached file'),
+            Yii::t('app', 'View attached file'),
             $this->fileUrl,
             ['target' => '_blank']
         );

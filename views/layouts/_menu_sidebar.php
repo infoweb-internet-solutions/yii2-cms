@@ -95,21 +95,21 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
             ],
             // Shop
             [
-                'label' => Yii::t('ecommerce', 'Ecommerce'),
+                'label' => Yii::t('infoweb/ecommerce', 'Ecommerce'),
                 'icon' => 'shopping-cart',
                 'template' => '<a href="{url}" title="{label}" class="kv-toggle">{icon}<span class="nav-label">{label}</span></a>',
                 'visible' => (Yii::$app->user->can('showEcommerceModule')) ? true : false,
                 'items' => [
                     // Catalogue
                     [
-                        'label' => Yii::t('ecommerce', 'Catalogue'),
+                        'label' => Yii::t('infoweb/ecommerce', 'Catalogue'),
                         'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
                         'visible' => (Yii::$app->user->can('showEcommerceCatalogueModule')) ? true : false,
                         'items' => [
                             
                             // Products
                             [
-                                'label' => Yii::t('ecommerce', 'Products'),
+                                'label' => Yii::t('infoweb/ecommerce', 'Products'),
                                 'url'   => Url::toRoute('/catalogue/product/' . Yii::$app->session->get('ecommerce.products.view', 'index')),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceProductModule')) ? true : false,
@@ -117,7 +117,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                             ],                            
                             // Attribute sets
                             [
-                                'label' => Yii::t('ecommerce', 'Attributes'),
+                                'label' => Yii::t('infoweb/ecommerce', 'Attributes'),
                                 'url'   => Url::toRoute('/catalogue/attribute-set/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceAttributeModule')) ? true : false,
@@ -125,7 +125,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                             ],
                             // Option sets
                             [
-                                'label' => Yii::t('ecommerce', 'Options'),
+                                'label' => Yii::t('infoweb/ecommerce', 'Options'),
                                 'url'   => Url::toRoute('/catalogue/option-set/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceOptionModule')) ? true : false,
@@ -133,7 +133,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                             ],
                             // Categories
                             [
-                                'label' => Yii::t('ecommerce', 'Categories'),
+                                'label' => Yii::t('infoweb/ecommerce', 'Categories'),
                                 'url'   => Url::toRoute('/catalogue/category/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceCategoryModule')) ? true : false,
@@ -141,7 +141,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                             ],
                             // Manufacturers
                             [
-                                'label' => Yii::t('ecommerce', 'Manufacturers'),
+                                'label' => Yii::t('infoweb/ecommerce', 'Manufacturers'),
                                 'url'   => Url::toRoute('/catalogue/manufacturer/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceManufacturerModule')) ? true : false,
@@ -151,13 +151,13 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                     ],
                     // Sales
                     [
-                        'label' => Yii::t('ecommerce', 'Sales'),
+                        'label' => Yii::t('infoweb/ecommerce', 'Sales'),
                         'template' => '<a href="{url}" title="{label}" class="kv-toggle toggle-level-2">{icon}<span class="nav-label">{label}</span></a>',
                         'visible' => (Yii::$app->user->can('showEcommerceSalesModule')) ? true : false,
                         'items' => [                           
                             // Orders
                             [
-                                'label' => Yii::t('ecommerce', 'Orders'),
+                                'label' => Yii::t('infoweb/ecommerce', 'Orders'),
                                 'url'   => Url::toRoute('/ecommerce-sales/order/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceSalesOrdersModule')) ? true : false,
@@ -165,7 +165,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                             ],
                             // Customers
                             [
-                                'label' => Yii::t('ecommerce', 'Customers'),
+                                'label' => Yii::t('infoweb/ecommerce', 'Customers'),
                                 'url'   => Url::toRoute('/ecommerce-sales/customer/index'),
                                 'template' => $sideBarItemTemplate,
                                 'visible' => (Yii::$app->user->can('showEcommerceSalesCustomersModule')) ? true : false,
@@ -177,7 +177,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
             ],           
             // Media
             [
-                'label' => Yii::t('infoweb/app', 'Media'),
+                'label' => Yii::t('app', 'Media'),
                 'icon' => 'film',
                 'url'   => Url::toRoute('/media/media'),
                 'template' => $sideBarItemTemplate,

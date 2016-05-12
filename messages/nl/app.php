@@ -87,7 +87,7 @@ return [
     'Roles' => 'Rollen',
     'Routes' => 'Routes',
     'Rules' => 'Regels',
-    'SKU' => '',
+    'SKU' => 'Artikelnummer',
     'Select a slider' => '',
     'Select a {item}' => 'Selecteer een {item}',
     'Select an {item}' => 'Selecteer een {item}',

@@ -59,7 +59,8 @@
     "jlorente/yii2-widget-remainingcharacters": "*",
     "codemix/yii2-localeurls": "*",
     "fishvision/yii2-migrate" : "*",
-    "creocoder/yii2-translateable": "~1.0"
+    "creocoder/yii2-translateable": "~1.0",
+    "bower-asset/bootstrap": "v3.3.5"
   },
   "autoload": {
     "psr-4": {

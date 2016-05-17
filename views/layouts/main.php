@@ -36,6 +36,9 @@ $this->params['cmsAssets'] = $cmsAssets;
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
+            'containerOptions' => [
+                'class' => 'in',
+            ],
             'renderInnerContainer' => false,
         ]);
         ?>

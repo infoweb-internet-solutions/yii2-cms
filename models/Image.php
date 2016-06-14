@@ -13,6 +13,9 @@ use yii\helpers\Html;
 
 class Image extends BaseImage
 {
+    const TEXT_POSITION_LEFT = 'left';
+    const TEXT_POSITION_RIGHT = 'right';
+    const TEXT_POSITION_CENTER = 'center';
 
     public function behaviors()
     {
@@ -34,7 +37,7 @@ class Image extends BaseImage
                     'title',
                     'subtitle',
                     'description',
-                    'link',
+                    'link'
                 ]
             ],
         ]);
@@ -53,6 +56,15 @@ class Image extends BaseImage
             'modelName' => Yii::t('app', 'Attached to'),
             'urlAlias' => Yii::t('app', 'Url alias'),
             'active' => Yii::t('app', 'Active'),
+            'text_position' => Yii::t('app', 'Text position')
+        ];
+    }
+
+    public function textPositionLabels() {
+        return [
+            self::TEXT_POSITION_LEFT => Yii::t('app', 'Left'),
+            self::TEXT_POSITION_RIGHT => Yii::t('app', 'Right'),
+            self::TEXT_POSITION_CENTER => Yii::t('app', 'Center'),
         ];
     }
 
@@ -128,7 +140,6 @@ class Image extends BaseImage
         $pathToSave = $cachePath.'/'.$subDirPath.'/'.$this->urlAlias.$sizePart.'.'.$fileExtension;
 
         BaseFileHelper::createDirectory(dirname($pathToSave), 0777, true);
-
 
         if($sizeString) {
             $size = $this->getModule()->parseSize($sizeString);
@@ -247,7 +258,8 @@ class Image extends BaseImage
             //[['filePath', 'itemId', 'modelName', 'urlAlias'], 'required'],
             [['itemId', 'isMain', 'created_at', 'updated_at'], 'integer'],
             [['filePath', 'urlAlias'], 'string', 'max' => 400],
-            [['modelName', 'identifier'], 'string', 'max' => 255]
+            [['modelName', 'identifier', 'text_position'], 'string', 'max' => 255],
+            ['text_position', 'default', 'value' => self::TEXT_POSITION_LEFT]
         ];
     }
 

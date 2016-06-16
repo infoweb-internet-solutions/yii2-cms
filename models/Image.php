@@ -164,8 +164,7 @@ class Image extends BaseImage
                 }
 
                 $image->writeImage($pathToSave);
-            }else{
-
+            }else{                
                 $image = new \abeautifulsite\SimpleImage($imagePath);
 
                 // If the dimensions of the original image match the requested
@@ -177,8 +176,12 @@ class Image extends BaseImage
 
                 if($size){
                     if($size['height'] && $size['width']){
-
-                        $image->thumbnail($size['width'], $size['height']);
+                        if($crop) {
+                            $image->thumbnail($size['width'], $size['height']);
+                        }
+                        else {
+                            $image->resize($size['width'], $size['height']);
+                        }
                     }elseif($size['height']){
                         $image->fit_to_height($size['height']);
                     }elseif($size['width']){

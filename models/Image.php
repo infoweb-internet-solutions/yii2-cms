@@ -149,10 +149,6 @@ class Image extends BaseImage
             $size = false;
         }
 
-        if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '81.82.211.19') {
-            //var_dump($this->getModule()->graphicsLibrary);
-        }
-
         if($this->getModule()->graphicsLibrary == 'Imagick'){            
             // Fixes interlaced images
             $interlaceFix = $this->interlaceFix($imagePath);

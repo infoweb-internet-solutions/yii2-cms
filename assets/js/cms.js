@@ -227,7 +227,6 @@
         obj.removeClass('element-loading');
     };
 
-
     // Sidebar widget
     var sidebar = function() {
         this.state = 'open';

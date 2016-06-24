@@ -16,6 +16,11 @@
     };
 
     /**
+     * Used in the ckeditor to define hyperlinks
+     */
+    var ckeditorEntitylinkConfiguration = null;
+
+    /**
      * Initializes the module:
      *  - Set global eventhandlers
      *
@@ -226,6 +231,14 @@
     CMS.removeLoaderClass = function(obj) {
         obj.removeClass('element-loading');
     };
+    
+    CMS.setCkeditorEntitylinkConfiguration = function(configuration) {
+        ckeditorEntitylinkConfiguration = configuration;
+    };
+    
+    CMS.getCkeditorEntitylinkConfiguration = function() {
+        return ckeditorEntitylinkConfiguration;
+    }
 
 
     // Sidebar widget

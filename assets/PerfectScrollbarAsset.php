@@ -12,6 +12,6 @@ class PerfectScrollbarAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/perfect-scrollbar.jquery.min.js'
+        'js/min/perfect-scrollbar.jquery.min.js'
     ];
 }

@@ -38,6 +38,9 @@ $this->registerJs("CMS.setCkeditorEntitylinkConfiguration(".json_encode(Yii::$ap
             'options' => [
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
+            'containerOptions' => [
+                'class' => 'in',
+            ],
             'renderInnerContainer' => false,
         ]);
         ?>

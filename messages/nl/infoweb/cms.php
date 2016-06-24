@@ -22,7 +22,6 @@ return [
     'Create {modelClass}' => '{modelClass} toevoegen',
     'Created At' => 'Toegevoegd op',
     'Dashboard' => 'Dashboard',
-    'Data' => '',
     'Delete' => 'Verwijderen',
     'Description' => 'Beschrijving',
     'Duplicate' => 'Dupliceren',

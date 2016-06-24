@@ -240,7 +240,6 @@
         return ckeditorEntitylinkConfiguration;
     }
 
-
     // Sidebar widget
     var sidebar = function() {
         this.state = 'open';

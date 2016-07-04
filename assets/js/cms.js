@@ -19,6 +19,11 @@
      * Used in the ckeditor to define hyperlinks
      */
     var ckeditorEntitylinkConfiguration = null;
+    
+    /**
+     * @TODO: description
+     */
+    var allowSlugifyAttribute = {};
 
     /**
      * Initializes the module:
@@ -53,6 +58,7 @@
             .on('click', '.navbar-minimalize', CMS.toggleSidebar)
             .on('afterValidate', '.tabbed-form', CMS.showFirstFormTabWithErrors)
             .on('click', '[id^=grid-pjax] [data-toggleable]', CMS.pjaxGridItemToggle)
+            .on('keydown', '[data-slugable=true]', CMS.checkAllowSlugifyAttribute)
             .on('keyup change', '[data-slugable=true]', CMS.slugifyAttribute)
             .on('keydown', '[data-slugified=true]', CMS.validateSlug)
             .on('pjax:complete', CMS.pjaxComplete)
@@ -87,8 +93,14 @@
             //.on('pjax:complete', '#grid-pjax', CMS.initSortable);
 
         // Trigger validation if a tabbed form is loaded
-        if ($('.tabbed-form').length)
+        if ($('.tabbed-form').length) {
             $('.tabbed-form').trigger('afterValidate');
+        }
+
+        // Recalculate slug
+        if($('[data-slugable=true]').length) {
+            $('[data-slugable=true]').trigger('change');
+        }
 
         // Init the duplicateable jquery plugin
         $('[data-duplicateable="true"]').duplicateable();
@@ -152,6 +164,13 @@
         });
     };
 
+    CMS.checkAllowSlugifyAttribute = function(e) {
+        var targetId = $(this).data('slug-target').toLowerCase(),
+            targetElement = $(targetId);
+
+        allowSlugifyAttribute[targetId] = (targetElement.val() == I18N.slugify($(this).val())) ? true : false;
+    };
+
     /**
      * Slugifies an attribute and uses it as the value for an other attribute
      *
@@ -159,11 +178,16 @@
      * @return  void
      */
     CMS.slugifyAttribute = function(e) {
-        var targetElement = $($(this).data('slug-target').toLowerCase()),
+        var targetId = $(this).data('slug-target').toLowerCase(),
+            targetElement = $(targetId),
             targetPlaceholder = targetElement.prop('placeholder'),
             slug = I18N.slugify($(this).val());
 
-        targetElement.val(targetPlaceholder + slug);
+        if(typeof allowSlugifyAttribute[targetId] !== "undefined" && allowSlugifyAttribute[targetId]) {
+            targetElement.val(targetPlaceholder + slug);
+        }
+
+        window.current_slug = slug;
     };
 
     CMS.validateSlug = function(e) {

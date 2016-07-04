@@ -19,9 +19,9 @@
      * Used in the ckeditor to define hyperlinks
      */
     var ckeditorEntitylinkConfiguration = null;
-    
+
     /**
-     * @TODO: description
+     * Keeps track of every slugify field (true | false).
      */
     var allowSlugifyAttribute = {};
 
@@ -164,6 +164,12 @@
         });
     };
 
+    /**
+     * Check if we need to redo a slugify.
+     * 
+     * @param object  Event
+     * @returns void
+     */
     CMS.checkAllowSlugifyAttribute = function(e) {
         var targetId = $(this).data('slug-target').toLowerCase(),
             targetElement = $(targetId);

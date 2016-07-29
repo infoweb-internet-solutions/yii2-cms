@@ -65,7 +65,7 @@ $sideBarItemTemplate = '<a href="{url}" title="{label}">{icon}<span class="nav-l
                         'url'   => Url::toRoute('/email/email'),
                         'template' => $sideBarItemTemplate,
                         'visible' => (Yii::$app->user->can('showEmailModule')) ? true : false,
-                        'active' => (stripos(Yii::$app->request->url, '/email/email') !== false) ? true : false
+                        'active' => (stripos(Yii::$app->request->url, '/email/email') !== false || stripos(Yii::$app->request->url, '/email/template') !== false) ? true : false
                     ],                    
                     // Alias
                     [

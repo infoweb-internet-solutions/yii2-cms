@@ -968,6 +968,15 @@ a[data-toggle="tooltip"] {
 }
 
 /**
+ * Modal: fix if you open 2 dialogs and second one is smaller. And you close
+ * the second one then your scrollbar was gone.
+ */
+.modal {
+    overflow-y:auto;
+    max-height:100%;
+}
+
+/**
  * Bootstrap dropdown buttons
  */
 .dropdown-menu {

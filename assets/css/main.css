@@ -94,6 +94,10 @@ h1.page-header {
     cursor : move;
 }
 
+.element-loading .dd-handle {
+    display: none;
+}
+
 /**
  * Font awesome
  * @todo Add class
@@ -924,6 +928,7 @@ a[data-toggle="tooltip"] {
  * Ajax
  */
 .element-loading {
+    pointer-events: none;
     opacity    : 0.5;
     background : #FFFFFF url('../img/loading.gif') center center no-repeat;
 }
@@ -960,6 +965,15 @@ a[data-toggle="tooltip"] {
 #duplicateable-modal ul {
     list-style   : none;
     padding-left : 0;
+}
+
+/**
+ * Modal: fix if you open 2 dialogs and second one is smaller. And you close
+ * the second one then your scrollbar was gone.
+ */
+.modal {
+    overflow-y:auto;
+    max-height:100%;
 }
 
 /**

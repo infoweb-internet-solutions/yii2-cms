@@ -65,6 +65,15 @@ Add references to the custom repositories that are needed to override certain ve
 ...
 ```
 
+Add following rule to filter bower/npm packages that can be skipped (it will make sure you won't get a out of memory and it will decrease the needed time to update your project).
+```php
+...
+"extra": {
+    ...
+    "asset-pattern-skip-version": "(-patch)"
+}
+```
+
 Check if `"minimum-stability": "dev"` is set
 
 After this run `composer update` to install the package

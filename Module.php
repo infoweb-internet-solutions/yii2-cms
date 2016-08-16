@@ -51,7 +51,7 @@ class Module extends \yii\base\Module
         ],
         'removeButtons' => 'Smiley,Iframe,Templates,Outdent,Indent,Flash,SpecialChar,PageBreak,Font,FontSize',
         'allowedContent' => true,
-        'extraPlugins' => 'codemirror,moxiemanager,dialogui,dialog,lineutils,widget',
+        'extraPlugins' => 'codemirror,moxiemanager,dialogui,dialog,lineutils,widget,entitylink',
         'enterMode' => 2,
         'stylesSet' => [],
     ];

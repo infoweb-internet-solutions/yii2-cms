@@ -13,6 +13,8 @@ Icon::map($this);
 // Register assets
 $cmsAssets = CMSAsset::register($this);
 $this->params['cmsAssets'] = $cmsAssets;
+$this->registerJs("CMS.setCkeditorEntitylinkConfiguration(".json_encode(Yii::$app->getModule('menu')->getCkeditorEntitylinkConfiguration()).");", \yii\web\View::POS_READY, 'ckeditorEntitylinkConfiguration');
+
 ?>
 <?php $this->beginPage() ?>
  <!DOCTYPE html>

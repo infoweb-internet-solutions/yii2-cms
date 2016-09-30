@@ -268,12 +268,13 @@
             var dfd = $.Deferred();
             // Duplicate empty values?
             if (settings.value !== '' || (settings.value === '' && settings.duplicateEmptyValues)) {
+
                 // CKEditor
-                if (typeof settings.ckeditorId !== 'undefined' && settings.ckeditorId !== false) {                    
+                if (typeof settings.ckeditorId !== 'undefined' && settings.ckeditorId !== false) {
                     // The ckeditorId of the original element is provided, so to find
                     // the id of the element's instance, we have to replace the original
                     // language with the provided one
-                    var ckeditorId = settings.ckeditorId.replace(settings.language, language),
+                    var ckeditorId = settings.ckeditorId.replace(settings.language.toLowerCase(), language.toLowerCase()),
                         currentValue = CKEDITOR.instances[ckeditorId].getData();
 
                     // Overwrite values?

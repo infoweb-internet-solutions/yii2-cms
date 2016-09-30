@@ -93,10 +93,17 @@
                             .addClass('duplicateable-container')
                             .html(btn);
 
+            // Specific code to insert button for bootstrap switch
+            var bootstrapSwitch = $(this.element).attr('data-krajee-bootstrapSwitch'),
+                isBootstrapSwitch = typeof bootstrapSwitch !== typeof undefined && bootstrapSwitch !== false;
+
+            // Check parents element
+            var eq = (isBootstrapSwitch) ? 1 : 0;
+
             // Insert the btn container after the label that belongs to the element
             $(this.element)
                 .parents('.form-group')
-                .eq(0)
+                .eq(eq)
                 .find('label')
                 .eq(0)
                 .after(container);
@@ -216,11 +223,20 @@
             // Extend the settings
             settings.value = element.val(),
             settings.ckeditorId = false;
+            settings.bootstrapSwitch = false;
 
             // The field is a CKeditor
             if (element.is('textarea') && element.next().hasClass('cke') && typeof CKEDITOR !== 'undefined') {
                 settings.ckeditorId = settings.model.toLowerCase() + '-' + settings.language.toLowerCase() + '-' + settings.attribute.toLowerCase();
                 settings.value = CKEDITOR.instances[settings.ckeditorId].getData();
+            }
+
+            // The field is a Bootstrap Switch
+            var bootstrapSwitch = $(element).eq(1).attr('data-krajee-bootstrapSwitch');
+            if(typeof bootstrapSwitch !== typeof undefined && bootstrapSwitch !== false) {
+                settings.value = $(this).prop('checked') ? 1 : 0;
+                settings.ckeditorId = false;
+                settings.bootstrapSwitch = true;
             }
 
             $.each(settings.selectedLanguages, function() {
@@ -253,7 +269,7 @@
             // Duplicate empty values?
             if (settings.value !== '' || (settings.value === '' && settings.duplicateEmptyValues)) {
                 // CKEditor
-                if (typeof settings.ckeditorId !== 'undefined' && settings.ckeditorId !== false) {
+                if (typeof settings.ckeditorId !== 'undefined' && settings.ckeditorId !== false) {                    
                     // The ckeditorId of the original element is provided, so to find
                     // the id of the element's instance, we have to replace the original
                     // language with the provided one
@@ -264,8 +280,22 @@
                     if (settings.overwriteValues || (!settings.overwriteValues && currentValue === '')) {
                         CKEDITOR.instances[ckeditorId].setData(settings.value);
                     }
+                }
+                // Bootstrap Switch
+                else if(settings.bootstrapSwitch == true) {
+                    // Overwrite values?
+                    if (settings.overwriteValues) {
+                        if (settings.value == true) {
+                            $('[type="checkbox"][name="'+settings.model+'['+language+']['+settings.attribute+']"]').bootstrapSwitch('state', true);
+                        }
+                        else {
+                            $('[type="checkbox"][name="'+settings.model+'['+language+']['+settings.attribute+']"]').bootstrapSwitch('state', true);
+                        }
+
+                    }
+                }
                 // Input field
-                } else {
+                else {                    
                     var currentValue = $('[name="'+settings.model+'['+language+']['+settings.attribute+']"]').val();
 
                     // Overwrite values?

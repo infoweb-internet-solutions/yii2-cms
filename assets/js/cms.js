@@ -174,7 +174,8 @@
         var targetId = $(this).data('slug-target').toLowerCase(),
             targetElement = $(targetId);
 
-        allowSlugifyAttribute[targetId] = (targetElement.val() == I18N.slugify($(this).val())) ? true : false;
+        //allowSlugifyAttribute[targetId] = (targetElement.val() == I18N.slugify($(this).val())) ? true : false;
+        allowSlugifyAttribute[targetId] = true;
     };
 
     /**
